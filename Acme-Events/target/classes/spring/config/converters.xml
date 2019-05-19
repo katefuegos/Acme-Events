@@ -30,7 +30,70 @@
 
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
+		
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		
+		<bean class="converters.ApplicationClubToStringConverter" />
+		<bean class="converters.StringToApplicationClubConverter" />
+		
+		<bean class="converters.ApplicationJobToStringConverter" />
+		<bean class="converters.StringToApplicationJobConverter" />
+		
+		<bean class="converters.BuyedOfferToStringConverter" />
+		<bean class="converters.StringToBuyedOfferConverter" />
+		
+		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+		
+		<bean class="converters.ClientToStringConverter" />
+		<bean class="converters.StringToClientConverter" />
+		
+		<bean class="converters.ClubToStringConverter" />
+		<bean class="converters.StringToClubConverter" />
+		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+		
+		<bean class="converters.CurriculaToStringConverter" />
+		<bean class="converters.StringToCurriculaConverter" />
+		
+		<bean class="converters.EducationRecordToStringConverter" />
+		<bean class="converters.StringToEducationRecordConverter" />
+		
+		<bean class="converters.EventToStringConverter" />
+		<bean class="converters.StringToEventConverter" />
+		
+		<bean class="converters.FollowToStringConverter" />
+		<bean class="converters.StringToFollowConverter" />
+		
+		<bean class="converters.JobOfferToStringConverter" />
+		<bean class="converters.StringToJobOfferConverter" />
+		
+		<bean class="converters.ManagerToStringConverter" />
+		<bean class="converters.StringToManagerConverter" />
+		
+		<bean class="converters.MiscellaneousRecordToStringConverter" />
+		<bean class="converters.StringToMiscellaneousRecordConverter" />
 
+		<bean class="converters.OfferToStringConverter" />
+		<bean class="converters.StringToOfferConverter" />
+		
+		<bean class="converters.OpinionToStringConverter" />
+		<bean class="converters.StringToOpinionConverter" />
+		
+		<bean class="converters.ParticipationEventToStringConverter" />
+		<bean class="converters.StringToParticipationEventConverter" />
+		
+		<bean class="converters.ProfessionalRecordToStringConverter" />
+		<bean class="converters.StringToProfessionalRecordConverter" />
+		
+		<bean class="converters.PubliciterToStringConverter" />
+		<bean class="converters.StringToPubliciterConverter" />
+		
+		<bean class="converters.OfferToStringConverter" />
+		<bean class="converters.StringToOfferConverter" />
+		
 	</util:list>
 
 </beans>

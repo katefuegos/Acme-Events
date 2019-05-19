@@ -25,34 +25,9 @@ public class Configuration extends DomainEntity {
 	private Map<String, String>				welcomeMessage;
 	private String							banner;
 	private Map<String, Collection<String>>	spamWords;
-	private int								finderCacheTime;
 	private int								finderMaxResults;
-	private Map<String, Collection<String>>	negativeWords;
-	private Map<String, Collection<String>>	positiveWords;
-	private Collection<String>				priorities;
 	private String							systemName;
-
-
-	//private Map<String, Collection<String>>	positions;
-
-	//	@NotEmpty
-	//	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
-	//	public Map<String, Collection<String>> getPositions() {
-	//		return this.positions;
-	//	}
-	//
-	//	public void setPositions(final Map<String, Collection<String>> positions) {
-	//		this.positions = positions;
-	//	}
-
-	@NotBlank
-	public String getSystemName() {
-		return systemName;
-	}
-
-	public void setSystemName(String systemName) {
-		this.systemName = systemName;
-	}
+	private Collection<String>				priorities;
 
 	@NotNull
 	@ElementCollection
@@ -62,6 +37,15 @@ public class Configuration extends DomainEntity {
 
 	public void setPriorities(final Collection<String> priorities) {
 		this.priorities = priorities;
+	}
+	
+	@NotBlank
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
 	}
 
 	public void setFinderMaxResults(final Integer finderMaxResults) {
@@ -87,15 +71,6 @@ public class Configuration extends DomainEntity {
 		this.banner = banner;
 	}
 
-	@Range(min = 1, max = 24)
-	public int getFinderCacheTime() {
-		return this.finderCacheTime;
-	}
-
-	public void setFinderCacheTime(final int finderCacheTime) {
-		this.finderCacheTime = finderCacheTime;
-	}
-
 	@Range(min = 0, max = 100)
 	public int getFinderMaxResults() {
 		return this.finderMaxResults;
@@ -113,26 +88,6 @@ public class Configuration extends DomainEntity {
 
 	public void setWelcomeMessage(final Map<String, String> welcomeMessage) {
 		this.welcomeMessage = welcomeMessage;
-	}
-
-	@NotEmpty
-	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
-	public Map<String, Collection<String>> getNegativeWords() {
-		return this.negativeWords;
-	}
-
-	public void setNegativeWords(final Map<String, Collection<String>> negativeWords) {
-		this.negativeWords = negativeWords;
-	}
-
-	@NotEmpty
-	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
-	public Map<String, Collection<String>> getPositiveWords() {
-		return this.positiveWords;
-	}
-
-	public void setPositiveWords(final Map<String, Collection<String>> positiveWords) {
-		this.positiveWords = positiveWords;
 	}
 
 	@NotEmpty

@@ -1,9 +1,10 @@
-
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -14,7 +15,7 @@ public class Client extends Actor {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 
-	private String	DNI;
+	private String DNI;
 
 	@NotBlank
 	public String getDNI() {
@@ -24,9 +25,17 @@ public class Client extends Actor {
 	public void setDNI(String DNI) {
 		this.DNI = DNI;
 	}
-	
-	
-		
-	// Relationships ---------------------------------------------------------
 
+	// Relationships ---------------------------------------------------------
+	private CreditCard creditCard;
+
+	@Valid
+	@OneToOne(optional = true)
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
 }

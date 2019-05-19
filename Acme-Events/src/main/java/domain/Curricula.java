@@ -2,10 +2,12 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,10 +25,12 @@ public class Curricula extends DomainEntity {
 	private String email;
 	private String phone;
 	private String link;
-	private boolean isCopy;
+	private boolean copy;
 	
 	// Relationships ---------------------------------------------------------
 
+	@Column(unique = true)
+	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	@NotBlank
 	public String getTicker() {
 		return ticker;
@@ -86,15 +90,15 @@ public class Curricula extends DomainEntity {
 	
 	@NotNull
 	public boolean isCopy() {
-		return isCopy;
+		return copy;
 	}
 
-	public void setCopy(boolean isCopy) {
-		this.isCopy = isCopy;
+	public void setCopy(boolean copy) {
+		this.copy = copy;
 	}
+
 	
 	// Relationships ---------------------------------------------------------
-
 
 	private Client client;
 

@@ -23,7 +23,7 @@ public class Club extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private String	name;
-	private String 	adress;
+	private String 	address;
 	private String 	description;
 	private String 	pictures;
 	private boolean	accepted;
@@ -40,12 +40,12 @@ public class Club extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@NotBlank

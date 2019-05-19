@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -29,13 +31,15 @@ public class Event extends DomainEntity {
 	private String ticker;
 	private Date momentPublished;
 	private String description;
-	private String adress;
+	private String address;
 	private Double price;
 	private Date momentStart;
 	private Date momentEnd;
 	private String status;
 	private boolean draftMode;
 
+	@Column(unique = true)
+	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	@NotBlank
 	public String getTicker() {
 		return ticker;
@@ -66,12 +70,12 @@ public class Event extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@NotNull
@@ -88,7 +92,6 @@ public class Event extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	@Past
 	public Date getMomentStart() {
 		return momentStart;
 	}
@@ -100,7 +103,6 @@ public class Event extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	@Past
 	public Date getMomentEnd() {
 		return momentEnd;
 	}
@@ -109,6 +111,7 @@ public class Event extends DomainEntity {
 		this.momentEnd = momentEnd;
 	}
 
+	@Pattern(regexp = "^(AVAILABLE|CANCELLED)$")
 	@NotBlank
 	public String getStatus() {
 		return status;

@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
-	<!-- USER ACCOUNTS -->
+	<!-- USER ACCOUNT -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
@@ -97,7 +97,7 @@
 	</bean>
 
 
-	<!-- ACTORES -->
+	<!-- ACTOR -->
 	<!-- ADMIN -->
 
 	<bean id="admin" class="domain.Administrator">
@@ -114,7 +114,7 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 
-	<!-- MANAGERS -->
+	<!-- MANAGER -->
 
 	<bean id="manager1" class="domain.Manager">
 		<property name="name" value="Manager1" />
@@ -143,7 +143,7 @@
 	</bean>
 
 	<!-- PUBLICITER -->
-	
+
 	<bean id="publiciter1" class="domain.Publiciter">
 		<property name="name" value="Publiciter1" />
 		<property name="middleName" value="middleName3" />
@@ -156,7 +156,7 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
-	
+
 	<bean id="publiciter2" class="domain.Publiciter">
 		<property name="name" value="Publiciter2" />
 		<property name="middleName" value="middleName4" />
@@ -169,9 +169,9 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount5" />
 	</bean>
-	
-	<!-- CLIENTS -->
-	
+
+	<!-- CLIENT -->
+
 	<bean id="client1" class="domain.Client">
 		<property name="name" value="Client1" />
 		<property name="middleName" value="middleName5" />
@@ -182,9 +182,11 @@
 		<property name="address" value="C/Calle, 5" />
 		<property name="isSuspicious" value="false" />
 		<property name="isBanned" value="false" />
+		<property name="DNI" value="00000000A" />
+		<property name="creditCard" ref="creditCard1" />
 		<property name="userAccount" ref="userAccount6" />
 	</bean>
-	
+
 	<bean id="client2" class="domain.Client">
 		<property name="name" value="Client2" />
 		<property name="middleName" value="middleName6" />
@@ -195,6 +197,8 @@
 		<property name="address" value="C/Calle, 6" />
 		<property name="isSuspicious" value="false" />
 		<property name="isBanned" value="false" />
+		<property name="DNI" value="11111111A" />
+		<property name="creditCard" ref="creditCard2" />
 		<property name="userAccount" ref="userAccount7" />
 	</bean>
 
@@ -265,7 +269,1298 @@
 		<property name="rootbox">
 			<null />
 		</property>
-		<property name="actor" ref="admin" />
+		<property name="actor" ref="manager1" />
+	</bean>
+
+	<bean id="trashBoxM1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager1" />
+	</bean>
+
+
+	<bean id="inBoxM1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager1" />
+	</bean>
+
+
+	<bean id="outBoxM1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager1" />
+	</bean>
+
+
+	<bean id="spamBoxM1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager1" />
+	</bean>
+
+	<bean id="notificationBoxM1" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+
+		<property name="actor" ref="manager1" />
+		<property name="rootbox">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBoxM2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager2" />
+	</bean>
+
+
+	<bean id="inBoxM2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager2" />
+	</bean>
+
+
+	<bean id="outBoxM2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager2" />
+	</bean>
+
+
+	<bean id="spamBoxM2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager2" />
+	</bean>
+
+	<bean id="notificationBoxM2" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="manager2" />
+	</bean>
+
+	<bean id="trashBoxP1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter1" />
+	</bean>
+
+
+	<bean id="inBoxP1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter1" />
+	</bean>
+
+
+	<bean id="outBoxP1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter1" />
+	</bean>
+
+
+	<bean id="spamBoxP1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter1" />
+	</bean>
+
+	<bean id="notificationBoxP1" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+
+		<property name="actor" ref="publiciter1" />
+		<property name="rootbox">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBoxP2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter2" />
+	</bean>
+
+
+	<bean id="inBoxP2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter2" />
+	</bean>
+
+
+	<bean id="outBoxP2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter2" />
+	</bean>
+
+
+	<bean id="spamBoxP2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter2" />
+	</bean>
+
+	<bean id="notificationBoxP2" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="publiciter2" />
+	</bean>
+
+	<bean id="trashBoxC1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client1" />
+	</bean>
+
+
+	<bean id="inBoxC1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client1" />
+	</bean>
+
+
+	<bean id="outBoxC1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client1" />
+	</bean>
+
+
+	<bean id="spamBoxC1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client1" />
+	</bean>
+
+	<bean id="notificationBoxC1" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+
+		<property name="actor" ref="client1" />
+		<property name="rootbox">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBoxC2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client2" />
+	</bean>
+
+
+	<bean id="inBoxC2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client2" />
+	</bean>
+
+
+	<bean id="outBoxC2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client2" />
+	</bean>
+
+
+	<bean id="spamBoxC2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client2" />
+	</bean>
+
+	<bean id="notificationBoxC2" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="client2" />
+	</bean>
+
+	<!-- MESSAGE -->
+
+	<bean id="message1" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxM1" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="manager1" />
+	</bean>
+
+	<bean id="message2" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxM2" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="manager2" />
+	</bean>
+
+	<bean id="message3" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxP1" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="publiciter1" />
+	</bean>
+
+	<bean id="message4" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxP2" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="publiciter2" />
+	</bean>
+
+	<bean id="message5" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxC1" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="client1" />
+	</bean>
+
+	<bean id="message6" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxC2" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="client2" />
+	</bean>
+
+	<bean id="message7" class="domain.Message">
+		<property name="subject" value="Bienvenido al sistema" />
+		<property name="body" value="Bienvenido a Acme Events" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="bienvenido,welcome" />
+		<property name="box" ref="inBoxA" />
+		<property name="sender" ref="admin" />
+		<property name="recipient" ref="admin" />
+	</bean>
+
+	<!-- FOLLOW -->
+
+	<bean id="follow1" class="domain.Follow">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="follow2" class="domain.Follow">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="follow3" class="domain.Follow">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<bean id="follow4" class="domain.Follow">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- APPLICATION CLUB -->
+
+	<bean id="applicationClub1" class="domain.ApplicationClub">
+		<property name="momentSubmitted" value="2019/05/19 00:00" />
+		<property name="momentAccepted" value="2019/05/19 12:00" />
+		<property name="commentary" value="commentary1" />
+		<property name="publiciter" ref="publiciter1" />
+	</bean>
+
+	<bean id="applicationClub2" class="domain.ApplicationClub">
+		<property name="momentSubmitted" value="2019/05/19 00:00" />
+		<property name="momentRejected" value="2019/05/19 12:00" />
+		<property name="reasonReject" value="reason1" />
+		<property name="commentary" value="commentary2" />
+		<property name="publiciter" ref="publiciter1" />
+	</bean>
+
+	<bean id="applicationClub3" class="domain.ApplicationClub">
+		<property name="momentSubmitted" value="2019/05/19 00:00" />
+		<property name="momentAccepted" value="2019/05/19 12:00" />
+		<property name="commentary" value="commentary3" />
+		<property name="publiciter" ref="publiciter2" />
+	</bean>
+
+	<bean id="applicationClub4" class="domain.ApplicationClub">
+		<property name="momentSubmitted" value="2019/05/19 00:00" />
+		<property name="momentRejected" value="2019/05/19 12:00" />
+		<property name="reasonReject" value="reason2" />
+		<property name="commentary" value="commentary4" />
+		<property name="publiciter" ref="publiciter2" />
+	</bean>
+
+	<!-- CLUB -->
+
+	<bean id="club1" class="domain.Club">
+		<property name="name" value="Club1" />
+		<property name="address" value="adress1" />
+		<property name="description" value="description1" />
+		<property name="pictures" value="http://www.picture1.com" />
+		<property name="accepted" value="true" />
+		<property name="draftMode" value="false" />
+		<property name="manager" ref="manager1" />
+		<property name="follows">
+			<list>
+				<ref bean="follow1" />
+				<ref bean="follow3" />
+			</list>
+		</property>
+		<property name="applicationsClub">
+			<list>
+				<ref bean="applicationClub1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="club2" class="domain.Club">
+		<property name="name" value="Club2" />
+		<property name="address" value="adress2" />
+		<property name="description" value="description2" />
+		<property name="pictures" value="http://www.picture2.com" />
+		<property name="accepted" value="true" />
+		<property name="draftMode" value="false" />
+		<property name="manager" ref="manager2" />
+		<property name="follows">
+			<list>
+				<ref bean="follow2" />
+				<ref bean="follow4" />
+			</list>
+		</property>
+		<property name="applicationsClub">
+			<list>
+				<ref bean="applicationClub3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- PARTICIPATION EVENT -->
+
+	<bean id="participationEvent1" class="domain.ParticipationEvent">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="creditCardNumber" value="4172711227177926" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="participationEvent2" class="domain.ParticipationEvent">
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="creditCardNumber" value="4950731573628957" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<bean id="participationEvent3" class="domain.ParticipationEvent">
+		<property name="moment" value="2019/05/19 01:00" />
+		<property name="creditCardNumber" value="4950731573628957" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- OPINION -->
+
+	<bean id="opinion1" class="domain.Opinion">
+		<property name="title" value="Opinion1" />
+		<property name="description" value="description1" />
+		<property name="score" value="8" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="opinion2" class="domain.Opinion">
+		<property name="title" value="Opinion2" />
+		<property name="description" value="description2" />
+		<property name="score" value="5" />
+		<property name="moment" value="2019/05/19 00:00" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- EVENT -->
+
+	<bean id="event1" class="domain.Event">
+		<property name="ticker" value="190519-AKD123" />
+		<property name="momentPublished" value="2019/05/19 00:00" />
+		<property name="description" value="description1" />
+		<property name="address" value="address1" />
+		<property name="price" value="20.0" />
+		<property name="momentStart" value="2019/05/25 00:00" />
+		<property name="momentEnd" value="2019/05/25 07:00" />
+		<property name="status" value="AVAILABLE" />
+		<property name="draftMode" value="false" />
+		<property name="club" ref="club1" />
+		<property name="category" ref="category2" />
+		<property name="opinions">
+			<list>
+				<ref bean="opinion1" />
+			</list>
+		</property>
+		<property name="participationsEvent">
+			<list>
+				<ref bean="participationEvent1" />
+				<ref bean="participationEvent2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="event2" class="domain.Event">
+		<property name="ticker" value="190519-JD89SE" />
+		<property name="momentPublished" value="2019/05/19 12:00" />
+		<property name="description" value="description2" />
+		<property name="address" value="address2" />
+		<property name="price" value="40.0" />
+		<property name="momentStart" value="2019/05/24 22:00" />
+		<property name="momentEnd" value="2019/05/25 06:00" />
+		<property name="status" value="AVAILABLE" />
+		<property name="draftMode" value="false" />
+		<property name="club" ref="club2" />
+		<property name="category" ref="category3" />
+		<property name="opinions">
+			<list>
+				<ref bean="opinion2" />
+			</list>
+		</property>
+		<property name="participationsEvent">
+			<list>
+				<ref bean="participationEvent3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- CURRICULA -->
+
+	<bean id="curricula1" class="domain.Curricula">
+		<property name="ticker" value="190519-1DR4RV" />
+		<property name="fullName" value="fullname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="666666666" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="copy" value="false" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="curricula2" class="domain.Curricula">
+		<property name="ticker" value="190519-4587SD" />
+		<property name="fullName" value="fullname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="666666666" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="copy" value="true" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="curricula3" class="domain.Curricula">
+		<property name="ticker" value="190519-4587DI" />
+		<property name="fullName" value="fullname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="777777777" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="copy" value="false" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<bean id="curricula4" class="domain.Curricula">
+		<property name="ticker" value="190519-589SDF" />
+		<property name="fullName" value="fullname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="777777777" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="copy" value="true" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- EDUCATION RECORD -->
+
+	<bean id="educationRecord1" class="domain.EducationRecord">
+		<property name="title" value="title1" />
+		<property name="startMoment" value="2018/03/23 12:00" />
+		<property name="endMoment" value="2019/02/12 12:00" />
+		<property name="institution" value="institution1" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula1" />
+	</bean>
+
+	<bean id="educationRecord2" class="domain.EducationRecord">
+		<property name="title" value="title1" />
+		<property name="startMoment" value="2018/03/23 12:00" />
+		<property name="endMoment" value="2019/02/12 12:00" />
+		<property name="institution" value="institution1" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula2" />
+	</bean>
+
+	<bean id="educationRecord3" class="domain.EducationRecord">
+		<property name="title" value="title2" />
+		<property name="startMoment" value="2018/04/23 12:00" />
+		<property name="endMoment" value="2019/01/12 12:00" />
+		<property name="institution" value="institution2" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula3" />
+	</bean>
+
+	<bean id="educationRecord4" class="domain.EducationRecord">
+		<property name="title" value="title2" />
+		<property name="startMoment" value="2018/04/23 12:00" />
+		<property name="endMoment" value="2019/01/12 12:00" />
+		<property name="institution" value="institution2" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula4" />
+	</bean>
+
+	<!-- PROFESSIONAL RECORD -->
+
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+		<property name="name" value="name1" />
+		<property name="startMoment" value="2018/03/23 12:00" />
+		<property name="endMoment" value="2019/02/12 12:00" />
+		<property name="role" value="role1" />
+		<property name="attachment" value="http://www.attachment1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula1" />
+	</bean>
+
+	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
+		<property name="name" value="name1" />
+		<property name="startMoment" value="2018/03/23 12:00" />
+		<property name="endMoment" value="2019/02/12 12:00" />
+		<property name="role" value="role1" />
+		<property name="attachment" value="http://www.attachment1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula2" />
+	</bean>
+
+	<bean id="professionalRecord3" class="domain.ProfessionalRecord">
+		<property name="name" value="name2" />
+		<property name="startMoment" value="2018/04/12 12:00" />
+		<property name="endMoment" value="2019/06/11 12:00" />
+		<property name="role" value="role2" />
+		<property name="attachment" value="http://www.attachment2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula3" />
+	</bean>
+
+	<bean id="professionalRecord4" class="domain.ProfessionalRecord">
+		<property name="name" value="name2" />
+		<property name="startMoment" value="2018/04/12 12:00" />
+		<property name="endMoment" value="2019/06/11 12:00" />
+		<property name="role" value="role2" />
+		<property name="attachment" value="http://www.attachment2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula4" />
+	</bean>
+
+	<!-- MISCELLANEOUS RECORD -->
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="title" value="title1" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula1" />
+	</bean>
+
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+		<property name="title" value="title1" />
+		<property name="link" value="http://www.link1.com" />
+		<property name="comments" value="comments1" />
+		<property name="curricula" ref="curricula2" />
+	</bean>
+
+	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
+		<property name="title" value="title2" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula3" />
+	</bean>
+
+	<bean id="miscellaneousRecord4" class="domain.MiscellaneousRecord">
+		<property name="title" value="title2" />
+		<property name="link" value="http://www.link2.com" />
+		<property name="comments" value="comments2" />
+		<property name="curricula" ref="curricula4" />
+	</bean>
+
+	<!-- APPLICATION JOB -->
+
+	<bean id="applicationJob1" class="domain.ApplicationJob">
+		<property name="moment" value="2019/05/19 12:00" />
+		<property name="comments" value="comments1" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="applicationJob2" class="domain.ApplicationJob">
+		<property name="moment" value="2019/05/19 12:00" />
+		<property name="comments" value="comments1" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- JOB OFFER -->
+
+	<bean id="jobOffer1" class="domain.JobOffer">
+		<property name="ticker" value="190519-1258SD" />
+		<property name="title" value="JobOffer1" />
+		<property name="description" value="description1" />
+		<property name="requirements" value="requirements1" />
+		<property name="status" value="OPEN" />
+		<property name="salary" value="200.0" />
+		<property name="event" ref="event1" />
+		<property name="applicationsJob">
+			<list>
+				<ref bean="applicationJob1" />
+			</list>
+		</property>
+		<property name="curricula" ref="curricula2" />
+	</bean>
+
+	<bean id="jobOffer2" class="domain.JobOffer">
+		<property name="ticker" value="190519-128SED" />
+		<property name="title" value="JobOffer2" />
+		<property name="description" value="description2" />
+		<property name="requirements" value="requirements2" />
+		<property name="status" value="OPEN" />
+		<property name="salary" value="300.0" />
+		<property name="event" ref="event2" />
+		<property name="applicationsJob">
+			<list>
+				<ref bean="applicationJob2" />
+			</list>
+		</property>
+		<property name="curricula" ref="curricula4" />
+	</bean>
+
+	<!-- BUYED OFFER -->
+
+	<bean id="buyedOffer1" class="domain.BuyedOffer">
+		<property name="moment" value="2019/05/19 15:00" />
+		<property name="creditCardNumber" value="4172711227177926" />
+		<property name="client" ref="client1" />
+	</bean>
+
+	<bean id="buyedOffer2" class="domain.BuyedOffer">
+		<property name="moment" value="2019/05/19 15:30" />
+		<property name="creditCardNumber" value="4950731573628957" />
+		<property name="client" ref="client2" />
+	</bean>
+
+	<!-- OFFER -->
+
+	<bean id="offer1" class="domain.Offer">
+		<property name="ticker" value="190519-587KSD" />
+		<property name="title" value="offer1" />
+		<property name="description" value="description1" />
+		<property name="price" value="23.0" />
+		<property name="draftMode" value="false" />
+		<property name="momentPublished" value="2019/05/19 08:30" />
+		<property name="event" ref="event1" />
+		<property name="buyedOffers">
+			<list>
+				<ref bean="buyedOffer1" />
+			</list>
+		</property>
+		<property name="publiciter" ref="publiciter1" />
+	</bean>
+
+	<bean id="offer2" class="domain.Offer">
+		<property name="ticker" value="190519-587HSJ" />
+		<property name="title" value="offer2" />
+		<property name="description" value="description2" />
+		<property name="price" value="33.0" />
+		<property name="draftMode" value="false" />
+		<property name="momentPublished" value="2019/05/19 08:45" />
+		<property name="event" ref="event2" />
+		<property name="buyedOffers">
+			<list>
+				<ref bean="buyedOffer2" />
+			</list>
+		</property>
+		<property name="publiciter" ref="publiciter2" />
+	</bean>
+
+	<!-- CATEGORY -->
+
+	<bean id="rootCategory" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>CATEGORY</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>CATEGORIA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="true" />
+	</bean>
+
+	<bean id="category1" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>POPULAR</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>POPULAR</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category2" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>REGGAETON</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>REGGAETON</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category3" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>CLASSIC</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>CLÁSICO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category4" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>MODERN</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>MODERNO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category5" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ELECTRO</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ELECTRO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category6" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>DEEP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>DEEP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category7" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>TECH</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>TECH</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category8" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>TRAP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>TRAP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category9" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>RAP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>RAP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+
+	<bean id="category10" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ORCHEST</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ORQUESTA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category11" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>PIANO</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>PIANO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category12" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>VIOLIN</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>VIOLÍN</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category13" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>GUITAR</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>GUITARRA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category14" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ROCK</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ROCK</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category15" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>POP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>POP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<!-- CREDIT CARD -->
+
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="110" />
+	</bean>
+
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="brandName" value="MASTER" />
+		<property name="number" value="4950731573628957" />
+		<property name="expirationMonth" value="4" />
+		<property name="expirationYear" value="2020" />
+		<property name="CVVCode" value="308" />
 	</bean>
 
 	<!-- CONFIGURATION -->
@@ -278,16 +1573,16 @@
 					<key>
 						<value>EN</value>
 					</key>
-					<value>Welcome to Acme Madrugá, the site to organise your
-						processions.
+					<value>Welcome to Acme Events! The best place to make and go to
+						events.
 					</value>
 				</entry>
 				<entry>
 					<key>
 						<value>ES</value>
 					</key>
-					<value>¡Bienvenidos a Acme Madrugá! Tu sitio para organizar
-						procesiones.
+					<value>¡Bienvenidos a Acme Events! El major sitio para publicitar y
+						asistir a eventos.
 					</value>
 				</entry>
 			</map>
@@ -322,69 +1617,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="finderCacheTime" value="1" />
-		<property name="finderMaxResults" value="10" />
-		<property name="negativeWords">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<list>
-						<value>not</value>
-						<value>bad</value>
-						<value>horrible</value>
-						<value>average</value>
-						<value>disaster</value>
-					</list>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<list>
-						<value>no</value>
-						<value>malo</value>
-						<value>horrible</value>
-						<value>mediocre</value>
-						<value>desastre</value>
-					</list>
-				</entry>
-			</map>
-		</property>
-
-		<property name="positiveWords">
-			<map>
-				<entry>
-					<key>
-						<value>EN</value>
-					</key>
-					<list>
-						<value>good</value>
-						<value>fantastic</value>
-						<value>excellent</value>
-						<value>great</value>
-						<value>amazing</value>
-						<value>terrific</value>
-						<value>beautiful</value>
-					</list>
-				</entry>
-				<entry>
-					<key>
-						<value>ES</value>
-					</key>
-					<list>
-						<value>bueno</value>
-						<value>fantastico</value>
-						<value>excelente</value>
-						<value>genial</value>
-						<value>increible</value>
-						<value>tremendo</value>
-						<value>precioso</value>
-					</list>
-				</entry>
-			</map>
-		</property>
 		<property name="priorities">
 			<list>
 				<value>HIGH</value>
@@ -392,7 +1624,8 @@
 				<value>NEUTRAL</value>
 			</list>
 		</property>
-		<property name="systemName" value="Sample Project 1.19" />
+		<property name="finderMaxResults" value="10" />
+		<property name="systemName" value="Acme Events" />
 	</bean>
 
 </beans>

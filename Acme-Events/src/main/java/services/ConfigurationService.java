@@ -44,8 +44,6 @@ public class ConfigurationService {
 
 		final Configuration configuration = new Configuration();
 		final Map<String, Collection<String>> spamWords = new HashMap<>();
-		final Map<String, Collection<String>> negativeWords = new HashMap<>();
-		final Map<String, Collection<String>> positiveWords = new HashMap<>();
 		final Map<String, String> welcomeMessage = new HashMap<>();
 		//final Map<String, Collection<String>> positions = new HashMap<>();
 		final Collection<String> priorities = new ArrayList<String>();
@@ -55,12 +53,8 @@ public class ConfigurationService {
 		configuration.setWelcomeMessage(welcomeMessage);
 		configuration.setBanner("");
 		configuration.setSpamWords(spamWords);
-		configuration.setFinderCacheTime(60);
 		configuration.setFinderMaxResults(10);
-		configuration.setNegativeWords(negativeWords);
-		configuration.setPositiveWords(positiveWords);
 		configuration.setPriorities(priorities);
-		//configuration.setPositions(positions);
 
 		return configuration;
 	}

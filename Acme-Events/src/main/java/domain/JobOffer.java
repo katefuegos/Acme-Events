@@ -4,12 +4,15 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -27,6 +30,8 @@ public class JobOffer extends DomainEntity {
 	private String status;
 	private Double salary;
 
+	@Column(unique = true)
+	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	@NotBlank
 	public String getTicker() {
 		return ticker;
@@ -63,6 +68,7 @@ public class JobOffer extends DomainEntity {
 		this.requirements = requirements;
 	}
 
+	@Pattern(regexp = "^(OPEN|CLOSED)$")
 	@NotBlank
 	public String getStatus() {
 		return status;
@@ -73,7 +79,7 @@ public class JobOffer extends DomainEntity {
 	}
 
 	@NotNull
-	@Range(min=0)
+	@Range(min = 0)
 	public Double getSalary() {
 		return salary;
 	}
@@ -85,7 +91,19 @@ public class JobOffer extends DomainEntity {
 	// Relationships ---------------------------------------------------------
 
 	private Event event;
-	private Collection<ApplicationJob> applicationsjob;
+	private Collection<ApplicationJob> applicationsJob;
+	private Curricula curricula;
+
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public Curricula getCurricula() {
+		return curricula;
+	}
+
+	public void setCurricula(Curricula curricula) {
+		this.curricula = curricula;
+	}
 
 	@NotNull
 	@Valid
@@ -102,12 +120,12 @@ public class JobOffer extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@OneToMany()
-	public Collection<ApplicationJob> getApplicationsjob() {
-		return applicationsjob;
+	public Collection<ApplicationJob> getApplicationsJob() {
+		return applicationsJob;
 	}
 
-	public void setApplicationsjob(Collection<ApplicationJob> applicationsjob) {
-		this.applicationsjob = applicationsjob;
+	public void setApplicationsJob(Collection<ApplicationJob> applicationsJob) {
+		this.applicationsJob = applicationsJob;
 	}
 
 }

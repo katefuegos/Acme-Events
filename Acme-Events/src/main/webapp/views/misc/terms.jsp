@@ -260,6 +260,11 @@ Blocking all cookies will have a negative impact upon the usability of many webs
 4.Deleting cookies will have a negative impact on the usability of many websites.
 <br>
 	<br>
+	<h2>N. Additional notes</h2>
+	<br>
+	1.The deletion of personal data exclusively affects the user personal data, his profiles and the curriculas in case of clients.
+	<br>
+	<br>
 </jstl:if>
 
 <jstl:if test="${lang=='ES'}">
@@ -435,7 +440,7 @@ Es posible que actualicemos esta política de vez en cuando al publicar una nuev
 	<br>
 Usted puede solicitarnos que le proporcionemos cualquier información personal que tengamos de usted; la entrega de dicha información estará sujeta a lo siguiente:
 <br>
-<br>
+	<br>
 1.que usted presenté evidencia apropiada sobre su identidad. Para este fin, usualmente aceptaremos una fotocopia del pasaporte certificada por un notario y una copia original de una factura que muestre su dirección actual.
 <br>
 	<br>
@@ -493,5 +498,10 @@ Nuestro sitio web usa cookies. Una cookie es un fichero que contiene un identifi
 	<br>
 4.Eliminar las cookies tendrá un impacto negativo en la usabilidad de muchos sitios web.
 <br>
+	<br>
+	<h2>N. Notas adicionales</h2>
+	<br>
+	1.El borrado de datos personales afecta exclusivamente a los datos referentes a los datos personales y de perfiles del usuario así como de los curriculums en el caso de los clientes.
+	<br>
 	<br>
 </jstl:if>

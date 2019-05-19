@@ -4,12 +4,12 @@ import java.util.Map;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -19,12 +19,12 @@ public class Category extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private Map<String, String> title;
-	private String description;
-	private boolean isRoot;
+	private boolean root;
 
 	// Relationships ---------------------------------------------------------
 
 	@NotEmpty
+	@ElementCollection
 	public Map<String, String> getTitle() {
 		return title;
 	}
@@ -33,23 +33,15 @@ public class Category extends DomainEntity {
 		this.title = title;
 	}
 
-	@NotBlank
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	@NotNull
 	public boolean isRoot() {
-		return isRoot;
+		return root;
 	}
 
-	public void setRoot(boolean isRoot) {
-		this.isRoot = isRoot;
+	public void setRoot(boolean root) {
+		this.root = root;
 	}
+
 
 	private Category rootCategory;
 
