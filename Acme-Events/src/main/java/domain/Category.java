@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Collection;
 import java.util.Map;
 
 import javax.persistence.Access;
@@ -19,18 +18,18 @@ public class Category extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Map<String, Collection<String>> title;
+	private Map<String, String> title;
 	private String description;
 	private boolean isRoot;
 
 	// Relationships ---------------------------------------------------------
 
 	@NotEmpty
-	public Map<String, Collection<String>> getTitle() {
+	public Map<String, String> getTitle() {
 		return title;
 	}
 
-	public void setTitle(Map<String, Collection<String>> title) {
+	public void setTitle(Map<String, String> title) {
 		this.title = title;
 	}
 

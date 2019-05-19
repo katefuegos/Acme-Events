@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -74,8 +75,8 @@ public class Event extends DomainEntity {
 	}
 
 	@NotNull
-	@Range(min=0)
-	@Digits(integer=9, fraction=2)
+	@Range(min = 0)
+	@Digits(integer = 9, fraction = 2)
 	public Double getPrice() {
 		return price;
 	}
@@ -130,8 +131,8 @@ public class Event extends DomainEntity {
 
 	private Category category;
 	private Club club;
-	private Opinion opinions;
-	private ParticipationEvent participationsEvent;
+	private Collection<Opinion> opinions;
+	private Collection<ParticipationEvent> participationsEvent;
 
 	@NotNull
 	@Valid
@@ -159,11 +160,11 @@ public class Event extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@OneToMany()
-	public Opinion getOpinions() {
+	public Collection<Opinion> getOpinions() {
 		return opinions;
 	}
 
-	public void setOpinions(Opinion opinions) {
+	public void setOpinions(Collection<Opinion> opinions) {
 		this.opinions = opinions;
 	}
 
@@ -171,11 +172,13 @@ public class Event extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@OneToMany()
-	public ParticipationEvent getParticipationsEvent() {
+	public Collection<ParticipationEvent> getParticipationsEvent() {
 		return participationsEvent;
 	}
 
-	public void setParticipationsEvent(ParticipationEvent participationsEvent) {
+	public void setParticipationsEvent(
+			Collection<ParticipationEvent> participationsEvent) {
 		this.participationsEvent = participationsEvent;
 	}
+
 }

@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
-	<!-- User accounts -->
+	<!-- USER ACCOUNTS -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
@@ -24,11 +24,81 @@
 		</property>
 	</bean>
 
-	<!-- Other domain beans come here -->
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="manager1" />
+		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="manager2" />
+		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="publiciter1" />
+		<property name="password" value="914517413a414b8ddc2e7825c4bd718e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PUBLICITER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="publiciter2" />
+		<property name="password" value="438c18f959a282cf5f5cef724ff710d4" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PUBLICITER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="client1" />
+		<property name="password" value="a165dd3c2e98d5d607181d0b87a4c66b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CLIENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="client2" />
+		<property name="password" value="2c66045d4e4a90814ce9280272e510ec" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CLIENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 
 	<!-- ACTORES -->
-	<!-- Administrators -->
-
+	<!-- ADMIN -->
 
 	<bean id="admin" class="domain.Administrator">
 		<property name="name" value="Admin" />
@@ -38,11 +108,94 @@
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 		<property name="email" value="elena@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
-		<property name="address" value="C/Calle, 54" />
+		<property name="address" value="C/Calle, 0" />
 		<property name="isSuspicious" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount1" />
+	</bean>
 
+	<!-- MANAGERS -->
+
+	<bean id="manager1" class="domain.Manager">
+		<property name="name" value="Manager1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="https://www.manager1.com" />
+		<property name="email" value="manager1@gmail.com" />
+		<property name="phone" value="+34(456)123456789" />
+		<property name="address" value="C/Calle, 1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+
+	<bean id="manager2" class="domain.Manager">
+		<property name="name" value="Manager2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="https://www.manager2.com" />
+		<property name="email" value="manager2@gmail.com" />
+		<property name="phone" value="+34(456)234567890" />
+		<property name="address" value="C/Calle, 2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+
+	<!-- PUBLICITER -->
+	
+	<bean id="publiciter1" class="domain.Publiciter">
+		<property name="name" value="Publiciter1" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="https://www.publiciter1.com" />
+		<property name="email" value="publiciter1@gmail.com" />
+		<property name="phone" value="+34(456)345678901" />
+		<property name="address" value="C/Calle, 3" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+	
+	<bean id="publiciter2" class="domain.Publiciter">
+		<property name="name" value="Publiciter2" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="https://www.publiciter2.com" />
+		<property name="email" value="publiciter2@gmail.com" />
+		<property name="phone" value="+34(456)456789012" />
+		<property name="address" value="C/Calle, 4" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount5" />
+	</bean>
+	
+	<!-- CLIENTS -->
+	
+	<bean id="client1" class="domain.Client">
+		<property name="name" value="Client1" />
+		<property name="middleName" value="middleName5" />
+		<property name="surname" value="surname5" />
+		<property name="photo" value="https://www.client1.com" />
+		<property name="email" value="client1@gmail.com" />
+		<property name="phone" value="+34(456)567890123" />
+		<property name="address" value="C/Calle, 5" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+	</bean>
+	
+	<bean id="client2" class="domain.Client">
+		<property name="name" value="Client2" />
+		<property name="middleName" value="middleName6" />
+		<property name="surname" value="surname6" />
+		<property name="photo" value="https://www.client2.com" />
+		<property name="email" value="client2@gmail.com" />
+		<property name="phone" value="+34(456)678901234" />
+		<property name="address" value="C/Calle, 6" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount7" />
 	</bean>
 
 	<!-- BOX -->
