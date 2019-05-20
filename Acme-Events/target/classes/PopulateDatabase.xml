@@ -269,7 +269,7 @@
 		<property name="rootbox">
 			<null />
 		</property>
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="admin" />
 	</bean>
 
 	<bean id="trashBoxM1" class="domain.Box">

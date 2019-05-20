@@ -22,7 +22,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<img src='<jstl:out value="${actorForm.photo }"/>' alt="<spring:message code='actor.photo' />" height="100" width="auto"> 
+<img src='<jstl:out value="${actorForm.photo }"/>' alt="No <spring:message code='actor.photo' />" height="100" width="auto"> 
  
  
    <br><br>
