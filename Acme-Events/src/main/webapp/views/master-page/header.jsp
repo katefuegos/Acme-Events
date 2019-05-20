@@ -16,7 +16,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
+	<a href="#"><img src="images/cabeceraacmeevents2.jpg" alt="Sample Co., Inc." /></a>
 </div>
 
 <div>
@@ -100,15 +100,30 @@
 				</ul></li>
 
 		</security:authorize>
-
+		
+		<li><a class="fNiv" href="club/list.do"><spring:message
+						code="master.page.listclub" /></a></li>
+		
+		<li><a class="fNiv" href="manager/list.do"><spring:message
+						code="master.page.listManagers" /></a></li>
+						
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv" href="welcome/terms.do"><spring:message
 						code="master.page.privacyPolicy" /></a></li>
 		</security:authorize>
+		
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="welcome/terms.do"><spring:message
 						code="master.page.privacyPolicy" /></a></li>
 		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="actor/profile/list.do"><spring:message
+						code="master.page.listProfiles" /></a></li>
+		</security:authorize>
+		
+		
 	</ul>
 </div>
 

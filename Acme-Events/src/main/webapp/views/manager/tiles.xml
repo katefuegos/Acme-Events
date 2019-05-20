@@ -16,14 +16,14 @@
        
 <tiles-definitions>
 
-	<definition name="profile/actor/list" extends="master.page">	
-		<put-attribute name="title" value="Profile List" />
-		<put-attribute name="body" value="/views/profile/list.jsp" />
+	<definition name="manager/list" extends="master.page">	
+		<put-attribute name="title" value="Manager List" />
+		<put-attribute name="body" value="/views/manager/list.jsp" />
 	</definition>
 	
-	<definition name="profile/actor/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit a profile" />
-		<put-attribute name="body" value="/views/profile/edit.jsp" />
+	<definition name="manager/actor/edit" extends="master.page">	
+		<put-attribute name="title" value="Manager a box" />
+		<put-attribute name="body" value="/views/box/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

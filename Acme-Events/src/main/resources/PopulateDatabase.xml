@@ -822,6 +822,7 @@
 		<property name="name" value="Club1" />
 		<property name="address" value="adress1" />
 		<property name="description" value="description1" />
+		<property name="reasonReject" value="Reason1" />
 		<property name="pictures" value="http://www.picture1.com" />
 		<property name="accepted" value="true" />
 		<property name="draftMode" value="false" />
@@ -843,6 +844,7 @@
 		<property name="name" value="Club2" />
 		<property name="address" value="adress2" />
 		<property name="description" value="description2" />
+		<property name="reasonReject" value="Reason2" />
 		<property name="pictures" value="http://www.picture2.com" />
 		<property name="accepted" value="true" />
 		<property name="draftMode" value="false" />
