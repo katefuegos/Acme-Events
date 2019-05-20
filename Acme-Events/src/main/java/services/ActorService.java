@@ -28,6 +28,8 @@ public class ActorService {
 	@Autowired
 	private ActorRepository			actorRepository;
 
+	// Services-------------------------------------------------
+
 	@Autowired
 	private ManagerService			managerService;
 
@@ -40,8 +42,9 @@ public class ActorService {
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
+	@Autowired
+	private BoxService				boxService;
 
-	// Services-------------------------------------------------
 
 	// Constructor----------------------------------------------
 
@@ -103,6 +106,20 @@ public class ActorService {
 		return this.actorRepository.findByUserAccountId(id);
 	}
 
+	public void ban(final Actor actor) {
+		actor.setIsBanned(true);
+		actor.getUserAccount().setEnabled(false);
+		this.save(actor);
+	}
+
+	public void unban(final Actor actor) {
+		actor.setIsBanned(false);
+		actor.setIsSuspicious(false);
+		actor.getUserAccount().setEnabled(true);
+		this.save(actor);
+
+	}
+
 	public void update(final ActorForm actorform) {
 
 		Assert.notNull(actorform);
@@ -136,7 +153,9 @@ public class ActorService {
 			mana.setPhone(actorform.getPhone());
 			mana.setAddress(actorform.getAddress());
 
-			this.managerService.save(mana);
+			final Actor a = this.managerService.save(mana);
+
+			this.boxService.addSystemBox(a);
 
 		} else if (authorities.contains(client)) {
 			domain.Client cli = null;
@@ -161,7 +180,8 @@ public class ActorService {
 
 			cli.setDNI(actorform.getDNI());
 
-			this.clientService.save(cli);
+			final Actor a = this.clientService.save(cli);
+			this.boxService.addSystemBox(a);
 
 		} else if (authorities.contains(admin)) {
 			Administrator administrator = null;
@@ -186,7 +206,9 @@ public class ActorService {
 			administrator.setPhone(actorform.getPhone());
 			administrator.setAddress(actorform.getAddress());
 
-			this.administratorService.save(administrator);
+			final Actor a = this.administratorService.save(administrator);
+
+			this.boxService.addSystemBox(a);
 
 		}
 
