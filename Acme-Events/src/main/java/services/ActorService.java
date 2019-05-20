@@ -16,6 +16,8 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -25,6 +27,19 @@ public class ActorService {
 
 	@Autowired
 	private ActorRepository			actorRepository;
+
+	@Autowired
+	private ManagerService			managerService;
+
+	@Autowired
+	private ClientService			clientService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ServiceUtils			serviceUtils;
+
 
 	// Services-------------------------------------------------
 
@@ -36,13 +51,13 @@ public class ActorService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Actor create(final String authority) {
+	public Actor create() {
 		final Actor actor = new Actor();
 		final UserAccount userAccount = new UserAccount();
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 
 		final Authority a = new Authority();
-		a.setAuthority(authority);
+		a.setAuthority("CLIENT");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
 		userAccount.setEnabled(true);
@@ -86,5 +101,98 @@ public class ActorService {
 	}
 	public Actor findByUserAccountId(final int id) {
 		return this.actorRepository.findByUserAccountId(id);
+	}
+
+	public void update(final ActorForm actorform) {
+
+		Assert.notNull(actorform);
+
+		final Collection<Authority> authorities = actorform.getUserAccount().getAuthorities();
+		final Authority manager = new Authority();
+		manager.setAuthority(Authority.MANAGER);
+		final Authority client = new Authority();
+		client.setAuthority(Authority.CLIENT);
+
+		final Authority admin = new Authority();
+		admin.setAuthority(Authority.ADMIN);
+
+		if (authorities.contains(manager)) {
+			domain.Manager mana = null;
+			if (actorform.getId() != 0)
+				mana = this.managerService.findOne(actorform.getId());
+			else {
+				mana = this.managerService.create();
+				mana.setUserAccount(actorform.getUserAccount());
+				// Assert.isTrue(LoginService.getPrincipal() == null);
+				Assert.isTrue(this.serviceUtils.checkAuthorityBoolean(null));
+			}
+			mana.setId(actorform.getId());
+			mana.setVersion(actorform.getVersion());
+			mana.setName(actorform.getName());
+			mana.setMiddleName(actorform.getMiddleName());
+			mana.setSurname(actorform.getSurname());
+			mana.setPhoto(actorform.getPhoto());
+			mana.setEmail(actorform.getEmail());
+			mana.setPhone(actorform.getPhone());
+			mana.setAddress(actorform.getAddress());
+
+			this.managerService.save(mana);
+
+		} else if (authorities.contains(client)) {
+			domain.Client cli = null;
+			if (actorform.getId() != 0)
+				cli = this.clientService.findOne(actorform.getId());
+			else {
+				cli = this.clientService.create();
+				cli.setUserAccount(actorform.getUserAccount());
+				// Assert.isTrue(LoginService.getPrincipal() == null);
+				Assert.isTrue(this.serviceUtils.checkAuthorityBoolean(null));
+			}
+
+			cli.setId(actorform.getId());
+			cli.setVersion(actorform.getVersion());
+			cli.setName(actorform.getName());
+			cli.setMiddleName(actorform.getMiddleName());
+			cli.setSurname(actorform.getSurname());
+			cli.setPhoto(actorform.getPhoto());
+			cli.setEmail(actorform.getEmail());
+			cli.setPhone(actorform.getPhone());
+			cli.setAddress(actorform.getAddress());
+
+			cli.setDNI(actorform.getDNI());
+
+			this.clientService.save(cli);
+
+		} else if (authorities.contains(admin)) {
+			Administrator administrator = null;
+
+			Assert.isTrue(this.serviceUtils.checkAuthorityBoolean("ADMIN"));
+
+			if (actorform.getId() != 0)
+				administrator = this.administratorService.findOne(actorform.getId());
+			else {
+				administrator = this.administratorService.create();
+				administrator.setUserAccount(actorform.getUserAccount());
+
+			}
+
+			administrator.setId(actorform.getId());
+			administrator.setVersion(actorform.getVersion());
+			administrator.setName(actorform.getName());
+			administrator.setMiddleName(actorform.getMiddleName());
+			administrator.setSurname(actorform.getSurname());
+			administrator.setPhoto(actorform.getPhoto());
+			administrator.setEmail(actorform.getEmail());
+			administrator.setPhone(actorform.getPhone());
+			administrator.setAddress(actorform.getAddress());
+
+			this.administratorService.save(administrator);
+
+		}
+
+	}
+
+	public void flush() {
+		this.actorRepository.flush();
 	}
 }

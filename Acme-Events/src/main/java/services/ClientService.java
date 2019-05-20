@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ClientRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Client;
 
 @Service
@@ -19,7 +23,8 @@ public class ClientService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ClientRepository			clientRepository;
+	private ClientRepository	clientRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -31,9 +36,21 @@ public class ClientService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Client create(final String authority) {
+	public Client create() {
 		final Client client = new Client();
-		
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CLIENT);
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		client.setUserAccount(userAccount);
+
+		client.setIsBanned(false);
+		client.setIsSuspicious(false);
+
 		return client;
 	}
 
@@ -56,4 +73,14 @@ public class ClientService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Client findClientByUseraccount(final UserAccount userAccount) {
+		return this.clientRepository.findClientByUserAccount(userAccount.getId());
+
+	}
+
+	public Client findClientByUsername(final String username) {
+		return this.clientRepository.findClientByUsername(username);
+	}
+
 }

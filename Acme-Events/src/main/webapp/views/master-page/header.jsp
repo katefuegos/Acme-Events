@@ -49,6 +49,24 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="register/actor.do?authority=CLIENT"><spring:message
+								code="master.page.register.client" /></a></li>
+
+					<li><a href="register/actor.do?authority=MANAGER"><spring:message
+								code="master.page.register.manager" /></a></li>
+
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a
+							href="register/administrator/newActor.do?authority=ADMIN"><spring:message
+									code="master.page.register.admin" /></a></li>
+
+					</security:authorize>
+				</ul></li>
+
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -58,12 +76,10 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message
-								code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message
-								code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message
-								code="master.page.profile.action.3" /></a></li>
+					
+					<li><a href="actor/edit.do"><spring:message
+								code="master.page.actor.edit" /> </a></li>
+								
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>

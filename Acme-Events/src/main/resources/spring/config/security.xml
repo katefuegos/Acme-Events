@@ -90,6 +90,22 @@
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
 
+		<!-- Register -->
+
+		<security:intercept-url pattern="/register/actor.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/register/administrator/actor.do"
+			access="hasRole('ADMIN')" />
+
+		<!-- Edit personal data -->
+		<security:intercept-url pattern="/actor/edit.do"
+			access="isAuthenticated()" />
+
+
+
+
+
+
 		<!-- OTHERS -->
 		<security:intercept-url pattern="/welcome/terms.do"
 			access="permitAll" />
