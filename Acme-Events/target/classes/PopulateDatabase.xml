@@ -864,7 +864,6 @@
 		<property name="name" value="Club3" />
 		<property name="address" value="adress3" />
 		<property name="description" value="description3" />
-		<property name="reasonReject" value="Reason1" />
 		<property name="pictures" value="http://www.picture3.com" />
 		<property name="accepted" value="false" />
 		<property name="draftMode" value="false" />
