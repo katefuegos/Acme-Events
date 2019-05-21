@@ -23,7 +23,7 @@
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		
+
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
@@ -42,7 +42,7 @@
 		</security:authorize>
 
 
-		
+
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
@@ -60,7 +60,7 @@
 				</ul></li>
 		</security:authorize>
 
-<security:authorize access="hasRole('ADMIN')">
+		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
@@ -68,7 +68,7 @@
 					<li><a href="register/administrator/actor.do?authority=ADMIN"><spring:message
 								code="master.page.register.admin" /></a></li>
 				</ul></li>
-			<li><a class="fNiv" ><spring:message
+			<li><a class="fNiv"><spring:message
 						code="master.page.categories" /></a>
 				<ul>
 					<li class="arrow"></li>
@@ -76,8 +76,10 @@
 								code="master.page.categories.list" /></a></li>
 					<li><a href="category/administrator/create.do"><spring:message
 								code="master.page.categories.create" /></a></li>
-				</ul>
-			</li>
+				</ul><li><a href="club/administrator/list.do"><spring:message
+						code="master.page.club.admin" /> </a></li>
+
+
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
