@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ManagerRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Manager;
 
 @Service
@@ -19,7 +23,11 @@ public class ManagerService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ManagerRepository			managerRepository;
+	private ManagerRepository	managerRepository;
+
+
+	//	@Autowired
+	//	private ConfigurationService	configurationService;
 
 	// Services-------------------------------------------------
 
@@ -31,9 +39,21 @@ public class ManagerService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Manager create(final String authority) {
+	public Manager create() {
 		final Manager manager = new Manager();
-		
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MANAGER);
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		manager.setUserAccount(userAccount);
+
+		manager.setIsBanned(false);
+		manager.setIsSuspicious(false);
+
 		return manager;
 	}
 

@@ -23,12 +23,17 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		
+		<value>/views/actor/messages</value>
 		<value>/views/administrator/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
 		
+		<value>/views/category/messages</value>
 		<value>/views/box/messages</value>
 		<value>/views/message/messages</value>
+		<value>/views/club/messages</value>
+		<value>/views/manager/messages</value>
+		
 	</util:list>
 
 </beans>

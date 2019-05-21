@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,7 +20,8 @@ public class EventService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private EventRepository			eventRepository;
+	private EventRepository	eventRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -33,7 +35,7 @@ public class EventService {
 
 	public Event create(final String authority) {
 		final Event event = new Event();
-		
+
 		return event;
 	}
 
@@ -56,4 +58,9 @@ public class EventService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Collection<Event> findEventsByCategoryId(final int categoryId) {
+		final Collection<Event> events = this.eventRepository.findEventByCategoryId(categoryId);
+		return events;
+	}
 }

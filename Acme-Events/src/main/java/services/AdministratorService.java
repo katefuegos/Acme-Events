@@ -26,6 +26,7 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	administratorRepository;
 
+
 	//Services-------------------------------------------------
 
 	//Constructor----------------------------------------------
@@ -43,7 +44,7 @@ public class AdministratorService {
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 
 		final Authority a = new Authority();
-		a.setAuthority("ADMIN");
+		a.setAuthority(Authority.ADMIN);
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
 		userAccount.setEnabled(true);

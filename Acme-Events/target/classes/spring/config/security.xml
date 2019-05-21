@@ -42,6 +42,12 @@
 
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/club/list.do"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/manager/list.do"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/administrator/action-1.do"
 			access="hasRole('ADMIN')" />
@@ -60,13 +66,12 @@
 		<security:intercept-url pattern="/profile/action-3.do"
 			access="isAuthenticated()" />
 
-		<!-- MESSAGE -->
+		<!-- Message -->
+		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
 			access="hasRole('ADMIN')" />
-
-		<security:intercept-url
-			pattern="/message/administrator/broadcastMessageNotify.do" access="hasRole('ADMIN')" />
 
 		<security:intercept-url pattern="/message/actor/list.do"
 			access="isAuthenticated()" />
@@ -80,7 +85,7 @@
 		<security:intercept-url pattern="/message/actor/edit.do"
 			access="isAuthenticated()" />
 
-		<!-- BOX -->
+		<!-- Box -->
 		<security:intercept-url pattern="/box/actor/list.do"
 			access="isAuthenticated()" />
 
@@ -89,6 +94,44 @@
 
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/edit.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/list.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/show.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/create.do"
+			access="isAuthenticated()" />
+
+	
+		<!-- Category -->
+		
+		<security:intercept-url pattern="/category/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/category/administrator/edit.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/category/administrator/create.do"
+			access="hasRole('ADMIN')" />
+
+		<!-- Register -->
+
+		<security:intercept-url pattern="/register/actor.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/register/administrator/actor.do"
+			access="hasRole('ADMIN')" />
+
+		<!-- Edit personal data -->
+		<security:intercept-url pattern="/actor/edit.do"
+			access="isAuthenticated()" />
+
+
+
+
+
 
 		<!-- OTHERS -->
 		<security:intercept-url pattern="/welcome/terms.do"
