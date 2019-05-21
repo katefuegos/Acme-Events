@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Map;
@@ -18,40 +19,43 @@ public class Category extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Map<String, String> title;
-	private boolean root;
+	private Map<String, String>	title;
+	private boolean				root;
+
 
 	// Relationships ---------------------------------------------------------
 
 	@NotEmpty
 	@ElementCollection
 	public Map<String, String> getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(Map<String, String> title) {
+	public void setTitle(final Map<String, String> title) {
 		this.title = title;
 	}
 
 	@NotNull
 	public boolean isRoot() {
-		return root;
+		return this.root;
 	}
 
-	public void setRoot(boolean root) {
+	public void setRoot(final boolean root) {
 		this.root = root;
 	}
 
 
-	private Category rootCategory;
+	// Relationships ---------------------------------------------------------
+	private Category	rootCategory;
+
 
 	@Valid
 	@OneToOne(optional = true)
 	public Category getRootCategory() {
-		return rootCategory;
+		return this.rootCategory;
 	}
 
-	public void setRootCategory(Category rootCategory) {
+	public void setRootCategory(final Category rootCategory) {
 		this.rootCategory = rootCategory;
 	}
 
