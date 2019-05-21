@@ -22,7 +22,37 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="clubs" id="row" requestURI="${requestURI}"
+<display:table name="acceptedClubs" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+
+	<display:column property="name" titleKey="club.name" />
+	<display:column property="address" titleKey="club.address" />
+	<display:column property="description" titleKey="club.description" />
+	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column>
+		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+				code="club.showManager" />
+		</a>
+	</display:column>
+
+</display:table>
+
+<display:table name="acceptedClubs" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+
+	<display:column property="name" titleKey="club.name" />
+	<display:column property="address" titleKey="club.address" />
+	<display:column property="description" titleKey="club.description" />
+	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column>
+		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+				code="club.showManager" />
+		</a>
+	</display:column>
+
+</display:table>
+
+<display:table name="rejectedClubs" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
 	<display:column property="name" titleKey="club.name" />
@@ -37,7 +67,6 @@
 	</display:column>
 
 </display:table>
-
 
 
 

@@ -1,6 +1,6 @@
-
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,7 +19,7 @@ public class ClubService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ClubRepository			clubRepository;
+	private ClubRepository clubRepository;
 
 	// Services-------------------------------------------------
 
@@ -33,7 +33,7 @@ public class ClubService {
 
 	public Club create(final String authority) {
 		final Club club = new Club();
-		
+
 		return club;
 	}
 
@@ -56,4 +56,19 @@ public class ClubService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Collection<Club> findClubsPending() {
+		final Collection<Club> result = this.clubRepository.findClubsPending();
+		return result;
+	}
+	
+	public Collection<Club> findClubsAccepted() {
+		final Collection<Club> result = this.clubRepository.findClubsAccepted();
+		return result;
+	}
+	
+	public Collection<Club> findClubsRejected() {
+		final Collection<Club> result = this.clubRepository.findClubsRejected();
+		return result;
+	}
 }

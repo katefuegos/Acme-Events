@@ -35,11 +35,15 @@ public class ClubAdministratorController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 
-		final Collection<Club> clubs = this.clubService.findAll();
-		result = new ModelAndView("club/list");
+		final Collection<Club> pendingClubs = this.clubService.findClubsPending();
+		final Collection<Club> rejectedClubs = this.clubService.findClubsRejected();
+		final Collection<Club> acceptedClubs = this.clubService.findClubsAccepted();
+		result = new ModelAndView("club/list2");
 
-		result.addObject("clubs", clubs);
-		result.addObject("requestURI", "club/list.do");
+		result.addObject("pendingClubs", pendingClubs);
+		result.addObject("rejectedClubs", rejectedClubs);
+		result.addObject("acceptedClubs", acceptedClubs);
+		result.addObject("requestURI", "club/administrator/list.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
