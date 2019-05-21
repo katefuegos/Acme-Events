@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/club/edit.jsp" />
 	</definition>
 	
+	<definition name="club/list2" extends="master.page">	
+		<put-attribute name="title" value="Lista de clubs" />
+		<put-attribute name="body" value="/views/club/list2.jsp" />
+	</definition>
+	
 </tiles-definitions>

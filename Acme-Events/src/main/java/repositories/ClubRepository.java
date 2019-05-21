@@ -10,4 +10,5 @@ import domain.Club;
 public interface ClubRepository extends JpaRepository<Club, Integer> {
 
 
+	
 }
