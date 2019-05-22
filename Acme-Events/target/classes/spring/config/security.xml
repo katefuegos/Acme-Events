@@ -55,6 +55,14 @@
 
 		<security:intercept-url pattern="/manager/list.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/manager/display.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/show.do"
+			access="permitAll" />	
+		<security:intercept-url pattern="/manager/listClubs.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/listProfiles.do"
+			access="permitAll" />
 
 		<!-- Actions -->
 

@@ -24,10 +24,6 @@ public class ClubService {
 
 	@Autowired
 	private ClubRepository	clubRepository;
-<<<<<<< HEAD
-
-=======
->>>>>>> f0168c0b05c95735f8f8b2fa3dc1eb30b38717dc
 
 	// Services-------------------------------------------------
 	@Autowired
