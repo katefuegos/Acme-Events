@@ -33,6 +33,13 @@
 	<display:column property="photo" titleKey="manager.photo" />
 	<display:column property="email" titleKey="manager.email" />
 	
+	
+	<display:column>
+		<a href="manager/listClubs.do?managerId=${row.id}"> <spring:message
+				code="manager.listClub" />
+		</a>
+	</display:column>
+	
 
 </display:table>
 

@@ -33,7 +33,7 @@ public class ClubController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 
-		final Collection<Club> clubs = this.clubService.findAll();
+		final Collection<Club> clubs = this.clubService.findClubsAccepted();
 		result = new ModelAndView("club/list");
 
 		result.addObject("clubs", clubs);

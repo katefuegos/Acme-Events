@@ -22,16 +22,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="clubs" id="row" requestURI="${requestURI}"
+<display:table name="profiles" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="name" titleKey="club.name" />
-	<display:column property="address" titleKey="club.address" />
-	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column property="name" titleKey="profile.name" />
+	<display:column property="nick" titleKey="profile.nick" />
+	<display:column property="link" titleKey="profile.link" />
 	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
-				code="club.showManager" />
+		<a href="manager/show.do?profileId=${row.id}"> <spring:message
+				code="profile.showManager" />
 		</a>
 	</display:column>
 
