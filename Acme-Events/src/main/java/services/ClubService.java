@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -23,7 +22,7 @@ public class ClubService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ClubRepository	clubRepository;
+	private ClubRepository clubRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
@@ -112,5 +111,18 @@ public class ClubService {
 
 		this.save(club);
 
+	public Collection<Club> findClubsPending() {
+		final Collection<Club> result = this.clubRepository.findClubsPending();
+		return result;
+	}
+	
+	public Collection<Club> findClubsAccepted() {
+		final Collection<Club> result = this.clubRepository.findClubsAccepted();
+		return result;
+	}
+	
+	public Collection<Club> findClubsRejected() {
+		final Collection<Club> result = this.clubRepository.findClubsRejected();
+		return result;
 	}
 }

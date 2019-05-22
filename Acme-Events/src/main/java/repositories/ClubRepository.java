@@ -27,4 +27,12 @@ public interface ClubRepository extends JpaRepository<Club, Integer> {
 	//	@Query("select c.name, f.moment, f.id from Club c join c.follows f where f.client.id = ?1")
 	//	Collection<ClubFollowForm> findClubFollows(int clientId);
 
+	@Query("select c from Club c where c.accepted = false and c.reasonReject is null")
+	Collection<Club> findClubsPending();
+	
+	@Query("select c from Club c where c.accepted = true")
+	Collection<Club> findClubsAccepted();
+	
+	@Query("select c from Club c where c.accepted = false and c.reasonReject is not null")
+	Collection<Club> findClubsRejected();
 }

@@ -67,9 +67,9 @@ public class MessageController extends AbstractController {
 			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
 			if (box == null)
-				redirectAttrs.addFlashAttribute("message", "box.error.unexist");
+				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
 			else if (!(box.getActor().equals(actor)))
-				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 		}
 		return result;
 	}
@@ -217,9 +217,9 @@ public class MessageController extends AbstractController {
 			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
 				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 			else if (e.getMessage() == "message.error.notFromThisActor")
-				modelAndView.addObject("message", "message.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 			else
-				modelAndView.addObject("message", "message.commit.error");
+				redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}
 		return modelAndView;
 	}
@@ -251,11 +251,11 @@ public class MessageController extends AbstractController {
 			if (message == null)
 				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
 			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
-				modelAndView.addObject("message", "message.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 			else if (e.getMessage() == "message.error.notFromThisActor")
-				modelAndView.addObject("message", "message.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 			else
-				modelAndView.addObject("message", "message.commit.error");
+				redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}
 		return modelAndView;
 	}

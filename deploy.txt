@@ -1,0 +1,115 @@
+1) Exportar war
+2) Sacar .sql:
+
+cd C:\Program Files\MySQL\MySQL Server 5.5\bin
+mysqldump -uroot -pV3rY=$tR0nG=P@$$w0rd$ acme-handyworker > script-file.sql
+
+boss/$I=B0$$=U$3=P@$$
+
+start transaction;
+
+create database `Acme-HandyWorker`;
+
+use `Acme-HandyWorker`;
+
+create user 'acme-user'@'%' identified by password '*4F10007AADA9EE3DBB2CC36575DFC6F4FDE27577';
+create user 'acme-manager'@'%' identified by password '*FDB8CD304EB2317D10C95D797A4BD7492560F55F';
+
+grant select, insert, update, delete 
+        on `Acme-HandyWorker`.* to 'acme-user'@'%';
+
+grant select, insert, update, delete, create, drop, references, index, alter, 
+        create temporary tables, lock tables, create view, create routine,   
+        alter routine, execute, trigger, show view
+   on `Acme-HandyWorker`.* to 'acme-manager'@'%';
+   
+commit;
+
+   
+3) Opcional para deploy en local: 
+cd %windir%\system32\drivers\etc
+notepad hosts
+
+4) Importar .sql:
+cd C:\Program Files\MySQL\MySQL Server 5.5\bin
+mysql -uroot –pV3rY=$tR0nG=P@$$w0rd$ < script-file-preproduction.sql
+mysql -uroot –pV3rY=$tR0nG=P@$$w0rd$
+
+5) Configurar:
+admin/ T0mC@t=Adm1n1$trat0R
+http://localhost/manager
+
+
+6) Clevercloud:
+
+http://www.clever-cloud.com
+
+En data.xml
+
+ 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Acme-HandyWorker" />
+		<property name="user" value="acme-user" />
+		<property name="password" value="ACME-Us3r-P@ssw0rd" />
+		
+		
+
+cambiar a -->
+		
+		
+			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://bvhr9gxapetisu8zxagq-mysql.services.clever-cloud.com:3306/bvhr9gxapetisu8zxagq" />
+		<property name="user" value="unvfjenyifn0dtwicmic" />
+		<property name="password" value="ExDCKBGNwgScYWo2K7qT" />
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="5" />
+	</bean>
+	
+	
+Create application -> create a new brand app -> java+war
+Añadir add on de mySQL-> dev
+Java = 7
+Port = 80
+ENABLE_METRICS = true
+Cambiamos el data.xml de nuestro proyecto --> vemos los datos que tenemos que cambiar en Clevercloud
+->Database->Information  \ACUERDATE DE NO COPIAR EL USUARIO Y LA CONTRASEÑA DEL LINK LARGO (quitar hasta el @ inclusive)!
+
+Quitamos el "start transaction;" y el "commit;", todos los create database ususarios y privilegios 
+--->  SOLO DEBE QUEDAR "use `nombreRaroDeLaBD`;" 
+
+`` esas comillas !!
+
+Nos creamos una carpeta en el escritorio mismo donde tienen que estar el archivo WAR y una carpeta llamada "clevercloud" 
+la cual contendr\'e1 un archivo war.json con el siguiente contenido:
+
+war.json:
+
+{
+	"deploy": {
+		"container": "TOMCAT7",
+		"war": [{
+			"file": "Acme-Parade.war",
+			"context": "/"
+			}]
+		}
+}
+
+
+
+katerecordings@gmail.com
+dpgrupo21
+
+git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/
+
+git config --global user.name "katefuegos"
+		git config --global user.email "adacieizq@gmail.com"
+		
+		cd ~/
+		ssh-keygen –t ed25519 –C "f_javi_fm@hotmail.com"
+		ssh-keygen -t ed25519 -C "dpgrupo212019@gmail.com"
+		
+		git init
+		git add clevercloud/war.json Acme-Rookies-Clevercloud.war
+		git commit -m "v1.0.0"
+		
