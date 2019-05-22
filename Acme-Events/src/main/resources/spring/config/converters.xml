@@ -94,6 +94,9 @@
 		<bean class="converters.OfferToStringConverter" />
 		<bean class="converters.StringToOfferConverter" />
 		
+		<bean class="converters.SocialProfileToStringConverter" />
+		<bean class="converters.StringToSocialProfileConverter" />
+		
 	</util:list>
 
 </beans>
