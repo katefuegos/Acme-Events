@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,7 +20,8 @@ public class SocialProfileService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private SocialProfileRepository			socialProfileRepository;
+	private SocialProfileRepository	socialProfileRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -33,7 +35,7 @@ public class SocialProfileService {
 
 	public SocialProfile create(final String authority) {
 		final SocialProfile socialProfile = new SocialProfile();
-		
+
 		return socialProfile;
 	}
 
@@ -56,4 +58,9 @@ public class SocialProfileService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Collection<SocialProfile> findProfilesByManager(final int managerId) {
+		final Collection<SocialProfile> result = this.socialProfileRepository.findProfilesByManager(managerId);
+		return result;
+	}
 }

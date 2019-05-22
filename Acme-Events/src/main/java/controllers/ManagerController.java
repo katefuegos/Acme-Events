@@ -4,7 +4,6 @@ package controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,10 @@ import security.LoginService;
 import services.ClubService;
 import services.ConfigurationService;
 import services.ManagerService;
+import services.SocialProfileService;
 import domain.Club;
 import domain.Manager;
+import domain.SocialProfile;
 import forms.ActorForm;
 
 @Controller
@@ -34,6 +35,9 @@ public class ManagerController extends AbstractController {
 
 	@Autowired
 	private ClubService				clubService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	// Constructor---------------------------------------
@@ -73,10 +77,10 @@ public class ManagerController extends AbstractController {
 	public ModelAndView listProfiles(final int managerId) {
 		ModelAndView result;
 
-		final Collection<Profile> profiles = this.clubService.findByManagerId(managerId);
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfilesByManager(managerId);
 		result = new ModelAndView("manager/listProfiles");
 
-		result.addObject("profiles", profiles);
+		result.addObject("socialProfiles", socialProfiles);
 		result.addObject("requestURI", "manager/listProfiles.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
