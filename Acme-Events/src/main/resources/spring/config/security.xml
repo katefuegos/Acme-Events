@@ -48,7 +48,7 @@
 		<security:intercept-url pattern="/club/list.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/club/Administrator/list.do"
+		<security:intercept-url pattern="/club/administrator/list.do"
 			access="hasRole('ADMIN')" />
 
 		<!-- Manager -->
@@ -124,9 +124,14 @@
 		<security:intercept-url pattern="/profile/create.do"
 			access="isAuthenticated()" />
 
-
+		
+		<!-- Client-Follow-Clubs -->
+		<security:intercept-url pattern="/club/client/myList.do"
+			access="hasRole('CLIENT')" />
+			<security:intercept-url pattern="/club/client/follow.do"
+			access="hasRole('CLIENT')" />
+			
 		<!-- Category -->
-
 		<security:intercept-url pattern="/category/administrator/list.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/administrator/edit.do"
@@ -144,11 +149,6 @@
 		<!-- Edit personal data -->
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
-
-
-
-
-
 
 		<!-- OTHERS -->
 		<security:intercept-url pattern="/welcome/terms.do"

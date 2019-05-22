@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FollowRepository;
+import security.LoginService;
+import domain.Client;
 import domain.Follow;
 
 @Service
@@ -19,9 +22,12 @@ public class FollowService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private FollowRepository			followRepository;
+	private FollowRepository	followRepository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private ClientService		clientService;
+
 
 	// Constructor----------------------------------------------
 
@@ -31,9 +37,14 @@ public class FollowService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Follow create(final String authority) {
+	public Follow create() {
 		final Follow follow = new Follow();
-		
+
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+
+		follow.setClient(client);
+		follow.setMoment(new Date(System.currentTimeMillis() - 1000));
+
 		return follow;
 	}
 
@@ -47,6 +58,9 @@ public class FollowService {
 
 	public Follow save(final Follow follow) {
 		Assert.notNull(follow);
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.isTrue(follow.getClient().equals(client), "follow.error.client");
+
 		final Follow saved = this.followRepository.save(follow);
 		return saved;
 	}

@@ -859,7 +859,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="club3" class="domain.Club">
 		<property name="name" value="Club3" />
 		<property name="address" value="adress3" />
@@ -1579,6 +1579,29 @@
 		<property name="expirationMonth" value="4" />
 		<property name="expirationYear" value="2020" />
 		<property name="CVVCode" value="308" />
+	</bean>
+
+	<!-- SOCIAL PROFILE -->
+
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="nick1" />
+		<property name="name" value="twitter" />
+		<property name="link" value="http://www.url1.com" />
+		<property name="actor" ref="client1" />
+	</bean>
+
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="nick2" />
+		<property name="name" value="facebook" />
+		<property name="link" value="http://www.url2.com" />
+		<property name="actor" ref="manager1" />
+	</bean>
+
+	<bean id="socialProfile3" class="domain.SocialProfile">
+		<property name="nick" value="nick3" />
+		<property name="name" value="instagram" />
+		<property name="link" value="http://www.url3.com" />
+		<property name="actor" ref="publiciter1" />
 	</bean>
 
 	<!-- CONFIGURATION -->
