@@ -107,7 +107,12 @@
 		<security:intercept-url pattern="/profile/create.do"
 			access="isAuthenticated()" />
 
-	
+		
+		<!-- Client-Follow-Clubs -->
+		<security:intercept-url pattern="/club/client/myList.do"
+			access="hasRole('CLIENT')" />
+			<security:intercept-url pattern="/club/client/follow.do"
+			access="hasRole('CLIENT')" />
 		<!-- Category -->
 		
 		<security:intercept-url pattern="/category/administrator/list.do"

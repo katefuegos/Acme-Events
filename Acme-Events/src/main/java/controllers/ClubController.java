@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ClientService;
 import services.ClubService;
 import services.ConfigurationService;
 import domain.Club;
@@ -21,6 +22,9 @@ public class ClubController extends AbstractController {
 
 	@Autowired
 	private ClubService				clubService;
+
+	@Autowired
+	private ClientService			clientService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

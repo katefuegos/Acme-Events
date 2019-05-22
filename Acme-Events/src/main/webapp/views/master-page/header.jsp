@@ -60,6 +60,18 @@
 				</ul></li>
 		</security:authorize>
 
+<security:authorize access="hasRole('CLIENT')">
+<li><a class="fNiv"><spring:message
+						code="master.page.follows.unfollows" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="club/client/myList.do"><spring:message
+								code="master.page.client.clubs" /></a></li>
+				</ul></li>
+
+
+</security:authorize>
+
 <security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
