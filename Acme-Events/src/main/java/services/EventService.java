@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EventRepository;
+import domain.Client;
+import domain.Club;
 import domain.Event;
 
 @Service
@@ -62,5 +64,15 @@ public class EventService {
 	public Collection<Event> findEventsByCategoryId(final int categoryId) {
 		final Collection<Event> events = this.eventRepository.findEventByCategoryId(categoryId);
 		return events;
+	}
+
+	public Collection<Event> findEventsByFollower(final Client c) {
+
+		return this.eventRepository.findEventsByFollower(c.getId());
+	}
+
+	public Collection<Event> findEventsByFollowerAndClub(final Client c, final Club club) {
+
+		return this.eventRepository.findEventsByFollowerAndClub(c.getId(), club.getId());
 	}
 }

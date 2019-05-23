@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -20,6 +21,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -28,53 +30,75 @@ public class Event extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private Date momentPublished;
-	private String description;
-	private String address;
-	private Double price;
-	private Date momentStart;
-	private Date momentEnd;
-	private String status;
-	private boolean draftMode;
+	private String	ticker;
+	private String	title;
+	private Date	momentPublished;
+	private String	poster;
+	private String	description;
+	private String	address;
+	private Double	price;
+	private Date	momentStart;
+	private Date	momentEnd;
+	private String	status;
+	private boolean	draftMode;
+
 
 	@Column(unique = true)
 	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	@NotBlank
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
 
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
+	}
+
+	@NotBlank
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMomentPublished() {
-		return momentPublished;
+		return this.momentPublished;
 	}
 
-	public void setMomentPublished(Date momentPublished) {
+	public void setMomentPublished(final Date momentPublished) {
 		this.momentPublished = momentPublished;
+	}
+
+	@URL
+	@NotBlank
+	public String getPoster() {
+		return this.poster;
+	}
+
+	public void setPoster(final String poster) {
+		this.poster = poster;
 	}
 
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	@NotBlank
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 
@@ -82,10 +106,10 @@ public class Event extends DomainEntity {
 	@Range(min = 0)
 	@Digits(integer = 9, fraction = 2)
 	public Double getPrice() {
-		return price;
+		return this.price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(final Double price) {
 		this.price = price;
 	}
 
@@ -93,10 +117,10 @@ public class Event extends DomainEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getMomentStart() {
-		return momentStart;
+		return this.momentStart;
 	}
 
-	public void setMomentStart(Date momentStart) {
+	public void setMomentStart(final Date momentStart) {
 		this.momentStart = momentStart;
 	}
 
@@ -104,47 +128,49 @@ public class Event extends DomainEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getMomentEnd() {
-		return momentEnd;
+		return this.momentEnd;
 	}
 
-	public void setMomentEnd(Date momentEnd) {
+	public void setMomentEnd(final Date momentEnd) {
 		this.momentEnd = momentEnd;
 	}
 
 	@Pattern(regexp = "^(AVAILABLE|CANCELLED)$")
 	@NotBlank
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
 	@NotNull
 	public boolean isDraftMode() {
-		return draftMode;
+		return this.draftMode;
 	}
 
-	public void setDraftMode(boolean draftMode) {
+	public void setDraftMode(final boolean draftMode) {
 		this.draftMode = draftMode;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 
-	private Category category;
-	private Club club;
-	private Collection<Opinion> opinions;
-	private Collection<ParticipationEvent> participationsEvent;
+	private Category						category;
+	private Club							club;
+	private Collection<Opinion>				opinions;
+	private Collection<ParticipationEvent>	participationsEvent;
+
 
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Category getCategory() {
-		return category;
+		return this.category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(final Category category) {
 		this.category = category;
 	}
 
@@ -152,10 +178,10 @@ public class Event extends DomainEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	public Club getClub() {
-		return club;
+		return this.club;
 	}
 
-	public void setClub(Club club) {
+	public void setClub(final Club club) {
 		this.club = club;
 	}
 
@@ -164,10 +190,10 @@ public class Event extends DomainEntity {
 	@Valid
 	@OneToMany()
 	public Collection<Opinion> getOpinions() {
-		return opinions;
+		return this.opinions;
 	}
 
-	public void setOpinions(Collection<Opinion> opinions) {
+	public void setOpinions(final Collection<Opinion> opinions) {
 		this.opinions = opinions;
 	}
 
@@ -176,11 +202,10 @@ public class Event extends DomainEntity {
 	@Valid
 	@OneToMany()
 	public Collection<ParticipationEvent> getParticipationsEvent() {
-		return participationsEvent;
+		return this.participationsEvent;
 	}
 
-	public void setParticipationsEvent(
-			Collection<ParticipationEvent> participationsEvent) {
+	public void setParticipationsEvent(final Collection<ParticipationEvent> participationsEvent) {
 		this.participationsEvent = participationsEvent;
 	}
 

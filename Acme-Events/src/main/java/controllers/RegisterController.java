@@ -55,6 +55,11 @@ public class RegisterController extends AbstractController {
 				actorForm.setAuth("MANAGER");
 				actorForm.setDNI("---");
 				break;
+			case "PUBLICITER":
+				a.setAuthority(Authority.PUBLICITER);
+				actorForm.setAuth("PUBLICITER");
+				actorForm.setDNI("---");
+				break;
 			case "CLIENT":
 				a.setAuthority(Authority.CLIENT);
 				actorForm.setAuth("CLIENT");
@@ -132,11 +137,15 @@ public class RegisterController extends AbstractController {
 		manager.setAuthority("MANAGER");
 		final Authority client = new Authority();
 		client.setAuthority("CLIENT");
+		final Authority publiciter = new Authority();
+		publiciter.setAuthority("PUBLICITER");
 
 		if (authorities.contains(manager))
 			result = new ModelAndView("register/manager");
 		else if (authorities.contains(client))
 			result = new ModelAndView("register/client");
+		else if (authorities.contains(publiciter))
+			result = new ModelAndView("register/publiciter");
 		else
 			throw new NullPointerException();
 
