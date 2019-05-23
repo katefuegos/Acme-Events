@@ -37,6 +37,9 @@
 
 					<li><a href="register/actor.do?authority=MANAGER"><spring:message
 								code="master.page.register.manager" /></a></li>
+
+					<li><a href="register/actor.do?authority=PUBLICITER"><spring:message
+								code="master.page.register.publiciter" /></a></li>
 				</ul></li>
 
 		</security:authorize>
@@ -60,19 +63,22 @@
 				</ul></li>
 		</security:authorize>
 
-<security:authorize access="hasRole('CLIENT')">
-<li><a class="fNiv"><spring:message
+		<security:authorize access="hasRole('CLIENT')">
+			<li><a class="fNiv"><spring:message
 						code="master.page.follows.unfollows" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="club/client/myList.do"><spring:message
 								code="master.page.client.clubs" /></a></li>
+					<li><a href="event/client/myList.do"><spring:message
+								code="master.page.client.events" /></a></li>
 				</ul></li>
 
 
-</security:authorize>
 
-<security:authorize access="hasRole('ADMIN')">
+		</security:authorize>
+
+		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
@@ -88,7 +94,8 @@
 								code="master.page.categories.list" /></a></li>
 					<li><a href="category/administrator/create.do"><spring:message
 								code="master.page.categories.create" /></a></li>
-				</ul><li><a href="club/administrator/list.do"><spring:message
+				</ul>
+			<li><a href="club/administrator/list.do"><spring:message
 						code="master.page.club.admin" /> </a></li>
 
 

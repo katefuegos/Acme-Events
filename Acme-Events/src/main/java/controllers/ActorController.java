@@ -58,6 +58,8 @@ public class ActorController extends AbstractController {
 		manager.setAuthority(Authority.MANAGER);
 		final Authority client = new Authority();
 		client.setAuthority(Authority.CLIENT);
+		final Authority publiciter = new Authority();
+		publiciter.setAuthority(Authority.PUBLICITER);
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
 
@@ -77,7 +79,8 @@ public class ActorController extends AbstractController {
 
 			} else if (a.getUserAccount().getAuthorities().contains(admin))
 				actorForm.setAuth("ADMIN");
-
+			else if (a.getUserAccount().getAuthorities().contains(publiciter))
+				actorForm.setAuth("PUBLICITER");
 			else
 				throw new NullPointerException();
 

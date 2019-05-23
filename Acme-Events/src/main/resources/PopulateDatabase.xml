@@ -920,7 +920,9 @@
 
 	<bean id="event1" class="domain.Event">
 		<property name="ticker" value="190519-AKD123" />
+		<property name="title" value="Fiesta de la espuma" />
 		<property name="momentPublished" value="2019/05/19 00:00" />
+		<property name="poster" value="http://postermywall.com.s3.amazonaws.com/posterpreviews/foam-party-flyer-template-31ce881859841e557c054cc708acf77f.jpg?ts=1456095158" />
 		<property name="description" value="description1" />
 		<property name="address" value="address1" />
 		<property name="price" value="20.0" />
@@ -945,7 +947,9 @@
 
 	<bean id="event2" class="domain.Event">
 		<property name="ticker" value="190519-JD89SE" />
+		<property name="title" value="DubStep NIGHT" />
 		<property name="momentPublished" value="2019/05/19 12:00" />
+		<property name="poster" value="http://designcrown.com/uploads/posts/2016-06/1466002594_designcrown.com_pocsm3lk6jpxgcv.jpeg"/>
 		<property name="description" value="description2" />
 		<property name="address" value="address2" />
 		<property name="price" value="40.0" />

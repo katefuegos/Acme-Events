@@ -33,6 +33,7 @@
 		<value>/views/message/messages</value>
 		<value>/views/club/messages</value>
 		<value>/views/manager/messages</value>
+		<value>/views/event/messages</value>
 		
 	</util:list>
 

@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PubliciterRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Publiciter;
 
 @Service
@@ -19,7 +23,8 @@ public class PubliciterService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private PubliciterRepository			publiciterRepository;
+	private PubliciterRepository	publiciterRepository;
+
 
 	// Services-------------------------------------------------
 
@@ -31,9 +36,21 @@ public class PubliciterService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Publiciter create(final String authority) {
+	public Publiciter create() {
 		final Publiciter publiciter = new Publiciter();
-		
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.PUBLICITER);
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		publiciter.setUserAccount(userAccount);
+
+		publiciter.setIsBanned(false);
+		publiciter.setIsSuspicious(false);
+
 		return publiciter;
 	}
 

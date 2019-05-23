@@ -37,12 +37,16 @@
 
 	<display:column property="pictures" titleKey="club.pictures" />
 
-
-	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column>
 		<a href="manager/show.do?clubId=${row.id}"> <spring:message
 				code="club.showManager" />
 		</a>
+		<br>
+		<br>
+		<a href="event/client/myList.do?clubId=${row.id}"> <spring:message
+				code="club.client.events" />
+		</a>
+		
 	</display:column>
 
 	<%-- <security:authorize access="hasRole('CLIENT')">
