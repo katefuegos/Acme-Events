@@ -30,7 +30,7 @@
 	<display:column property="description" titleKey="club.description" />
 	<display:column property="pictures" titleKey="club.pictures" />
 	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>

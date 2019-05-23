@@ -28,12 +28,7 @@
 	<display:column property="name" titleKey="socialProfile.name" />
 	<display:column property="nick" titleKey="socialProfile.nick" />
 	<display:column property="link" titleKey="socialProfile.link" />
-	<display:column>
-		<a href="manager/show.do?socialProfileId=${row.id}"> <spring:message
-				code="socialProfile.showManager" />
-		</a>
-	</display:column>
-
+	
 </display:table>
 
 
