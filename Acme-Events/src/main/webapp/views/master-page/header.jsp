@@ -140,7 +140,7 @@
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv" href="actor/profile/list.do"><spring:message
+			<li><a class="fNiv" href="socialProfile/list.do"><spring:message
 						code="master.page.listProfiles" /></a></li>
 		</security:authorize>
 

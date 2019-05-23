@@ -13,6 +13,9 @@ import domain.SocialProfile;
 public interface SocialProfileRepository extends JpaRepository<SocialProfile, Integer> {
 
 	@Query("select p from SocialProfile p where p.actor.id=?1")
-	Collection<SocialProfile> findProfilesByManager(int managerId);
+	Collection<SocialProfile> findProfilesByActor(int actorId);
+
+	@Query("select p from SocialProfile p where p.actor.userAccount.id = ?1")
+	Collection<SocialProfile> findProfileByUserAccount(int userAccountId);
 
 }

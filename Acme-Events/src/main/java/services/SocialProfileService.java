@@ -59,8 +59,13 @@ public class SocialProfileService {
 
 	// Other Methods--------------------------------------------
 
-	public Collection<SocialProfile> findProfilesByManager(final int managerId) {
-		final Collection<SocialProfile> result = this.socialProfileRepository.findProfilesByManager(managerId);
+	public Collection<SocialProfile> findProfilesByActor(final int actorId) {
+		final Collection<SocialProfile> result = this.socialProfileRepository.findProfilesByActor(actorId);
+		return result;
+	}
+
+	public Collection<SocialProfile> findProfileByUserAccount(final int uaId) {
+		final Collection<SocialProfile> result = this.socialProfileRepository.findProfileByUserAccount(uaId);
 		return result;
 	}
 }

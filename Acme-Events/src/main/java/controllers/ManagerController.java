@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
 import services.ClubService;
 import services.ConfigurationService;
 import services.ManagerService;
@@ -77,7 +76,7 @@ public class ManagerController extends AbstractController {
 	public ModelAndView listProfiles(final int managerId) {
 		ModelAndView result;
 
-		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfilesByManager(managerId);
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfilesByActor(managerId);
 		result = new ModelAndView("manager/listProfiles");
 
 		result.addObject("socialProfiles", socialProfiles);
@@ -95,8 +94,8 @@ public class ManagerController extends AbstractController {
 		Manager manager = null;
 
 		try {
-			final String username = LoginService.getPrincipal().getUsername();
-			manager = this.managerService.findManagerByUsername(username);
+
+			manager = this.managerService.findOne(managerId);
 			Assert.notNull(manager);
 
 			final ActorForm actorForm = new ActorForm();
