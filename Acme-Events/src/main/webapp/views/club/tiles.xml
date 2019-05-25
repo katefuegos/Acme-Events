@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles.xml
+ * tiles_es.xml
  *
  * Copyright (C) 2018 Universidad de Sevilla
  * 
@@ -13,26 +13,37 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-       
+      
 <tiles-definitions>
 
 	<definition name="club/list" extends="master.page">	
-		<put-attribute name="title" value="Clubs List" />
+		<put-attribute name="title" value="List of clubs" />
 		<put-attribute name="body" value="/views/club/list.jsp" />
 	</definition>
 	
-	<definition name="club/actor/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit a box" />
-		<put-attribute name="body" value="/views/box/edit.jsp" />
+	<definition name="club/manager/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
 	</definition>
 	
+	<definition name="club/manager/create" extends="master.page">	
+		<put-attribute name="title" value="Create club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
+	</definition>
+	
+	<definition name="club/manager/show" extends="master.page">	
+		<put-attribute name="title" value="Show club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
+	</definition>
+	
+	
 	<definition name="club/client/myList" extends="master.page">	
-		<put-attribute name="title" value="My Clubs list" />
+		<put-attribute name="title" value="My list of clubs" />
 		<put-attribute name="body" value="/views/club/myList.jsp" />
 	</definition>
 	
 	<definition name="club/list2" extends="master.page">	
-		<put-attribute name="title" value="Clubs List" />
+		<put-attribute name="title" value="Club list" />
 		<put-attribute name="body" value="/views/club/list2.jsp" />
 	</definition>
 	

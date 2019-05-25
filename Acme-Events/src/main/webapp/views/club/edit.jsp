@@ -19,43 +19,39 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="club/actor/edit.do" modelAttribute="club">
+<form:form action="${requestURI}" modelAttribute="clubForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="subclubes" />
-	<form:hidden path="actor" />
-
-<acme:textclub code="club.name" path="name"/>
+	<form:hidden path="manager" />
 	
 
-	<jstl:choose>
-		<jstl:when test="${club.id == 0}">
-			<form:label path="rootclub">
-				<spring:message code="club.rootclub" />:
-			</form:label>
-			<form:select id="clubes" path="rootclub">
-				<form:option value="" label="------" />
-				<form:options items="${clubes}" itemValue="id" itemLabel="name" />
-			</form:select>
-			<form:errors cssClass="error" path="rootclub" />
-			<br />
-		</jstl:when>
-		<jstl:otherwise>
-			<form:hidden path="rootclub" />
-			<spring:message code="club.rootclub" />:
-				<jstl:out value="${club.rootclub.name}" />
-			<br />
-		</jstl:otherwise>
-	</jstl:choose>
-
- 
-	<acme:submit name="save" code="club.save"/>
+	<acme:textbox code="club.name" path="name"/>
+	<acme:textbox code="club.address" path="address"/>
+	<acme:textbox code="club.description" path="description"/>
+	<acme:textbox code="club.pictures" path="pictures"/>
+	<acme:textbox code="club.reasonReject" path="reasonReject"/>
 	
-	<jstl:if test="${club.id != 0}">
-	<acme:delete confirmDelete="club.confirm.delete" name="delete" code="club.delete"/>
+	<form:label path="draftMode">
+		<spring:message code="club.draftMode" />
+	</form:label>
+	<form:checkbox path="draftMode" />
+	<form:errors path="draftMode" cssClass="error" />
+	<br />
+	
+	
+	<jstl:if test="${isRead == false}">
+		<acme:submit name="save" code="club.save" />
+		<jstl:if test="${id != 0}">
+			<acme:delete confirmDelete="club.confirm.delete" name="delete"
+				code="club.delete" />
+
+		</jstl:if>
+		<acme:cancel url="club/list.do" code="club.cancel" />
 	</jstl:if>
 
-	<acme:cancel url="club/actor/list.do" code="club.cancel"/>
-	<br />
+
+	<jstl:if test="${isRead == true}">
+		<acme:cancel url="club/list.do" code="club.cancel" />
+
+	</jstl:if>
 </form:form>
