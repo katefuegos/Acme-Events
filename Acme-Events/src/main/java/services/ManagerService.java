@@ -76,4 +76,14 @@ public class ManagerService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Manager findManagerByUserAccount(final int userAccountId) {
+		final Manager manager = this.managerRepository.findManagerByUserAccount(userAccountId);
+		return manager;
+	}
+
+	public Manager findManagerByUsername(final String username) {
+		final Manager manager = this.managerRepository.findManagerByUsername(username);
+		return manager;
+	}
 }

@@ -21,6 +21,42 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3>
+
+	<spring:message code="club.admin.pending" />
+
+</h3>
+
+<display:table name="pendingClubs" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+
+	<display:column property="name" titleKey="club.name" />
+	<display:column property="address" titleKey="club.address" />
+	<display:column property="description" titleKey="club.description" />
+	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column>
+		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+				code="club.showManager" />
+		</a>
+	</display:column>
+	<display:column>
+		<a href="club/administrator/accept.do?clubId=${row.id}"> <spring:message
+				code="club.acceptClub" />
+		</a>
+	</display:column>
+	<display:column>
+		<a href="club/administrator/reject.do?clubId=${row.id}"> <spring:message
+				code="club.rejectClub" />
+		</a>
+	</display:column>
+
+</display:table>
+
+<h3>
+
+	<spring:message code="club.admin.accepted" />
+
+</h3>
 
 <display:table name="acceptedClubs" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
@@ -37,20 +73,11 @@
 
 </display:table>
 
-<display:table name="acceptedClubs" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<h3>
 
-	<display:column property="name" titleKey="club.name" />
-	<display:column property="address" titleKey="club.address" />
-	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
-	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
-				code="club.showManager" />
-		</a>
-	</display:column>
+	<spring:message code="club.admin.rejected" />
 
-</display:table>
+</h3>
 
 <display:table name="rejectedClubs" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">

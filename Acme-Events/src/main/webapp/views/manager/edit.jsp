@@ -1,5 +1,5 @@
 <%--
- * action-1.jsp
+ * edit.jsp
  *
  * Copyright (C) 2018 Universidad de Sevilla
  * 
@@ -8,10 +8,13 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
+
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
@@ -19,43 +22,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="club/actor/edit.do" modelAttribute="club">
-
+<img src='<jstl:out value="${actorForm.photo }"/>' alt="No <spring:message code='actor.photo' />" height="100" width="auto"> 
+ 
+ 
+   <br><br>
+<form:form action="${requestURI}" modelAttribute="actorForm">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="subclubes" />
-	<form:hidden path="actor" />
+	<form:hidden path="userAccount" />
+	<form:hidden path="auth" />
 
-<acme:textclub code="club.name" path="name"/>
-	
 
-	<jstl:choose>
-		<jstl:when test="${club.id == 0}">
-			<form:label path="rootclub">
-				<spring:message code="club.rootclub" />:
-			</form:label>
-			<form:select id="clubes" path="rootclub">
-				<form:option value="" label="------" />
-				<form:options items="${clubes}" itemValue="id" itemLabel="name" />
-			</form:select>
-			<form:errors cssClass="error" path="rootclub" />
-			<br />
-		</jstl:when>
-		<jstl:otherwise>
-			<form:hidden path="rootclub" />
-			<spring:message code="club.rootclub" />:
-				<jstl:out value="${club.rootclub.name}" />
-			<br />
-		</jstl:otherwise>
-	</jstl:choose>
+	<acme:textbox code="actor.name" path="name" />
+	<acme:textbox code="actor.surnames" path="surname" />
+	<acme:textbox code="actor.middlename" path="middleName" />
 
- 
-	<acme:submit name="save" code="club.save"/>
-	
-	<jstl:if test="${club.id != 0}">
-	<acme:delete confirmDelete="club.confirm.delete" name="delete" code="club.delete"/>
+	<acme:textbox code="actor.photo" path="photo" />
+	<acme:textbox code="actor.email" path="email" />
+	<form:label path="phone">
+		<spring:message code="actor.phone" />
+	</form:label>
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
+	<br />
+	<acme:textbox code="actor.address" path="address" />
+
+
+	<jstl:if
+		test="${actorForm.auth != 'CLIENT'}">
+		<form:hidden path="DNI" />
 	</jstl:if>
 
-	<acme:cancel url="club/actor/list.do" code="club.cancel"/>
-	<br />
+	<jstl:if test="${actorForm.auth == 'CLIENT' }">
+		<acme:textbox code="actor.dni" path="DNI" />
+	</jstl:if>
+	
+
+<acme:cancel url="manager/list.do" code="manager.cancel"/>
+
+
 </form:form>
+

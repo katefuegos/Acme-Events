@@ -51,9 +51,23 @@
 		<security:intercept-url pattern="/club/administrator/list.do"
 			access="hasRole('ADMIN')" />
 
+		<security:intercept-url pattern="/club/administrator/accept.do"
+			access="hasRole('ADMIN')" />
+
+		<security:intercept-url pattern="/club/administrator/reject.do"
+			access="hasRole('ADMIN')" />
+
 		<!-- Manager -->
 
 		<security:intercept-url pattern="/manager/list.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/display.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/show.do"
+			access="permitAll" />	
+		<security:intercept-url pattern="/manager/listClubs.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/listProfiles.do"
 			access="permitAll" />
 
 		<!-- Actions -->
@@ -68,12 +82,6 @@
 		<security:intercept-url pattern="/customer/action-2.do"
 			access="hasRole('CUSTOMER')" />
 
-		<security:intercept-url pattern="/profile/action-1.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-2.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-3.do"
-			access="isAuthenticated()" />
 
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
@@ -104,25 +112,36 @@
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/edit.do"
+		<security:intercept-url pattern="/socialProfile/edit.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/list.do"
+		<security:intercept-url pattern="/socialProfile/list.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/show.do"
+		<security:intercept-url pattern="/socialProfile/show.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/create.do"
+		<security:intercept-url pattern="/socialProfile/create.do"
 			access="isAuthenticated()" />
 
-		
+
 		<!-- Client-Follow-Clubs -->
 		<security:intercept-url pattern="/club/client/myList.do"
 			access="hasRole('CLIENT')" />
-			<security:intercept-url pattern="/club/client/follow.do"
+		<security:intercept-url pattern="/club/client/follow.do"
 			access="hasRole('CLIENT')" />
+<<<<<<< HEAD
+
+=======
 			
+		
+		<!-- Events -->
+		<security:intercept-url pattern="/event/client/myList.do"
+			access="hasRole('CLIENT')" />
+
+		
+			
+>>>>>>> 1aebe931068467229f5e3f9fecd7316fc444cc70
 		<!-- Category -->
 		<security:intercept-url pattern="/category/administrator/list.do"
 			access="hasRole('ADMIN')" />

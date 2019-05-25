@@ -37,6 +37,9 @@ public class ActorService {
 	private ClientService			clientService;
 
 	@Autowired
+	private PubliciterService		publiciterService;
+
+	@Autowired
 	private AdministratorService	administratorService;
 
 	@Autowired
@@ -129,6 +132,8 @@ public class ActorService {
 		manager.setAuthority(Authority.MANAGER);
 		final Authority client = new Authority();
 		client.setAuthority(Authority.CLIENT);
+		final Authority publiciter = new Authority();
+		publiciter.setAuthority(Authority.PUBLICITER);
 
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
@@ -154,6 +159,30 @@ public class ActorService {
 			mana.setAddress(actorform.getAddress());
 
 			final Actor a = this.managerService.save(mana);
+
+			this.boxService.addSystemBox(a);
+
+		} else if (authorities.contains(publiciter)) {
+			domain.Publiciter publ = null;
+			if (actorform.getId() != 0)
+				publ = this.publiciterService.findOne(actorform.getId());
+			else {
+				publ = this.publiciterService.create();
+				publ.setUserAccount(actorform.getUserAccount());
+				// Assert.isTrue(LoginService.getPrincipal() == null);
+				Assert.isTrue(this.serviceUtils.checkAuthorityBoolean(null));
+			}
+			publ.setId(actorform.getId());
+			publ.setVersion(actorform.getVersion());
+			publ.setName(actorform.getName());
+			publ.setMiddleName(actorform.getMiddleName());
+			publ.setSurname(actorform.getSurname());
+			publ.setPhoto(actorform.getPhoto());
+			publ.setEmail(actorform.getEmail());
+			publ.setPhone(actorform.getPhone());
+			publ.setAddress(actorform.getAddress());
+
+			final Actor a = this.publiciterService.save(publ);
 
 			this.boxService.addSystemBox(a);
 

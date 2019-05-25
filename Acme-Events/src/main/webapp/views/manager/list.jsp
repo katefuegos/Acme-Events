@@ -24,7 +24,11 @@
 
 <display:table name="managers" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-
+	<display:column>
+	<a href="manager/show.do?managerId=${row.id}"> <spring:message
+				code="club.showManager" />
+	</a>
+	</display:column>
 	<display:column property="name" titleKey="manager.name" />
 	<display:column property="middleName" titleKey="manager.middleName" />
 	<display:column property="surname" titleKey="manager.surname" />
@@ -32,6 +36,19 @@
 	<display:column property="phone" titleKey="manager.phone" />
 	<display:column property="photo" titleKey="manager.photo" />
 	<display:column property="email" titleKey="manager.email" />
+	
+	
+	<display:column>
+		<a href="manager/listClubs.do?managerId=${row.id}"> <spring:message
+				code="manager.listClub" />
+		</a>
+	</display:column>
+	
+	<display:column>
+		<a href="manager/listProfiles.do?managerId=${row.id}"> <spring:message
+				code="manager.listProfile" />
+		</a>
+	</display:column>
 	
 
 </display:table>
