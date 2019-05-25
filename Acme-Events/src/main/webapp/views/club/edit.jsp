@@ -24,12 +24,15 @@
 	<form:hidden path="id" />
 	<form:hidden path="manager" />
 	
+	
 
 	<acme:textbox code="club.name" path="name"/>
 	<acme:textbox code="club.address" path="address"/>
 	<acme:textbox code="club.description" path="description"/>
 	<acme:textbox code="club.pictures" path="pictures"/>
-	<acme:textbox code="club.reasonReject" path="reasonReject"/>
+	<jstl:if test="${club.accepted == false}">
+		<acme:textbox code="club.reasonReject" path="reasonReject"/>
+	</jstl:if>
 	
 	<form:label path="draftMode">
 		<spring:message code="club.draftMode" />

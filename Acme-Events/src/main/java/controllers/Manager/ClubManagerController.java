@@ -12,19 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-
 import security.LoginService;
 import security.UserAccount;
 import services.ClubService;
 import services.ConfigurationService;
 import services.ManagerService;
+import controllers.AbstractController;
 import domain.Club;
 import domain.Manager;
 import forms.ClubForm;
 
 @Controller
-@RequestMapping("/club/manager/")
+@RequestMapping("/club/manager")
 public class ClubManagerController extends AbstractController {
 
 	// Services-----------------------------------------------------------
@@ -269,7 +268,7 @@ public class ClubManagerController extends AbstractController {
 	protected ModelAndView editModelAndView(final ClubForm clubForm, final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("club/edit/");
+		result = new ModelAndView("club/edit");
 		result.addObject("message", message);
 		result.addObject("requestURI", "club/manager/edit.do?clubId=" + clubForm.getId());
 		result.addObject("clubForm", clubForm);
