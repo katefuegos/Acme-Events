@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SocialProfileRepository;
+import security.LoginService;
 import domain.SocialProfile;
 
 @Service
@@ -22,8 +23,11 @@ public class SocialProfileService {
 	@Autowired
 	private SocialProfileRepository	socialProfileRepository;
 
-
 	// Services-------------------------------------------------
+
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructor----------------------------------------------
 
@@ -33,10 +37,10 @@ public class SocialProfileService {
 
 	// Simple CRUD----------------------------------------------
 
-	public SocialProfile create(final String authority) {
-		final SocialProfile socialProfile = new SocialProfile();
-
-		return socialProfile;
+	public SocialProfile create() {
+		final SocialProfile profile = new SocialProfile();
+		profile.setActor(this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
+		return profile;
 	}
 
 	public List<SocialProfile> findAll() {
@@ -68,4 +72,5 @@ public class SocialProfileService {
 		final Collection<SocialProfile> result = this.socialProfileRepository.findProfileByUserAccount(uaId);
 		return result;
 	}
+
 }

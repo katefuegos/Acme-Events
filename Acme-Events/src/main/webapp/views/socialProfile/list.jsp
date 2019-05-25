@@ -24,13 +24,27 @@
 
 <display:table name="socialProfiles" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-
+	
+	<display:column>
+			<a href="socialProfile/edit.do?socialProfileId=${row.id}"> <spring:message
+					code="socialProfile.edit" />
+			</a>
+	</display:column>
+	
+	<display:column>
+			<a href="socialProfile/show.do?socialProfileId=${row.id}"> <spring:message
+					code="socialProfile.show" />
+			</a>
+	</display:column>
+		
 	<display:column property="name" titleKey="socialProfile.name" />
 	<display:column property="nick" titleKey="socialProfile.nick" />
 	<display:column property="link" titleKey="socialProfile.link" />
 	
 </display:table>
 
-
+<a href="socialProfile/create.do"> <spring:message
+					code="socialProfile.create" />
+			</a>
 
 

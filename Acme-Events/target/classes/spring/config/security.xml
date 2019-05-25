@@ -76,12 +76,6 @@
 		<security:intercept-url pattern="/customer/action-2.do"
 			access="hasRole('CUSTOMER')" />
 
-		<security:intercept-url pattern="/profile/action-1.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-2.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-3.do"
-			access="isAuthenticated()" />
 
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
@@ -112,16 +106,16 @@
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/edit.do"
+		<security:intercept-url pattern="/socialProfile/edit.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/list.do"
+		<security:intercept-url pattern="/socialProfile/list.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/show.do"
+		<security:intercept-url pattern="/socialProfile/show.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/create.do"
+		<security:intercept-url pattern="/socialProfile/create.do"
 			access="isAuthenticated()" />
 
 		
