@@ -139,6 +139,11 @@
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/event/client/search.do"
 			access="hasRole('CLIENT')" />
+			
+		<!-- CreditCard -->
+		<security:intercept-url pattern="/creditCard/client/edit.do"
+			access="hasRole('CLIENT')" />
+		
 
 
 		<!-- Category -->
