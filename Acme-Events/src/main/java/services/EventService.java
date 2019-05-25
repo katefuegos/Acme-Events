@@ -2,11 +2,13 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -14,6 +16,7 @@ import repositories.EventRepository;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import forms.SearchForm;
 
 @Service
 @Transactional
@@ -75,4 +78,40 @@ public class EventService {
 
 		return this.eventRepository.findEventsByFollowerAndClub(c.getId(), club.getId());
 	}
+
+	private SearchForm checkSearch(final SearchForm f) {
+		SearchForm result;
+
+		final Date currentDate = new Date();
+
+		if (f.getKeyWord() == null)
+			f.setKeyWord("");
+
+		if (f.getPriceMin() == null)
+			f.setPriceMin(0.0);
+
+		if (f.getPriceMax() == null)
+			f.setPriceMax(99999999.9);
+
+		if (f.getDateMin() == null)
+			f.setDateMin(currentDate);
+
+		if (f.getDateMax() == null)
+			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L son 10 años en milisegundos
+
+		result = f;
+
+		return result;
+	}
+
+	public Collection<domain.Event> searchPosition(final SearchForm f) {
+
+		final SearchForm search = this.checkSearch(f);
+		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
+		final Collection<Event> result = this.eventRepository.searchEvent(search.getKeyWord(), langCategory, search.getDateMin(), search.getDateMax(), search.getPriceMin(), search.getPriceMax());
+
+		return result;
+	}
+
 }

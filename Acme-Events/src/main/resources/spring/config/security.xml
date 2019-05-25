@@ -135,6 +135,8 @@
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"
 			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/event/client/search.do"
+			access="hasRole('CLIENT')" />
 
 		
 			

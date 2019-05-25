@@ -21,7 +21,49 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<form:form action="event/client/search.do"
+		modelAttribute="searchForm">
 
+		<form:label path="keyWord">
+			<spring:message code="event.keyWord" />
+		</form:label>
+		<form:input path="keyWord" />
+		<form:errors cssClass="error" path="keyWord" />
+		<br />
+
+		<form:label path="priceMin">
+			<spring:message code="event.priceMin" />
+		</form:label>
+		<form:input path="priceMin" />
+		<form:errors cssClass="error" path="priceMin" />
+		<br />
+
+		<form:label path="priceMax">
+			<spring:message code="event.priceMax" />
+		</form:label>
+		<form:input path="priceMax" />
+		<form:errors cssClass="error" path="priceMax" />
+		<br />
+
+		<form:label path="dateMin">
+			<spring:message code="event.dateMin" />
+		</form:label>
+		<form:input path="dateMin" placeholder="yyyy/mm/dd hh:mm" />
+		<form:errors cssClass="error" path="dateMin" />
+		<br />
+
+		<form:label path="dateMax">
+			<spring:message code="event.dateMax" />
+		</form:label>
+		<form:input path="dateMax" placeholder="yyyy/mm/dd hh:mm" />
+		<form:errors cssClass="error" path="dateMax" />
+		<br />
+
+		
+		<input type="submit" name="search"
+			value="<spring:message code="event.search"/>" />
+
+	</form:form>
 
 
 <display:table name="events" id="row" requestURI="${requestURI}"

@@ -3,9 +3,12 @@ package controllers.Client;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,7 @@ import controllers.AbstractController;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import forms.SearchForm;
 
 @Controller
 @RequestMapping("/event/client")
@@ -48,24 +52,26 @@ public class EventClientController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/myList", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false, defaultValue = "-1") final int clubId) {
+	public ModelAndView list(@RequestParam(required = false, defaultValue = "-1") final String clubId) {
 		ModelAndView result;
 		try {
 
 			final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
-			final Club club = this.clubService.findOne(clubId);
-			Assert.notNull(club);
-			Assert.isTrue(club.getId() == this.clubService.findClubByClient(client.getId(), club.getId()).getId());
 
 			Collection<Event> events;
-			if (clubId == -1)
+			if (clubId.equals("-1"))
 				events = this.eventService.findEventsByFollower(client);
-			else
-				events = this.eventService.findEventsByFollowerAndClub(client, club);
+			else {
+				final Club club = this.clubService.findOne(Integer.valueOf(clubId));
+				Assert.notNull(club);
+				Assert.isTrue(club.getId() == this.clubService.findClubByClient(client.getId(), club.getId()).getId());
 
+				events = this.eventService.findEventsByFollowerAndClub(client, club);
+			}
 			result = new ModelAndView("event/client/myList");
 
 			result.addObject("events", events);
+			result.addObject("searchForm", new SearchForm());
 			result.addObject("client", client);
 			result.addObject("requestURI", "event/client/myList.do");
 
@@ -78,28 +84,51 @@ public class EventClientController extends AbstractController {
 
 		return result;
 	}
-	//	@RequestMapping(value = "/search", method = RequestMethod.POST, params = "search")
-	//	public ModelAndView search(@Valid final SearchForm searchForm, final BindingResult binding) {
-	//		ModelAndView result;
-	//		if (binding.hasErrors())
-	//			result = this.editModelAndView(searchForm, "commit.error");
-	//		else
-	//			try {
-	//				final Category category = this.categoryService.findOne(categoryForm.getId());
-	//				final Map<String, String> map = new HashMap<String, String>();
-	//				map.put("EN", categoryForm.getNameEN());
-	//				map.put("ES", categoryForm.getNameES());
-	//				category.setTitle(map);
-	//				category.setRootCategory(categoryForm.getRootcategory());
-	//
-	//				this.categoryService.save(category);
-	//				result = new ModelAndView("redirect:/category/administrator/list.do");
-	//			} catch (final Throwable oops) {
-	//
-	//				result = this.editModelAndView(searchForm, "commit.error");
-	//			}
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/search", method = RequestMethod.POST, params = "search")
+	public ModelAndView search(@Valid final SearchForm searchForm, final BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors())
+			result = this.listModelAndView(searchForm, null, "message.commit.error");
+		else
+			try {
+
+				final Collection<Event> events = this.eventService.searchPosition(searchForm);
+
+				result = this.listModelAndView(searchForm, events, "actor.commit.ok");
+			} catch (final Throwable oops) {
+
+				result = this.listModelAndView(searchForm, null, "message.commit.error");
+			}
+
+		return result;
+	}
+
+	protected ModelAndView listModelAndView(final SearchForm searchForm, Collection<Event> events, final String message) {
+		ModelAndView result;
+		try {
+
+			final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+			Assert.notNull(client);
+
+			if (events == null)
+				events = this.eventService.findEventsByFollower(client);
+
+			result = new ModelAndView("event/client/myList");
+
+			result.addObject("events", events);
+			result.addObject("searchForm", searchForm);
+			result.addObject("client", client);
+			result.addObject("message", message);
+			result.addObject("requestURI", "event/client/myList.do");
+
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/event/client/myList.do");
+		}
+
+		return result;
+	}
 
 }

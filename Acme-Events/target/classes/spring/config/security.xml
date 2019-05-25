@@ -112,16 +112,16 @@
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/edit.do"
+		<security:intercept-url pattern="/socialProfile/edit.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/list.do"
+		<security:intercept-url pattern="/socialProfile/list.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/show.do"
+		<security:intercept-url pattern="/socialProfile/show.do"
 			access="isAuthenticated()" />
 
-		<security:intercept-url pattern="/profile/create.do"
+		<security:intercept-url pattern="/socialProfile/create.do"
 			access="isAuthenticated()" />
 
 		
@@ -134,6 +134,8 @@
 		
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"
+			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/event/client/search.do"
 			access="hasRole('CLIENT')" />
 
 		

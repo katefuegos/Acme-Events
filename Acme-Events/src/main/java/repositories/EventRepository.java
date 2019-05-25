@@ -2,9 +2,11 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import domain.Event;
@@ -20,5 +22,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
 	@Query("select e from Event e where e.club.id in (select c.id from Club c join c.follows f where f.client.id = ?1 and c.id=?2)")
 	public Collection<Event> findEventsByFollowerAndClub(int clienId, int clubId);
+
+	@Query("select f from Event f where f.draftMode=false and (f.ticker like %:keyword%  or f.title like %:keyword% or f.description like %:keyword% or f.club.name like %:keyword% or (f.category = (select c from Category c join c.title k where (key(k) like %:lang%) and (k like %:keyword%)))) and (f.momentStart BETWEEN :deadlineMin and :deadlineMax) and (f.price BETWEEN :minPrice and :maxPrice)")
+	Collection<domain.Event> searchEvent(@Param("keyword") String keyword, @Param("lang") String lang, @Param("deadlineMin") Date deadlineMin, @Param("deadlineMax") Date deadlineMax, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
 }
