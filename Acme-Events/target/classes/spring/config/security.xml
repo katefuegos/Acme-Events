@@ -130,9 +130,6 @@
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/club/client/follow.do"
 			access="hasRole('CLIENT')" />
-<<<<<<< HEAD
-
-=======
 			
 		
 		<!-- Events -->
@@ -141,7 +138,6 @@
 
 		
 			
->>>>>>> 1aebe931068467229f5e3f9fecd7316fc444cc70
 		<!-- Category -->
 		<security:intercept-url pattern="/category/administrator/list.do"
 			access="hasRole('ADMIN')" />
