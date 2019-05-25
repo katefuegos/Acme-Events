@@ -1,0 +1,109 @@
+UNAUTHENTICATED:
+
+----------> REGISTER 	
+							----------> CLIENT
+							----------> MANAGER
+							
+----------> LIST CLUBS 
+							----------> DISPLAY MANAGER
+							
+----------> LIST MANAGERS   
+							----------> LIST SOCIAL PROFILES
+							----------> LIST CLUBS
+		
+----------> TERMS & CONDITIONS
+
+AUTHENTICATED (Igual que unauthenticated sin REGISTER):
+
+----------> EDIT PERSONAL DATA
+
+----------> MANAGE SOCIAL PROFILES
+									----------> LIST
+									----------> CREATE
+									----------> EDIT
+									----------> DELETE
+----------> MANAGE BOXES
+									----------> LIST
+									----------> CREATE
+									----------> EDIT
+									----------> DELETE
+									
+									----------> MANAGE MESSAGES
+																	----------> LIST
+																	----------> CREATE
+																	----------> EDIT
+																	----------> DELETE
+													
+----------> DATA
+					----------> EXPORT
+					----------> DELETE (menos admin)
+
+MANAGER (igual que authenticated):
+																	
+----------> LIST MY CLUBS (agrupados por aceptados y no aceptados)
+																	----------> LIST
+																	----------> CREATE
+																	----------> EDIT
+																	----------> DELETE
+																	
+																	----------> MANAGE EVENTS (agrupados por cancelados y disponibles)
+																								----------> LIST
+																								----------> CREATE
+																								----------> EDIT
+																								----------> DELETE
+																								----------> CANCEL
+																								
+																								----------> LIST PARTICIPATIONS
+																																----------> DISPLAY CLIENT
+																																----------> LIST SOCIAL PROFILES
+																																
+																								----------> LIST OPINIONS
+																															----------> DISPLAY CLIENT
+																															----------> LIST SOCIAL PROFILES
+																	
+CLIENT (igual que authenticated):
+
+----------> LIST CLUBS (agrupados por seguidos y no seguidos)
+																----------> FOLLOW
+																----------> UNFOLLOW
+	
+----------> LIST MY CLUBS	
+							----------> LIST EVENTS
+													----------> PARTICIPATE EVENT
+
+----------> LIST EVENTS (todos los de los clubs que sigo) + FILTER
+																	----------> PARTICIPATE EVENT
+
+----------> LIST MY EVENTS (todos en los que participo)
+														----------> PUBLISH OPINION
+														
+----------> MY CREDIT CARD
+							----------> LIST
+							----------> DISPLAY
+							----------> CREATE
+							----------> EDIT
+							----------> DELETE
+
+ADMIN (igual que authenticated):
+
+----------> REGISTER 
+						----------> ADMIN
+		
+----------> MANAGE CATEGORIES
+								----------> LIST
+								----------> CREATE
+								----------> EDIT
+								----------> DELETE
+								
+----------> MANAGE CLUBS
+							----------> ACCEPT
+							----------> REJECT
+		
+----------> BROADCAST MESSAGE
+
+----------> DASHBOARD
+
+----------> CONFIGURATION
+							----------> LIST
+							----------> EDIT
+							----------> DISPLAY
