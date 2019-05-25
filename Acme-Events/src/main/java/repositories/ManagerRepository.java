@@ -15,5 +15,5 @@ public interface ManagerRepository extends JpaRepository<Manager, Integer> {
 
 	@Query("select r from Manager r where r.userAccount.username=?1")
 	Manager findManagerByUsername(String username);
-
+	
 }

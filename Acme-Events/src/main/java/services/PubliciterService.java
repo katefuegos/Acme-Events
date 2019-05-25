@@ -73,4 +73,9 @@ public class PubliciterService {
 	}
 
 	// Other Methods--------------------------------------------
+	
+	public Publiciter findPubliciterByUserAccountId(int userAccountId){
+		Assert.notNull(userAccountId);
+		return publiciterRepository.findPubliciterByUserAccountId(userAccountId);
+	}
 }

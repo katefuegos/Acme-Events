@@ -68,7 +68,7 @@ public class ClubClientController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
-	public ModelAndView edit(final int clubId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView follow(final int clubId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Club club = null;
 

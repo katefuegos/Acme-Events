@@ -57,7 +57,8 @@
 
 					<li><a href="actor/edit.do"><spring:message
 								code="master.page.actor.edit" /> </a></li>
-
+					<li><a href="data/list.do"><spring:message
+								code="master.page.data" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>

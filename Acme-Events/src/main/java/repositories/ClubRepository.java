@@ -38,4 +38,7 @@ public interface ClubRepository extends JpaRepository<Club, Integer> {
 
 	@Query("select c from Club c where c.manager.id=?1")
 	Collection<Club> findByManagerId(int managerId);
+	
+	@Query("select c from Club c where c.manager.id=?1 and c.accepted=true")
+	Collection<Club> findByManagerIdAndAccepted(int managerId);
 }
