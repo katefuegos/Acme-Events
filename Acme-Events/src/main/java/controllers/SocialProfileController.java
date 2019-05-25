@@ -135,7 +135,7 @@ public class SocialProfileController extends AbstractController {
 			else if (socialProfile == null)
 				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
 			else if (!this.socialProfileService.findOne(socialProfileId).getActor().equals(actor))
-				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromRookie");
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromThisActor");
 		}
 		return result;
 	}
@@ -149,8 +149,8 @@ public class SocialProfileController extends AbstractController {
 		else
 			try {
 				final SocialProfile socialProfile = this.socialProfileService.findOne(socialProfileForm.getId());
-				final Actor b = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
-				Assert.isTrue(socialProfile.getActor().getId() == b.getId());
+				//final Actor b = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+				//	Assert.isTrue(socialProfile.getActor() == b);
 
 				socialProfile.setName(socialProfileForm.getName());
 				socialProfile.setLink(socialProfileForm.getLink());
@@ -169,15 +169,14 @@ public class SocialProfileController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final SocialProfileForm socialProfileForm, final BindingResult binding) {
 		ModelAndView result;
-		final Actor b = null;
+		//final Actor b = null;
 		try {
 			Assert.notNull(socialProfileForm);
 			final SocialProfile socialProfile = this.socialProfileService.findOne(socialProfileForm.getId());
-			Assert.isTrue(socialProfile.getActor().equals(b));
+			//Assert.isTrue(socialProfile.getActor().equals(b));
 
-			this.socialProfileService.delete(this.socialProfileService.findOne(socialProfileForm.getId()));
-
-			result = new ModelAndView("redirect:/socialProfile/socialProfileor/list.do");
+			this.socialProfileService.delete(socialProfile);
+			result = new ModelAndView("redirect:/socialProfile/list.do");
 		} catch (final Throwable oops) {
 
 			result = this.editModelAndView(socialProfileForm, "socialProfile.commit.error");
@@ -190,12 +189,12 @@ public class SocialProfileController extends AbstractController {
 	public ModelAndView show(final int socialProfileId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		SocialProfile socialProfile = null;
-		final Actor b = null;
+		Actor actor = null;
 
 		try {
 			socialProfile = this.socialProfileService.findOne(socialProfileId);
+			actor = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 			Assert.notNull(socialProfile);
-			Assert.isTrue(socialProfile.getActor().getId() == b.getId());
 			final SocialProfileForm socialProfileForm = new SocialProfileForm();
 			socialProfileForm.setId(socialProfile.getId());
 			socialProfileForm.setActor(socialProfile.getActor());
@@ -209,9 +208,9 @@ public class SocialProfileController extends AbstractController {
 
 			result = new ModelAndView("redirect:/socialProfile/list.do");
 			if (this.socialProfileService.findOne(socialProfileId) == null)
-				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist	");
-			else if (!this.socialProfileService.findOne(socialProfileId).getActor().equals(b))
-				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromRookie");
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
+			else if (!this.socialProfileService.findOne(socialProfileId).getActor().equals(actor))
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromThisActor");
 		}
 		return result;
 	}

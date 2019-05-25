@@ -19,23 +19,29 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="socialProfile/edit.do" modelAttribute="socialProfileForm">
+<form:form action="${requestURI}" modelAttribute="socialProfileForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />>
 	<form:hidden path="actor" />
 
 	<acme:textbox code="socialProfile.name" path="name"/>
 	<acme:textbox code="socialProfile.nick" path="nick"/>
 	<acme:textbox code="socialProfile.link" path="link"/>
 
- 
-	<acme:submit name="save" code="socialProfile.save"/>
 	
-	<jstl:if test="${socialProfile.id != 0}">
-	<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete" code="socialProfile.delete"/>
+	<jstl:if test="${isRead == false}">
+		<acme:submit name="save" code="socialProfile.save" />
+		<jstl:if test="${id != 0}">
+			<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete"
+				code="socialProfile.delete" />
+
+		</jstl:if>
+		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel" />
 	</jstl:if>
 
-	<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel"/>
-	<br />
+
+	<jstl:if test="${isRead == true}">
+		<acme:cancel url="socialProfile/list.do" code="socialProfile.cancel" />
+
+	</jstl:if>
 </form:form>
