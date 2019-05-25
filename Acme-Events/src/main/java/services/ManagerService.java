@@ -86,4 +86,5 @@ public class ManagerService {
 		final Manager manager = this.managerRepository.findManagerByUsername(username);
 		return manager;
 	}
+
 }

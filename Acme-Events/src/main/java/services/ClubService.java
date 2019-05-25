@@ -15,6 +15,7 @@ import security.UserAccount;
 import domain.Client;
 import domain.Club;
 import domain.Follow;
+import forms.ClubForm;
 
 @Service
 @Transactional
@@ -115,16 +116,32 @@ public class ClubService {
 		this.save(club);
 	}
 
-	public void reject(Club club) {
+	public void accept(Club club) {
 
 		UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		Assert.isTrue(ua.getAuthorities().toString().contains("ADMIN"));
 		Assert.notNull(club);
 		Assert.isTrue(!club.isAccepted());
-		Assert.isTrue(club.getReasonReject().equals(null));
+		Assert.isTrue(club.getReasonReject() == null);
 
 		club.setAccepted(true);
+
+		this.clubRepository.save(club);
+	}
+	
+	public void reject(ClubForm clubForm) {
+
+		UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		Assert.isTrue(ua.getAuthorities().toString().contains("ADMIN"));
+		Club club = findOne(clubForm.getId());
+		Assert.notNull(club);
+		Assert.isTrue(!club.isAccepted());
+		Assert.isTrue(club.getReasonReject() == null);
+
+		club.setAccepted(false);
+		club.setReasonReject(clubForm.getReasonReject());
 
 		this.clubRepository.save(club);
 	}
@@ -146,6 +163,11 @@ public class ClubService {
 
 	public Collection<Club> findByManagerId(final int managerId) {
 		final Collection<Club> result = this.clubRepository.findByManagerId(managerId);
+		return result;
+	}
+	
+	public Collection<Club> findByManagerIdAndAcepted(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerIdAndAccepted(managerId);
 		return result;
 	}
 }

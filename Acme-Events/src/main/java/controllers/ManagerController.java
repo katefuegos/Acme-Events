@@ -61,7 +61,7 @@ public class ManagerController extends AbstractController {
 	public ModelAndView listClubs(final int managerId) {
 		ModelAndView result;
 
-		final Collection<Club> clubs = this.clubService.findByManagerId(managerId);
+		final Collection<Club> clubs = this.clubService.findByManagerIdAndAcepted(managerId);
 		result = new ModelAndView("manager/listClubs");
 
 		result.addObject("clubs", clubs);
@@ -121,6 +121,43 @@ public class ManagerController extends AbstractController {
 
 		return result;
 	}
+	
+	// SHOW
+		@RequestMapping(value = "/showByClub", method = RequestMethod.GET)
+		public ModelAndView showByClub(final int clubId, final RedirectAttributes redirectAttrs) {
+			ModelAndView result;
+			Manager manager = null;
+			Club club = null;
+			try {
+				
+				club = clubService.findOne(clubId);
+				Assert.notNull(club);
+				manager = club.getManager();
+				Assert.notNull(manager);
+
+				final ActorForm actorForm = new ActorForm();
+				actorForm.setId(manager.getId());
+				actorForm.setName(manager.getName());
+				actorForm.setMiddleName(manager.getMiddleName());
+				actorForm.setEmail(manager.getEmail());
+				actorForm.setPhoto(manager.getPhoto());
+				actorForm.setPhone(manager.getPhone());
+				actorForm.setSurname(manager.getSurname());
+				actorForm.setAddress(manager.getAddress());
+				actorForm.setIsBanned(manager.getIsBanned());
+				actorForm.setIsSuspicious(manager.getIsSuspicious());
+
+				result = this.ShowModelAndView(actorForm);
+
+			} catch (final Throwable e) {
+
+				result = new ModelAndView("redirect:/manager/list.do");
+				if (manager == null)
+					redirectAttrs.addFlashAttribute("message", "manager.commit.error");
+			}
+
+			return result;
+		}
 
 	protected ModelAndView ShowModelAndView(final ActorForm actorForm) {
 		ModelAndView result;

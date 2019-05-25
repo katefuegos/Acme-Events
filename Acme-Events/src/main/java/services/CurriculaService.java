@@ -56,4 +56,9 @@ public class CurriculaService {
 	}
 
 	// Other Methods--------------------------------------------
+	
+	public Curricula findByClientId(int clientId){
+		Assert.notNull(clientId);
+		return curriculaRepository.findByClientId(clientId);
+	}
 }

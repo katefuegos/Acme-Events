@@ -64,10 +64,12 @@
 		<security:intercept-url pattern="/manager/display.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/manager/show.do"
-			access="permitAll" />	
+			access="permitAll" />
 		<security:intercept-url pattern="/manager/listClubs.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/manager/listProfiles.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/manager/showByClub.do"
 			access="permitAll" />
 
 		<!-- Actions -->
@@ -130,13 +132,13 @@
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/club/client/follow.do"
 			access="hasRole('CLIENT')" />
-			
-		
+
+
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"
 			access="hasRole('CLIENT')" />
 
-			
+
 		<!-- Category -->
 		<security:intercept-url pattern="/category/administrator/list.do"
 			access="hasRole('ADMIN')" />
@@ -159,6 +161,12 @@
 		<!-- OTHERS -->
 		<security:intercept-url pattern="/welcome/terms.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/data/list.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/data/downloadPersonalData.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/data/deletePersonalData.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
