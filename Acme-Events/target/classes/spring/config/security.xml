@@ -136,7 +136,6 @@
 		<security:intercept-url pattern="/event/client/myList.do"
 			access="hasRole('CLIENT')" />
 
-		
 			
 		<!-- Category -->
 		<security:intercept-url pattern="/category/administrator/list.do"
