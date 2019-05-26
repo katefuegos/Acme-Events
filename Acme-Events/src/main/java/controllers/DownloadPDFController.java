@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,14 +25,13 @@ import services.ActorService;
 import services.AdministratorService;
 import services.ClientService;
 import services.ConfigurationService;
-import services.CurriculaService;
 import services.ManagerService;
 import services.PubliciterService;
+import services.SocialProfileService;
 import domain.Administrator;
 import domain.Client;
-import domain.Curricula;
 import domain.Manager;
-import domain.Publiciter;
+import domain.SocialProfile;
 
 @Controller
 @RequestMapping("/data")
@@ -56,7 +56,7 @@ public class DownloadPDFController {
 	ActorService actorService;
 
 	@Autowired
-	CurriculaService curriculaService;
+	SocialProfileService socialProfileService;
 
 	@Autowired
 	UserAccountService userAccountService;
@@ -98,7 +98,7 @@ public class DownloadPDFController {
 
 			List<Client> listClient = Arrays.asList(c1);
 
-			String[] header = { "name", "middleName", "surnames", "photo",
+			String[] header = { "name", "middleName", "surname", "photo",
 					"email", "phone", "address", "DNI" };
 
 			csvWriter.writeHeader(header);
@@ -114,30 +114,13 @@ public class DownloadPDFController {
 
 			List<Manager> listManager = Arrays.asList(m1);
 
-			String[] header = { "name", "middleName", "surnames", "photo",
+			String[] header = { "name", "middleName", "surname", "photo",
 					"email", "phone", "address" };
 
 			csvWriter.writeHeader(header);
 
 			for (Manager manager : listManager) {
 				csvWriter.write(manager, header);
-			}
-
-		} else if (userAccount.getAuthorities().toString()
-				.contains("PUBLICITER")) {
-
-			Publiciter p1 = publiciterService
-					.findPubliciterByUserAccountId(userAccount.getId());
-
-			List<Publiciter> listPubliciter = Arrays.asList(p1);
-
-			String[] header = { "name", "middleName", "surnames", "photo",
-					"email", "phone", "address" };
-
-			csvWriter.writeHeader(header);
-
-			for (Publiciter publiciter : listPubliciter) {
-				csvWriter.write(publiciter, header);
 			}
 
 		} else if (userAccount.getAuthorities().toString().contains("ADMIN")) {
@@ -147,7 +130,7 @@ public class DownloadPDFController {
 
 			List<Administrator> listAdministrator = Arrays.asList(a1);
 
-			String[] header = { "name", "middleName", "surnames", "photo",
+			String[] header = { "name", "middleName", "surname", "photo",
 					"email", "phone", "address" };
 
 			csvWriter.writeHeader(header);
@@ -181,34 +164,20 @@ public class DownloadPDFController {
 				c.setMiddleName(null);
 				c.setSurname("null");
 				userAccount.setEnabled(false);
-				Curricula curricula = curriculaService
-						.findByClientId(c.getId());
-				if (curricula != null) {
-					curriculaService.delete(curricula);
+				Collection<SocialProfile> socialProfiles = socialProfileService
+						.findProfileByUserAccount(userAccount.getId());
+				if (!socialProfiles.isEmpty()) {
+					for (SocialProfile s : socialProfiles) {
+						socialProfileService.delete(s);
+					}
 				}
 				clientService.save(c);
 				userAccountService.save(userAccount);
 
 			} else if (userAccount.getAuthorities().toString()
-					.contains("PUBLICITER")) {
-				Publiciter p = publiciterService
-						.findPubliciterByUserAccountId(userAccount.getId());
-				Assert.notNull(p);
-				p.setAddress(null);
-				p.setEmail("null@null.null");
-				p.setName("null");
-				p.setPhone(null);
-				p.setPhoto(null);
-				p.setMiddleName(null);
-				p.setSurname("null");
-				userAccount.setEnabled(false);
-				publiciterService.save(p);
-				userAccountService.save(userAccount);
-
-			} else if (userAccount.getAuthorities().toString()
 					.contains("MANAGER")) {
-				Manager m = managerService
-						.findManagerByUserAccount(userAccount.getId());
+				Manager m = managerService.findManagerByUserAccount(userAccount
+						.getId());
 				Assert.notNull(m);
 				m.setAddress(null);
 				m.setEmail("null@null.null");
@@ -218,6 +187,13 @@ public class DownloadPDFController {
 				m.setMiddleName(null);
 				m.setSurname("null");
 				userAccount.setEnabled(false);
+				Collection<SocialProfile> socialProfiles = socialProfileService
+						.findProfileByUserAccount(userAccount.getId());
+				if (!socialProfiles.isEmpty()) {
+					for (SocialProfile s : socialProfiles) {
+						socialProfileService.delete(s);
+					}
+				}
 				managerService.save(m);
 				userAccountService.save(userAccount);
 
