@@ -99,6 +99,7 @@ public class ClubService {
 
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 		Assert.notNull(client);
+		Assert.isTrue(club.isAccepted());
 		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) == null, "club.error.follow.exist");
 
 		final Follow follow = this.followService.create();

@@ -16,6 +16,8 @@ import repositories.EventRepository;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import domain.Opinion;
+import domain.ParticipationEvent;
 import forms.SearchForm;
 
 @Service
@@ -55,6 +57,12 @@ public class EventService {
 	}
 
 	public Event save(final Event event) {
+		Assert.notNull(event);
+		final Event saved = this.eventRepository.save(event);
+		return saved;
+	}
+	
+	public Event participate(final Event event) {
 		Assert.notNull(event);
 		final Event saved = this.eventRepository.save(event);
 		return saved;
@@ -115,6 +123,11 @@ public class EventService {
 
 		return result;
 	}
+	
+	public Event findByParticipationForm(ParticipationEvent participation){
+		Assert.notNull(participation);
+		return eventRepository.findByParticipationForm(participation);
+	}
 
 	public Collection<Event> findOpinionable(final Client client) {
 		Collection<Event> result;
@@ -128,6 +141,11 @@ public class EventService {
 		result.removeAll(result2);
 
 		return result;
+	}
+	
+	public Event findByOpinionForm(Opinion opinion){
+		Assert.notNull(opinion);
+		return eventRepository.findByOpinionForm(opinion);
 	}
 
 }

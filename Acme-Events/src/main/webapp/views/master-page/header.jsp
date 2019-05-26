@@ -80,8 +80,11 @@
 					<li class="arrow"></li>
 					<li><a href="creditCard/client/edit.do"><spring:message
 								code="master.page.creditCard.edit" /></a></li>
-					
+
 				</ul></li>
+			<li><a class="fNiv" href="participationEvent/client/list.do"><spring:message
+						code="master.page.myParticipations" /></a></li>
+
 				
 			<li><a class="fNiv"><spring:message
 						code="master.page.opinion" /></a>

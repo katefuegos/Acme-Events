@@ -53,7 +53,7 @@ public class ClubClientController extends AbstractController {
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 
 		final Collection<Club> clubs = this.clubService.findByClient(client);
-		final Collection<Club> otherClubs = this.clubService.findAll();
+		final Collection<Club> otherClubs = this.clubService.findClubsAccepted();
 		otherClubs.removeAll(clubs);
 
 		result = new ModelAndView("club/client/myList");
@@ -89,7 +89,7 @@ public class ClubClientController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/unfollow", method = RequestMethod.GET)
-	public ModelAndView edit(final int clubId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView unfollow(final int clubId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Club club = null;
 
@@ -102,7 +102,7 @@ public class ClubClientController extends AbstractController {
 			result = new ModelAndView("redirect:/club/client/myList.do");
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/club/list.do");
+			result = new ModelAndView("redirect:/club/client/myList.do");
 
 			redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}

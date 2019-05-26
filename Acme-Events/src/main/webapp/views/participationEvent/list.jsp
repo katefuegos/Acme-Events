@@ -21,22 +21,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<display:table name="participationEventForms" id="row"
+	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-<display:table name="opinionsForms" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
-	
-	<display:column property="ticker" titleKey="opinion.ticker" />
-	<display:column property="titleEvent" titleKey="opinion.titleEvent" />
-	<display:column property="title" titleKey="opinion.title" />
-	<display:column property="description" titleKey="opinion.description" />
-	<display:column property="score" titleKey="opinion.score" />
-	<display:column property="moment" titleKey="opinion.moment" />
-	
+	<display:column property="title" titleKey="participationEvent.title" />
+	<display:column property="ticker" titleKey="participationEvent.ticker" />
+	<display:column property="creditCardNumber" titleKey="participationEvent.creditCardNumber" />
+	<display:column property="moment" titleKey="participationEvent.moment" />
+
 </display:table>
 
-<a href="opinion/client/create.do"> <spring:message
-					code="opinion.create" />
-</a>
+
+
+
 
 
 

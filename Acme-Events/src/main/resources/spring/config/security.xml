@@ -56,16 +56,16 @@
 
 		<security:intercept-url pattern="/club/administrator/reject.do"
 			access="hasRole('ADMIN')" />
-			
+
 		<security:intercept-url pattern="/club/manager/create.do"
 			access="hasRole('MANAGER')" />
-		
+
 		<security:intercept-url pattern="/club/manager/edit.do"
 			access="hasRole('MANAGER')" />
-		
+
 		<security:intercept-url pattern="/club/manager/show.do"
 			access="hasRole('MANAGER')" />
-		
+
 		<security:intercept-url pattern="/club/manager/list.do"
 			access="hasRole('MANAGER')" />
 
@@ -147,12 +147,18 @@
 		<security:intercept-url pattern="/club/client/unfollow.do"
 			access="hasRole('CLIENT')" />
 
+		<!-- Participation Events -->
+		<security:intercept-url pattern="/participationEvent/client/list.do"
+			access="hasRole('CLIENT')" />
 
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/event/client/search.do"
 			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/event/client/participate.do"
+			access="hasRole('CLIENT')" />
+
 			
 		<!-- Opinions -->
 		<security:intercept-url pattern="/opinion/client/list.do"
@@ -163,7 +169,7 @@
 		<!-- CreditCard -->
 		<security:intercept-url pattern="/creditCard/client/edit.do"
 			access="hasRole('CLIENT')" />
-		
+
 
 
 		<!-- Category -->

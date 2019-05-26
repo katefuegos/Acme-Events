@@ -75,7 +75,6 @@
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
 	<display:column property="pictures" titleKey="club.pictures" />
-	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column>
 		<a href="manager/showByClub.do?clubId=${row2.id}"> <spring:message
 				code="club.showManager" />

@@ -35,6 +35,7 @@
 		<value>/views/manager/messages</value>
 		<value>/views/event/messages</value>
 		<value>/views/creditCard/messages</value>
+		<value>/views/participationEvent/messages</value>
 		<value>/views/opinion/messages</value>
 		
 	</util:list>

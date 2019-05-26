@@ -92,7 +92,7 @@
 			<spring:message code="event.opinions" />
 		</a>
 		<br>
-		<a href="#"> 
+		<a href="event/client/participate.do?eventId=${row.id}"> 
 			<spring:message code="event.participations" />
 		</a>
 	</display:column>
