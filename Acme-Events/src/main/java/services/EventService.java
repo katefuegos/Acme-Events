@@ -16,6 +16,7 @@ import repositories.EventRepository;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import domain.ParticipationEvent;
 import forms.SearchForm;
 
 @Service
@@ -53,6 +54,12 @@ public class EventService {
 	}
 
 	public Event save(final Event event) {
+		Assert.notNull(event);
+		final Event saved = this.eventRepository.save(event);
+		return saved;
+	}
+	
+	public Event participate(final Event event) {
 		Assert.notNull(event);
 		final Event saved = this.eventRepository.save(event);
 		return saved;
@@ -112,6 +119,11 @@ public class EventService {
 		final Collection<Event> result = this.eventRepository.searchEvent(search.getKeyWord(), langCategory, search.getDateMin(), search.getDateMax(), search.getPriceMin(), search.getPriceMax());
 
 		return result;
+	}
+	
+	public Event findByParticipationForm(ParticipationEvent participation){
+		Assert.notNull(participation);
+		return eventRepository.findByParticipationForm(participation);
 	}
 
 }

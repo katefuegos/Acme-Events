@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ParticipationEventRepository;
+import security.LoginService;
+import domain.Client;
+import domain.CreditCard;
 import domain.ParticipationEvent;
 
 @Service
@@ -22,6 +27,9 @@ public class ParticipationEventService {
 	private ParticipationEventRepository			participationEventRepository;
 
 	// Services-------------------------------------------------
+	
+	@Autowired
+	private ClientService			clientService;
 
 	// Constructor----------------------------------------------
 
@@ -31,8 +39,15 @@ public class ParticipationEventService {
 
 	// Simple CRUD----------------------------------------------
 
-	public ParticipationEvent create(final String authority) {
+	public ParticipationEvent create() {
 		final ParticipationEvent participationEvent = new ParticipationEvent();
+		
+		Client client = clientService.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.notNull(client);
+		CreditCard creditCard = client.getCreditCard();
+		Assert.notNull(creditCard);
+		participationEvent.setCreditCardNumber(creditCard.getNumber());
+		participationEvent.setClient(client);
 		
 		return participationEvent;
 	}
@@ -47,6 +62,7 @@ public class ParticipationEventService {
 
 	public ParticipationEvent save(final ParticipationEvent participationEvent) {
 		Assert.notNull(participationEvent);
+		participationEvent.setMoment(new Date(System.currentTimeMillis() - 1000));
 		final ParticipationEvent saved = this.participationEventRepository.save(participationEvent);
 		return saved;
 	}
@@ -56,4 +72,9 @@ public class ParticipationEventService {
 	}
 
 	// Other Methods--------------------------------------------
+	
+	public Collection<ParticipationEvent> findByClientId(int clientId){
+		Assert.notNull(clientId);
+		return participationEventRepository.findByClientId(clientId);
+	}
 }

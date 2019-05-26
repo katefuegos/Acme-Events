@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import domain.Event;
+import domain.ParticipationEvent;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
@@ -26,4 +27,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	@Query("select f from Event f where f.draftMode=false and (f.ticker like %:keyword%  or f.title like %:keyword% or f.description like %:keyword% or f.club.name like %:keyword% or (f.category = (select c from Category c join c.title k where (key(k) like %:lang%) and (k like %:keyword%)))) and (f.momentStart BETWEEN :deadlineMin and :deadlineMax) and (f.price BETWEEN :minPrice and :maxPrice)")
 	Collection<domain.Event> searchEvent(@Param("keyword") String keyword, @Param("lang") String lang, @Param("deadlineMin") Date deadlineMin, @Param("deadlineMax") Date deadlineMax, @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
 
+	@Query("select f from Event f where ?1 member of f.participationsEvent")
+	Event findByParticipationForm(ParticipationEvent participation);
 }
