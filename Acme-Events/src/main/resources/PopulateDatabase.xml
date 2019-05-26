@@ -846,7 +846,7 @@
 		<property name="description" value="description2" />
 		<property name="pictures" value="http://www.picture2.com" />
 		<property name="accepted" value="true" />
-		<property name="draftMode" value="false" />
+		<property name="draftMode" value="true" />
 		<property name="reasonReject" value="reasonReject1" />
 		<property name="manager" ref="manager2" />
 		<property name="follows">
@@ -887,7 +887,7 @@
 		<property name="description" value="description4" />
 		<property name="pictures" value="http://www.picture3.com" />
 		<property name="accepted" value="false" />
-		<property name="draftMode" value="false" />
+		<property name="draftMode" value="true" />
 		<property name="manager" ref="manager1" />
 		<property name="reasonReject" value="reasonReject1" />
 		<property name="follows">

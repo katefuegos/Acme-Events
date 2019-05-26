@@ -60,6 +60,7 @@ public class ClubManagerController extends AbstractController {
 			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
+
 		}
 
 		return result;
@@ -76,7 +77,6 @@ public class ClubManagerController extends AbstractController {
 				final Club club = this.clubService.create();
 				club.setAddress(clubManagerForm.getAddress());
 				club.setDescription(clubManagerForm.getDescription());
-				club.setDraftMode(clubManagerForm.isDraftMode());
 				club.setDraftMode(clubManagerForm.isDraftMode());
 				club.setManager(clubManagerForm.getManager());
 				club.setName(clubManagerForm.getName());
@@ -105,7 +105,7 @@ public class ClubManagerController extends AbstractController {
 			Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
 			Assert.notNull(club);
-			//	Assert.isTrue(club.getManager().equals(manager));
+			Assert.isTrue(club.isDraftMode());
 
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
 			clubManagerForm.setId(club.getId());
@@ -125,8 +125,8 @@ public class ClubManagerController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
 				redirectAttrs.addFlashAttribute("message", "club.error.unexist");
-			else if (!club.getManager().equals(manager))
-				redirectAttrs.addFlashAttribute("message", "club.error.notFromManager");
+			else if (!club.isDraftMode())
+				redirectAttrs.addFlashAttribute("message", "club.error.notDraft");
 		}
 		return result;
 	}
@@ -146,8 +146,6 @@ public class ClubManagerController extends AbstractController {
 				Assert.notNull(manager);
 				club = this.clubService.findOne(clubManagerForm.getId());
 				Assert.notNull(club);
-				Assert.isTrue(club.getManager().equals(manager));
-
 				club.setAddress(clubManagerForm.getAddress());
 				club.setDescription(clubManagerForm.getDescription());
 				club.setDraftMode(clubManagerForm.isDraftMode());
