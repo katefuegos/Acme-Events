@@ -57,7 +57,7 @@ public class ClubManagerController extends AbstractController {
 
 			result = this.createModelAndView(clubForm);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/club/manager/list.do");
+			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 		}
@@ -85,7 +85,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.save(club);
 
-				result = new ModelAndView("redirect:/club/manager/list.do");
+				result = new ModelAndView("redirect:/club/list.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(clubForm, "club.commit.error");
 			}
@@ -106,7 +106,7 @@ public class ClubManagerController extends AbstractController {
 			Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
 			Assert.notNull(club);
-			Assert.isTrue(club.getManager().equals(manager));
+			//	Assert.isTrue(club.getManager().equals(manager));
 
 			final ClubForm clubForm = new ClubForm();
 			clubForm.setId(club.getId());
@@ -122,7 +122,7 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/club/manager/list.do");
+			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
@@ -161,7 +161,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.save(club);
 
-				result = new ModelAndView("redirect:/club/manager/list.do");
+				result = new ModelAndView("redirect:/club/list.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(clubForm, "club.commit.error");
 			}
@@ -188,7 +188,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.delete(club);
 
-				result = new ModelAndView("redirect:/club/manager/list.do");
+				result = new ModelAndView("redirect:/club/list.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(clubForm, "club.commit.error");
 			}
@@ -225,7 +225,7 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/club/manager/list.do");
+			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)

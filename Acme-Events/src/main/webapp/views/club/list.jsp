@@ -41,6 +41,8 @@
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
 	<display:column property="pictures" titleKey="club.pictures" />
+
+	
 	<display:column>
 		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
 				code="club.showManager" />
@@ -64,6 +66,7 @@
 			</a>
 	</display:column>
 
+	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
