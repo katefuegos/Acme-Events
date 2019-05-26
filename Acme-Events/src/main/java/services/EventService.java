@@ -28,8 +28,10 @@ public class EventService {
 	@Autowired
 	private EventRepository	eventRepository;
 
-
 	// Services-------------------------------------------------
+	@Autowired
+	private ClientService	clientService;
+
 
 	// Constructor----------------------------------------------
 
@@ -124,6 +126,20 @@ public class EventService {
 	public Event findByParticipationForm(ParticipationEvent participation){
 		Assert.notNull(participation);
 		return eventRepository.findByParticipationForm(participation);
+	}
+
+	public Collection<Event> findOpinionable(final Client client) {
+		Collection<Event> result;
+
+		Assert.notNull(client, "opinion.client.null");
+
+		result = this.eventRepository.findByParticipation(client.getId());
+
+		final Collection<Event> result2 = this.eventRepository.findByOpinion(client.getId());
+
+		result.removeAll(result2);
+
+		return result;
 	}
 
 }

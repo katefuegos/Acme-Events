@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -77,11 +78,15 @@ public class EventClientController extends AbstractController {
 				events = this.eventService.findEventsByFollowerAndClub(client,
 						club);
 			}
+
+			final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
 			result = new ModelAndView("event/client/myList");
 
 			result.addObject("events", events);
 			result.addObject("searchForm", new SearchForm());
 			result.addObject("client", client);
+			result.addObject("lang", lang);
 			result.addObject("requestURI", "event/client/myList.do");
 
 			result.addObject("banner", this.configurationService.findAll()
@@ -176,6 +181,7 @@ public class EventClientController extends AbstractController {
 			final Client client = this.clientService
 					.findClientByUseraccount(LoginService.getPrincipal());
 			Assert.notNull(client);
+			final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 			if (events == null)
 				events = this.eventService.findEventsByFollower(client);
@@ -185,6 +191,7 @@ public class EventClientController extends AbstractController {
 			result.addObject("events", events);
 			result.addObject("searchForm", searchForm);
 			result.addObject("client", client);
+			result.addObject("lang", lang);
 			result.addObject("message", message);
 			result.addObject("requestURI", "event/client/myList.do");
 

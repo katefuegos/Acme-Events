@@ -159,6 +159,13 @@
 		<security:intercept-url pattern="/event/client/participate.do"
 			access="hasRole('CLIENT')" />
 
+			
+		<!-- Opinions -->
+		<security:intercept-url pattern="/opinion/client/list.do"
+			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/opinion/client/create.do"
+			access="hasRole('CLIENT')" />
+			
 		<!-- CreditCard -->
 		<security:intercept-url pattern="/creditCard/client/edit.do"
 			access="hasRole('CLIENT')" />

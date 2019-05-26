@@ -36,6 +36,8 @@
 		<value>/views/event/tiles.xml</value>
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/participationEvent/tiles.xml</value>
+		<value>/views/opinion/tiles.xml</value>
+		
 	</util:list>
 
 </beans>

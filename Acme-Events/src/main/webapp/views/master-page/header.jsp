@@ -85,6 +85,17 @@
 			<li><a class="fNiv" href="participationEvent/client/list.do"><spring:message
 						code="master.page.myParticipations" /></a></li>
 
+				
+			<li><a class="fNiv"><spring:message
+						code="master.page.opinion" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="opinion/client/list.do"><spring:message
+								code="master.page.opinion.list" /></a></li>
+					<li><a href="opinion/client/create.do"><spring:message
+								code="master.page.opinion.create" /></a></li>
+					
+				</ul></li>
 
 
 
