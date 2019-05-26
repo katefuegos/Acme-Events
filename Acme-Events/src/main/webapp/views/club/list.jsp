@@ -48,6 +48,12 @@
 				code="club.showManager" />
 		</a>
 	</display:column>
+	
+	<display:column>
+			<a href="club/manager/listFollows.do?clubId=${row.id}"> <spring:message
+					code="club.follow.list" />
+			</a>
+	</display:column>
 
 </display:table>
 
@@ -75,6 +81,16 @@
 		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
 				code="club.showManager" />
 		</a>
+	</display:column>
+	<display:column>
+			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
+					code="club.show" />
+			</a>
+	</display:column>
+	<display:column>
+			<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
+					code="club.follow.list" />
+			</a>
 	</display:column>
 
 </display:table>

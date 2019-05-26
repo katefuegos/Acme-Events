@@ -69,6 +69,9 @@
 		<security:intercept-url pattern="/club/manager/list.do"
 			access="hasRole('MANAGER')" />
 
+		<security:intercept-url pattern="/club/manager/listFollows.do"
+			access="hasRole('MANAGER')" />
+			
 		<!-- Manager -->
 
 		<security:intercept-url pattern="/manager/list.do"

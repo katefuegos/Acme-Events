@@ -1,6 +1,8 @@
 
 package controllers.Manager;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import services.ConfigurationService;
 import services.ManagerService;
 import controllers.AbstractController;
 import domain.Club;
+import domain.Follow;
 import domain.Manager;
 import forms.ClubManagerForm;
 
@@ -62,6 +65,21 @@ public class ClubManagerController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/listFollows", method = RequestMethod.GET)
+	public ModelAndView listFollows(final int clubId) {
+		final ModelAndView result;
+		final Club club = this.clubService.findOne(clubId);
+		final Collection<Follow> follows = club.getFollows();
+		result = new ModelAndView("club/manager/listFollows");
+
+		result.addObject("follows", follows);
+		result.addObject("requestURI", "club/manager/listFollows.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
