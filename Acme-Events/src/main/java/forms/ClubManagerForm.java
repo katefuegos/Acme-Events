@@ -20,7 +20,6 @@ public class ClubManagerForm {
 	private String	address;
 	private String	description;
 	private String	pictures;
-	private boolean	accepted;
 	private boolean	draftMode;
 	private Manager	manager;
 
@@ -59,15 +58,6 @@ public class ClubManagerForm {
 
 	public void setPictures(final String pictures) {
 		this.pictures = pictures;
-	}
-
-	@NotNull
-	public boolean isAccepted() {
-		return this.accepted;
-	}
-
-	public void setAccepted(final boolean accepted) {
-		this.accepted = accepted;
 	}
 
 	@NotNull
