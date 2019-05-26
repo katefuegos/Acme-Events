@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -24,14 +25,15 @@ public class ClubService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private ClubRepository clubRepository;
+	private ClubRepository	clubRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private FollowService followService;
+	private FollowService	followService;
 
 	@Autowired
-	private ClientService clientService;
+	private ClientService	clientService;
+
 
 	// Constructor----------------------------------------------
 
@@ -41,7 +43,7 @@ public class ClubService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Club create(final String authority) {
+	public Club create() {
 		final Club club = new Club();
 
 		return club;
@@ -87,12 +89,9 @@ public class ClubService {
 
 	public void followClub(final Club club) {
 
-		final Client client = this.clientService
-				.findClientByUseraccount(LoginService.getPrincipal());
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 		Assert.notNull(client);
-		Assert.isTrue(
-				this.findClubByClient(client.getId(), club.getId()) == null,
-				"club.error.follow.exist");
+		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) == null, "club.error.follow.exist");
 
 		final Follow follow = this.followService.create();
 		final Follow saved = this.followService.save(follow);
@@ -102,23 +101,28 @@ public class ClubService {
 
 	}
 
-	public void unFollowClub(final int followId) {
-		final Follow follow = this.followService.findOne(followId);
+	public void unFollowClub(final Club club) {
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.notNull(client);
+		Assert.notNull(club, "club.error.unexist");
+		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) != null, "club.error.follow.unexist");
+
+		// Seleccionamos el seguimiento
+		final Follow follow = this.followService.findFollowByClient(client.getId(), club.getId());
 		Assert.notNull(follow, "follow.error.unexist");
 
-		final Club club = this.findByFollow(followId);
-		Assert.notNull(club, "club.error.unexist");
-
+		//Eliminamos la relación con club
 		club.getFollows().remove(follow);
+		this.clubRepository.save(club);
 
+		//Borramos el seguimiento
 		this.followService.delete(follow);
 
-		this.save(club);
 	}
 
-	public void accept(Club club) {
+	public void accept(final Club club) {
 
-		UserAccount ua = LoginService.getPrincipal();
+		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		Assert.isTrue(ua.getAuthorities().toString().contains("ADMIN"));
 		Assert.notNull(club);
@@ -129,13 +133,13 @@ public class ClubService {
 
 		this.clubRepository.save(club);
 	}
-	
-	public void reject(ClubForm clubForm) {
 
-		UserAccount ua = LoginService.getPrincipal();
+	public void reject(final ClubForm clubForm) {
+
+		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		Assert.isTrue(ua.getAuthorities().toString().contains("ADMIN"));
-		Club club = findOne(clubForm.getId());
+		final Club club = this.findOne(clubForm.getId());
 		Assert.notNull(club);
 		Assert.isTrue(!club.isAccepted());
 		Assert.isTrue(club.getReasonReject() == null);
@@ -165,7 +169,7 @@ public class ClubService {
 		final Collection<Club> result = this.clubRepository.findByManagerId(managerId);
 		return result;
 	}
-	
+
 	public Collection<Club> findByManagerIdAndAcepted(final int managerId) {
 		final Collection<Club> result = this.clubRepository.findByManagerIdAndAccepted(managerId);
 		return result;

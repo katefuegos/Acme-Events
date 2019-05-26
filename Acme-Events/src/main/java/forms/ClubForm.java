@@ -8,29 +8,27 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Access(AccessType.PROPERTY)
-
 public class ClubForm {
 
-	// Identification ---------------------------------------------------------
-	// ATRIBUTOS
-	private int	id;
-	private String 	reasonReject;
-	
+	private int		id;
+	private String	reasonReject;
+
+
 	@NotNull
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	@NotBlank
 	public String getReasonReject() {
-		return reasonReject;
+		return this.reasonReject;
 	}
 
-	public void setReasonReject(String reasonReject) {
+	public void setReasonReject(final String reasonReject) {
 		this.reasonReject = reasonReject;
 	}
 }

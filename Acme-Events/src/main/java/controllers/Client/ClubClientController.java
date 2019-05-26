@@ -88,25 +88,25 @@ public class ClubClientController extends AbstractController {
 		return result;
 	}
 
-	//	@RequestMapping(value = "/unFollow", method = RequestMethod.GET)
-	//	public ModelAndView edit(final int clubId, final RedirectAttributes redirectAttrs) {
-	//		ModelAndView result;
-	//		Club club = null;
-	//
-	//		try {
-	//			club = this.clubService.findOne(clubId);
-	//			Assert.isTrue(club != null, "message.commit.error");
-	//
-	//			this.clubService.followClub(club);
-	//
-	//			result = this.list();
-	//		} catch (final Throwable e) {
-	//
-	//			result = new ModelAndView("redirect:/club/list.do");
-	//
-	//			redirectAttrs.addFlashAttribute("message", "message.commit.error");
-	//		}
-	//		return result;
-	//	}
+	@RequestMapping(value = "/unfollow", method = RequestMethod.GET)
+	public ModelAndView edit(final int clubId, final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		Club club = null;
+
+		try {
+			club = this.clubService.findOne(clubId);
+			Assert.notNull(club, "message.commit.error");
+
+			this.clubService.unFollowClub(club);
+
+			result = new ModelAndView("redirect:/club/client/myList.do");
+		} catch (final Throwable e) {
+
+			result = new ModelAndView("redirect:/club/list.do");
+
+			redirectAttrs.addFlashAttribute("message", "message.commit.error");
+		}
+		return result;
+	}
 
 }

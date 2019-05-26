@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ClientService;
 import services.ClubService;
 import services.ConfigurationService;
+import services.ManagerService;
 import domain.Club;
 
 @Controller
@@ -24,7 +24,7 @@ public class ClubController extends AbstractController {
 	private ClubService				clubService;
 
 	@Autowired
-	private ClientService			clientService;
+	private ManagerService			managerService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -37,14 +37,17 @@ public class ClubController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 
-		final Collection<Club> clubs = this.clubService.findClubsAccepted();
+		final Collection<Club> clubsAccepted = this.clubService.findClubsAccepted();
+		final Collection<Club> clubsCanceled = this.clubService.findClubsRejected();
 		result = new ModelAndView("club/list");
 
-		result.addObject("clubs", clubs);
+		result.addObject("clubsAccepted", clubsAccepted);
+		result.addObject("clubsCanceled", clubsCanceled);
 		result.addObject("requestURI", "club/list.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
+
 }

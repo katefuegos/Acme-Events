@@ -22,9 +22,51 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="clubs" id="row" requestURI="${requestURI}"
+<display:table name="clubsAccepted" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
+	
+	<display:column>
+			<a href="club/manager/edit.do?clubId=${row.id}"> <spring:message
+					code="club.edit" />
+			</a>
+	</display:column>
+	
+	<display:column>
+			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
+					code="club.show" />
+			</a>
+	</display:column>
+	
+	<display:column property="name" titleKey="club.name" />
+	<display:column property="address" titleKey="club.address" />
+	<display:column property="description" titleKey="club.description" />
+	<display:column property="pictures" titleKey="club.pictures" />
 
+	
+	<display:column>
+		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
+				code="club.showManager" />
+		</a>
+	</display:column>
+
+</display:table>
+
+<display:table name="clubsCanceled" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+	
+	<display:column>
+			<a href="club/manager/edit.do?clubId=${row.id}"> <spring:message
+					code="club.edit" />
+			</a>
+	</display:column>
+	
+	<display:column>
+			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
+					code="club.show" />
+			</a>
+	</display:column>
+
+	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
@@ -36,6 +78,10 @@
 	</display:column>
 
 </display:table>
+
+<a href="club/manager/create.do"> <spring:message
+					code="club.create" />
+</a>
 
 
 
