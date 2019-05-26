@@ -144,6 +144,8 @@
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/club/client/follow.do"
 			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/club/client/unfollow.do"
+			access="hasRole('CLIENT')" />
 
 
 		<!-- Events -->

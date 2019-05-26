@@ -48,14 +48,14 @@
 		</a>
 		
 	</display:column>
-
-	<%-- <security:authorize access="hasRole('CLIENT')">
+	
+		<security:authorize access="hasRole('CLIENT')">
 		<display:column>
-			<a href="club/client/unFollow.do"> <spring:message
-					code="club.client.unFollow" />
+			<a href="club/client/unfollow.do?clubId=${row.id}"> <spring:message
+					code="club.client.unfollow" />
 			</a>
 		</display:column>
-	</security:authorize> --%>
+	</security:authorize>
 
 
 </display:table>

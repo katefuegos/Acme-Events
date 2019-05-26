@@ -101,18 +101,23 @@ public class ClubService {
 
 	}
 
-	public void unFollowClub(final int followId) {
-		final Follow follow = this.followService.findOne(followId);
+	public void unFollowClub(final Club club) {
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.notNull(client);
+		Assert.notNull(club, "club.error.unexist");
+		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) != null, "club.error.follow.unexist");
+
+		// Seleccionamos el seguimiento
+		final Follow follow = this.followService.findFollowByClient(client.getId(), club.getId());
 		Assert.notNull(follow, "follow.error.unexist");
 
-		final Club club = this.findByFollow(followId);
-		Assert.notNull(club, "club.error.unexist");
-
+		//Eliminamos la relación con club
 		club.getFollows().remove(follow);
+		this.clubRepository.save(club);
 
+		//Borramos el seguimiento
 		this.followService.delete(follow);
 
-		this.save(club);
 	}
 
 	public void accept(final Club club) {

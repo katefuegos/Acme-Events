@@ -70,4 +70,12 @@ public class FollowService {
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Follow findFollowByClient(final int clientId, final int clubId) {
+		Follow result;
+
+		result = this.followRepository.findFollowByClient(clientId, clubId);
+
+		return result;
+	}
 }
