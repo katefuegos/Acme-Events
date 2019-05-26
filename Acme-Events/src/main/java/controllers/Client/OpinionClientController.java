@@ -1,6 +1,7 @@
 
 package controllers.Client;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import domain.Client;
 import domain.Event;
 import domain.Opinion;
 import forms.OpinionForm;
+import forms.OpinionForm2;
 
 @Controller
 @RequestMapping("/opinion/client")
@@ -57,9 +59,22 @@ public class OpinionClientController extends AbstractController {
 
 		final Collection<Opinion> opinions = this.opinionService.findByClient(client);
 
+		Collection<OpinionForm2> opinionsForms = new ArrayList<OpinionForm2>();
+		for (Opinion o : opinions) {
+			Event event = eventService.findByOpinionForm(o);
+			OpinionForm2 form = new OpinionForm2();
+			form.setDescription(o.getDescription());
+			form.setScore(o.getScore());
+			form.setTicker(event.getTicker());
+			form.setTitle(o.getTitle());
+			form.setTitleEvent(event.getTitle());
+			form.setMoment(o.getMoment());
+			opinionsForms.add(form);
+		}
+		
 		result = new ModelAndView("opinion/list");
 
-		result.addObject("opinions", opinions);
+		result.addObject("opinionsForms", opinionsForms);
 		result.addObject("requestURI", "opinion/client/list.do");
 
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());

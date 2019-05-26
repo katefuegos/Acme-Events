@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import domain.Event;
+import domain.Opinion;
 import domain.ParticipationEvent;
 
 @Repository
@@ -29,10 +30,14 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
 	@Query("select f from Event f where ?1 member of f.participationsEvent")
 	Event findByParticipationForm(ParticipationEvent participation);
+	
 	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1")
 	Collection<Event> findByParticipation(int clientId);
 
 	@Query("select e from Event e join e.opinions o where o.client.id = ?1")
 	Collection<Event> findByOpinion(int clientId);
+	
+	@Query("select f from Event f where ?1 member of f.opinions")
+	Event findByOpinionForm(Opinion opinion);
 
 }

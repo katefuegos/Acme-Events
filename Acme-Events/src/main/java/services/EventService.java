@@ -16,6 +16,7 @@ import repositories.EventRepository;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import domain.Opinion;
 import domain.ParticipationEvent;
 import forms.SearchForm;
 
@@ -140,6 +141,11 @@ public class EventService {
 		result.removeAll(result2);
 
 		return result;
+	}
+	
+	public Event findByOpinionForm(Opinion opinion){
+		Assert.notNull(opinion);
+		return eventRepository.findByOpinionForm(opinion);
 	}
 
 }

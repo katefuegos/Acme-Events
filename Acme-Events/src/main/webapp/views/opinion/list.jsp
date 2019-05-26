@@ -22,9 +22,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="opinions" id="row" requestURI="${requestURI}"
+<display:table name="opinionsForms" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
+	<display:column property="ticker" titleKey="opinion.ticker" />
+	<display:column property="titleEvent" titleKey="opinion.titleEvent" />
 	<display:column property="title" titleKey="opinion.title" />
 	<display:column property="description" titleKey="opinion.description" />
 	<display:column property="score" titleKey="opinion.score" />

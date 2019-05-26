@@ -20,7 +20,7 @@ public class OpinionForm {
 	// Attributes -----------------------------------------------------
 	private String	title;
 	private String	description;
-	private String	score;
+	private int	score;
 
 
 	@NotBlank
@@ -43,11 +43,11 @@ public class OpinionForm {
 
 	@NotNull
 	@Range(min = 0, max = 10)
-	public String getScore() {
+	public int getScore() {
 		return this.score;
 	}
 
-	public void setScore(final String score) {
+	public void setScore(final int score) {
 		this.score = score;
 	}
 
