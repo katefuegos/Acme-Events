@@ -24,8 +24,6 @@
 	<form:hidden path="id" />
 	<form:hidden path="manager" />
 	
-	
-
 	<acme:textbox code="club.name" path="name"/>
 	<acme:textbox code="club.address" path="address"/>
 	<acme:textbox code="club.description" path="description"/>
