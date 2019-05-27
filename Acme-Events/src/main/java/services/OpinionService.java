@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.OpinionRepository;
 import security.LoginService;
 import domain.Client;
+import domain.Manager;
 import domain.Opinion;
 
 @Service
@@ -72,6 +73,11 @@ public class OpinionService {
 	// Other Methods--------------------------------------------
 	public Collection<Opinion> findByClient(final Client client) {
 		return this.opinionRepository.findByClient(client.getId());
+
+	}
+
+	public Collection<Opinion> findByManager(final Manager manager) {
+		return this.opinionRepository.findByManager(manager.getId());
 
 	}
 

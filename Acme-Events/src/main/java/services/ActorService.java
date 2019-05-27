@@ -109,6 +109,10 @@ public class ActorService {
 		return this.actorRepository.findByUserAccountId(id);
 	}
 
+	public Collection<Actor> findSuspiciousActors() {
+		return this.actorRepository.findSuspiciousActors();
+	}
+
 	public void ban(final Actor actor) {
 		actor.setIsBanned(true);
 		actor.getUserAccount().setEnabled(false);

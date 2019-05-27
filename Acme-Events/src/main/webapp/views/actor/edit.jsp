@@ -33,12 +33,12 @@
 	<form:hidden path="auth" />
 
 
-	<acme:textbox code="actor.name" path="name" />
-	<acme:textbox code="actor.surnames" path="surname" />
-	<acme:textbox code="actor.middlename" path="middleName" />
+	<acme:textbox code="actor.name" path="name"  readonly="${isRead}"/>
+	<acme:textbox code="actor.surnames" path="surname" readonly="${isRead}"/>
+	<acme:textbox code="actor.middlename" path="middleName" readonly="${isRead}"/>
 
-	<acme:textbox code="actor.photo" path="photo" />
-	<acme:textbox code="actor.email" path="email" />
+	<acme:textbox code="actor.photo" path="photo" readonly="${isRead}"/>
+	<acme:textbox code="actor.email" path="email" readonly="${isRead}"/>
 	<form:label path="phone">
 		<spring:message code="actor.phone" />
 	</form:label>
@@ -54,7 +54,7 @@
 	</jstl:if>
 
 	<jstl:if test="${actorForm.auth == 'CLIENT' }">
-		<acme:textbox code="actor.dni" path="DNI" />
+		<acme:textbox code="actor.dni" path="DNI" readonly="${isRead}"/>
 	</jstl:if>
 	
 

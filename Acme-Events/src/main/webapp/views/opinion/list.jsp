@@ -20,8 +20,9 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
+<security:authorize access="hasRole('CLIENT')">
 <display:table name="opinionsForms" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
@@ -37,7 +38,38 @@
 <a href="opinion/client/create.do"> <spring:message
 					code="opinion.create" />
 </a>
+</security:authorize>
+
+<security:authorize access="hasRole('MANAGER')">
+
+<display:table name="opinionsForms" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+	
+	<display:column property="event.ticker" titleKey="opinion.ticker" />
+	<display:column property="event.title" titleKey="opinion.titleEvent" />
+	<display:column property="event.club.name" titleKey="opinion.club" />
+	<display:column property="title" titleKey="opinion.title" />
+	<display:column property="description" titleKey="opinion.description" />
+	<display:column property="score" titleKey="opinion.score" />
+	<display:column property="moment" titleKey="opinion.moment" />
+	
+</display:table>
+
+<h3>
+	<spring:message code="opinion.events.size" />
+</h3>
+
+<display:table name="events" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+	
+	<display:column property="ticker" titleKey="opinion.ticker" />
+	<display:column property="title" titleKey="opinion.titleEvent" />
+	<display:column property="club.name" titleKey="opinion.club" />
+	<display:column  titleKey="opinion.number" >
+		<jstl:out value="${fn:length(row.opinions) }"/>
+	</display:column>
+</display:table>
 
 
 
-
+</security:authorize>

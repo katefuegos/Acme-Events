@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -28,17 +30,21 @@ public class MessageService {
 	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private MessageRepository messageRepository;
+	private MessageRepository		messageRepository;
 
 	// Services---------------------------------------------------------------------------
 	@Autowired
-	private BoxService boxService;
+	private BoxService				boxService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Constructor------------------------------------------------------------------------
 
@@ -52,8 +58,7 @@ public class MessageService {
 	public Message create() {
 		final Message message = new Message();
 		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount,
-				"Debe estar logeado en el sistema para crear una carpeta");
+		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
 
 		final String subject = "";
@@ -61,8 +66,7 @@ public class MessageService {
 		final String priority = "LOW";
 		final String tags = "";
 
-		final Box box = this.boxService.findBoxByActorIdAndName(actor.getId(),
-				"out box");
+		final Box box = this.boxService.findBoxByActorIdAndName(actor.getId(), "out box");
 		final Actor sender = actor;
 		// final Actor recipient = this.actorService.create();
 
@@ -90,6 +94,7 @@ public class MessageService {
 
 	public Message save(final Message message) {
 		this.checkPriorities(message);
+		final boolean isSpam = this.isSpam(message);
 
 		final Actor sender = message.getSender();
 		final Actor recipient = message.getRecipient();
@@ -103,20 +108,23 @@ public class MessageService {
 		messageRecipient.setSender(sender);
 		messageRecipient.setRecipient(recipient);
 
-		final Box outBoxSender = this.boxService.findBoxByActorIdAndName(
-				sender.getId(), "out box");
-		Assert.notNull(outBoxSender,
-				"NULL OUT BOX\ncada actor debe tener debe tener un out Box");
+		final Box outBoxSender = this.boxService.findBoxByActorIdAndName(sender.getId(), "out box");
+		Assert.notNull(outBoxSender, "NULL OUT BOX\ncada actor debe tener debe tener un out Box");
 		messageSend.setBox(outBoxSender);
 
+		Box spamBoxRecipient;
 		Box inBoxRecipient;
+		if (isSpam) {
+			spamBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
+			Assert.notNull(spamBoxRecipient, "NULL SPAM BOX\nCada actor debe tener un spam box");
+			messageRecipient.setBox(spamBoxRecipient);
+			this.administratorService.isSuspicious(sender);
 
-		inBoxRecipient = this.boxService.findBoxByActorIdAndName(
-				recipient.getId(), "in box");
-		Assert.notNull(inBoxRecipient,
-				"NULL IN BOX\nCada actor debe tener un in box");
-		messageRecipient.setBox(inBoxRecipient);
-
+		} else {
+			inBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
+			Assert.notNull(inBoxRecipient, "NULL IN BOX\nCada actor debe tener un in box");
+			messageRecipient.setBox(inBoxRecipient);
+		}
 		final Collection<Message> messages = new ArrayList<>();
 		messages.add(messageRecipient);
 		messages.add(messageSend);
@@ -133,8 +141,7 @@ public class MessageService {
 		if (box.getName().equals("trash box"))
 			this.messageRepository.delete(entity);
 		else {
-			final Box trash = this.boxService.findBoxByActorIdAndName(
-					actor.getId(), "trash box");
+			final Box trash = this.boxService.findBoxByActorIdAndName(actor.getId(), "trash box");
 			Assert.notNull(trash, "Todo actor debe tener un trash box");
 			entity.setBox(trash);
 			this.messageRepository.save(entity);
@@ -143,15 +150,11 @@ public class MessageService {
 	}
 
 	public void deleteByBox(final Box box) {
-		if (this.messageRepository.findByBoxId(box.getId()) != null
-				|| !this.messageRepository.findByBoxId(box.getId()).isEmpty()) {
+		if (this.messageRepository.findByBoxId(box.getId()) != null || !this.messageRepository.findByBoxId(box.getId()).isEmpty()) {
 			final Collection<Message> messages = new LinkedList<>();
-			final Actor actor = this.actorService
-					.findByUserAccount(LoginService.getPrincipal());
-			final Box trash = this.boxService.findBoxByActorIdAndName(
-					actor.getId(), "trash box");
-			for (final Message entity : this.messageRepository.findByBoxId(box
-					.getId())) {
+			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			final Box trash = this.boxService.findBoxByActorIdAndName(actor.getId(), "trash box");
+			for (final Message entity : this.messageRepository.findByBoxId(box.getId())) {
 				Assert.notNull(trash, "Todo actor debe tener un trash box");
 				entity.setBox(trash);
 				messages.add(entity);
@@ -166,8 +169,7 @@ public class MessageService {
 	public Collection<Message> findByBox(final Box box) {
 		Assert.notNull(box, "findByBox - Box must not be null");
 
-		final Collection<Message> result = this.messageRepository
-				.findByBoxId(box.getId());
+		final Collection<Message> result = this.messageRepository.findByBoxId(box.getId());
 
 		return result;
 
@@ -176,10 +178,8 @@ public class MessageService {
 	public Message moveMessage(final Message message, final Box newBox) {
 		final Message oldMessage = this.findOne(message.getId());
 
-		final int actorId = this.actorService.findByUserAccountId(
-				LoginService.getPrincipal().getId()).getId();
-		final Collection<Box> boxes = this.boxService
-				.findBoxesByActorId(actorId);
+		final int actorId = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()).getId();
+		final Collection<Box> boxes = this.boxService.findBoxesByActorId(actorId);
 		Assert.isTrue(boxes.contains(oldMessage.getBox()));
 
 		this.checkPrincipal(message);
@@ -196,14 +196,12 @@ public class MessageService {
 		this.checkPriorities(message);
 		final UserAccount userAccount = LoginService.getPrincipal();
 
-		Assert.notNull(userAccount,
-				"Debe estar logeado en el sistema para crear una carpeta");
+		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
 
 		final Authority authority = new Authority();
 		authority.setAuthority("ADMIN");
 
-		Assert.isTrue(userAccount.getAuthorities().contains(authority),
-				"Solo los administradores pueden realizar mensajes de difusión");
+		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusión");
 
 		// final Collection<Actor> allActor = this.actorService.findAll();
 		final Collection<Actor> allActor = this.actorService.findAll();
@@ -214,9 +212,11 @@ public class MessageService {
 			final Message message2 = this.copyMessage(message);
 			message2.setRecipient(recipient);
 			Box box;
-
-			box = this.boxService.findBoxByActorIdAndName(recipient.getId(),
-					"notification box");
+			if (this.isSpam(message2)) {
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
+				this.administratorService.isSuspicious(message.getSender());
+			} else
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "notification box");
 			message2.setBox(box);
 			messages.add(message2);
 
@@ -230,14 +230,12 @@ public class MessageService {
 		this.checkPriorities(message);
 		final UserAccount userAccount = LoginService.getPrincipal();
 
-		Assert.notNull(userAccount,
-				"Debe estar logeado en el sistema para crear una carpeta");
+		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
 
 		final Authority authority = new Authority();
 		authority.setAuthority("ADMIN");
 
-		Assert.isTrue(userAccount.getAuthorities().contains(authority),
-				"Solo los administradores pueden realizar mensajes de difusión");
+		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusión");
 
 		final Collection<Actor> allActor = this.actorService.findAll();
 
@@ -248,8 +246,7 @@ public class MessageService {
 			message2.setRecipient(recipient);
 			Box box;
 
-			box = this.boxService.findBoxByActorIdAndName(recipient.getId(),
-					"notification box");
+			box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "notification box");
 			message2.setBox(box);
 			messages.add(message2);
 
@@ -274,30 +271,45 @@ public class MessageService {
 
 	public Actor checkPrincipal(final Message message) {
 		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount,
-				"Debe estar logeado para modificar o borrar un mensaje");
+		Assert.notNull(userAccount, "Debe estar logeado para modificar o borrar un mensaje");
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
-		Assert.isTrue(message.getSender().equals(actor)
-				|| message.getRecipient().equals(actor),
-				"Un actor solo puede ver sus mensajes");
+		Assert.isTrue(message.getSender().equals(actor) || message.getRecipient().equals(actor), "Un actor solo puede ver sus mensajes");
 		return actor;
 	}
 
 	private boolean checkPriorities(final Message message) {
 		boolean result = false;
 
-		final Configuration configuration = this.configurationService.findAll()
-				.iterator().next();
+		final Configuration configuration = this.configurationService.findAll().iterator().next();
 
 		result = configuration.getPriorities().contains(message.getPriority());
-		Assert.isTrue(result,
-				"MessageService Error -- The priority of message isn't valid");
+		Assert.isTrue(result, "MessageService Error -- The priority of message isn't valid");
 		return result;
 	}
 
 	public Collection<Message> findSentMessage(final Actor a) {
-		final Collection<Message> result = this.messageRepository
-				.findSentMessage(a.getId());
+		final Collection<Message> result = this.messageRepository.findSentMessage(a.getId());
+		return result;
+	}
+
+	private boolean isSpam(final Message message) {
+		boolean result = false;
+		final Configuration configuration = this.configurationService.findOne();
+		final Map<String, Collection<String>> spamWords = configuration.getSpamWords();
+
+		final Collection<String> keySet = spamWords.keySet();
+
+		for (final String key : keySet) {
+			final Collection<String> spamList = spamWords.get(key);
+			for (final String spamWord : spamList)
+				if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord) || message.getTags().contains(spamWord)) {
+					result = true;
+					break;
+				}
+			if (result == true)
+				break;
+		}
+
 		return result;
 	}
 

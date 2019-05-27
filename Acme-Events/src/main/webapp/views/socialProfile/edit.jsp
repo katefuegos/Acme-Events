@@ -31,7 +31,7 @@
 	
 	<jstl:if test="${isRead == false}">
 		<acme:submit name="save" code="socialProfile.save" />
-		<jstl:if test="${id != 0}">
+		<jstl:if test="${socialProfileForm.id != 0}">
 			<acme:delete confirmDelete="socialProfile.confirm.delete" name="delete"
 				code="socialProfile.delete" />
 

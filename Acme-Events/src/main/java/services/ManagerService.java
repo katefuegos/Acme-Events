@@ -76,6 +76,11 @@ public class ManagerService {
 	}
 
 	// Other Methods--------------------------------------------
+	public Manager isSuspicious(final Manager manager) {
+		final Manager saved = this.managerRepository.save(manager);
+
+		return saved;
+	}
 
 	public Manager findManagerByUserAccount(final int userAccountId) {
 		final Manager manager = this.managerRepository.findManagerByUserAccount(userAccountId);

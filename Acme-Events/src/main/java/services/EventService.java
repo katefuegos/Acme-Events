@@ -16,6 +16,7 @@ import repositories.EventRepository;
 import domain.Client;
 import domain.Club;
 import domain.Event;
+import domain.Manager;
 import domain.Opinion;
 import domain.ParticipationEvent;
 import forms.SearchForm;
@@ -148,6 +149,7 @@ public class EventService {
 		return this.eventRepository.findByOpinionForm(opinion);
 	}
 
+<<<<<<< HEAD
 	public Collection<Event> findEventsByClub(final int clubId) {
 		Collection<Event> result;
 
@@ -156,6 +158,11 @@ public class EventService {
 		result = this.eventRepository.findEventsByClub(clubId);
 
 		return result;
+=======
+	public Collection<Event> findByManager(final Manager manager) {
+		Assert.notNull(manager);
+		return this.eventRepository.findByManager(manager.getId());
+>>>>>>> bf2b366174e7e8193bd8a7e0385597539a7dc091
 	}
 
 }

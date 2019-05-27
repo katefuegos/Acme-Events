@@ -64,6 +64,17 @@
 				</ul></li>
 		</security:authorize>
 
+		<security:authorize access="hasRole('MANAGER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.opinion" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="opinion/manager/list.do"><spring:message
+								code="master.page.opinion.list" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="hasRole('CLIENT')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.follows.unfollows" /></a>
@@ -85,7 +96,7 @@
 			<li><a class="fNiv" href="participationEvent/client/list.do"><spring:message
 						code="master.page.myParticipations" /></a></li>
 
-				
+
 			<li><a class="fNiv"><spring:message
 						code="master.page.opinion" /></a>
 				<ul>
@@ -94,7 +105,7 @@
 								code="master.page.opinion.list" /></a></li>
 					<li><a href="opinion/client/create.do"><spring:message
 								code="master.page.opinion.create" /></a></li>
-					
+
 				</ul></li>
 
 
@@ -102,6 +113,11 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('ADMIN')">
+
+			<li><a href="dashboard/administrator/dashboard.do"><spring:message
+						code="master.page.administrator.dashboard" /></a> <br></li>
+			<li><a href="actor/administrator/list.do"><spring:message
+						code="master.page.administrator.actors" /></a></li>
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>

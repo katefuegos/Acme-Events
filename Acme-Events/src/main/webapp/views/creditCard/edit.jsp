@@ -28,7 +28,7 @@
 <form:form action="${requestURI}" modelAttribute="creditCardForm">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	
+
 	<acme:textbox code="creditcard.holderName" path="holderName" />
 	<acme:textbox code="creditcard.brandName" path="brandName" />
 	<acme:textbox code="creditcard.number" path="number" />
@@ -41,9 +41,12 @@
 		<br />
 		<input type="submit" name="save"
 			value='<spring:message code="creditcard.save"/>'>
-		<input type="submit" name="delete"
-			value='<spring:message code="box.delete"/>'>
 
+		<jstl:if test="${creditCardForm.id != 0}">
+			<input type="submit" name="delete"
+				value='<spring:message code="box.delete"/>'>
+		</jstl:if>
+		
 		<acme:cancel url="welcome/index.do" code="creditcard.cancel" />
 		<br />
 	</jstl:if>
