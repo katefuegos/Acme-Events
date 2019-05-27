@@ -54,6 +54,12 @@
 					code="club.follow.list" />
 			</a>
 	</display:column>
+	
+	<display:column>
+			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
+					code="club.event.list" />
+			</a>
+	</display:column>
 
 </display:table>
 
@@ -90,6 +96,11 @@
 	<display:column>
 			<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
 					code="club.follow.list" />
+			</a>
+	</display:column>
+	<display:column>
+			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
+					code="club.event.list" />
 			</a>
 	</display:column>
 

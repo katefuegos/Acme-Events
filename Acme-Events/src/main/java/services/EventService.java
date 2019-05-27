@@ -42,7 +42,7 @@ public class EventService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Event create(final String authority) {
+	public Event create() {
 		final Event event = new Event();
 
 		return event;
@@ -61,7 +61,7 @@ public class EventService {
 		final Event saved = this.eventRepository.save(event);
 		return saved;
 	}
-	
+
 	public Event participate(final Event event) {
 		Assert.notNull(event);
 		final Event saved = this.eventRepository.save(event);
@@ -123,10 +123,10 @@ public class EventService {
 
 		return result;
 	}
-	
-	public Event findByParticipationForm(ParticipationEvent participation){
+
+	public Event findByParticipationForm(final ParticipationEvent participation) {
 		Assert.notNull(participation);
-		return eventRepository.findByParticipationForm(participation);
+		return this.eventRepository.findByParticipationForm(participation);
 	}
 
 	public Collection<Event> findOpinionable(final Client client) {
@@ -142,10 +142,20 @@ public class EventService {
 
 		return result;
 	}
-	
-	public Event findByOpinionForm(Opinion opinion){
+
+	public Event findByOpinionForm(final Opinion opinion) {
 		Assert.notNull(opinion);
-		return eventRepository.findByOpinionForm(opinion);
+		return this.eventRepository.findByOpinionForm(opinion);
+	}
+
+	public Collection<Event> findEventsByClub(final int clubId) {
+		Collection<Event> result;
+
+		Assert.notNull(clubId);
+
+		result = this.eventRepository.findEventsByClub(clubId);
+
+		return result;
 	}
 
 }
