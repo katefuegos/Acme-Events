@@ -164,6 +164,9 @@
 
 			
 		<!-- Opinions -->
+		<security:intercept-url pattern="/opinion/manager/list.do"
+			access="hasRole('MANAGER')" />
+		
 		<security:intercept-url pattern="/opinion/client/list.do"
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/opinion/client/create.do"
@@ -182,6 +185,10 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/administrator/create.do"
 			access="hasRole('ADMIN')" />
+			
+		<!-- DASHBOARD -->
+		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
+			access="hasRole('ADMIN')" />	
 
 		<!-- Register -->
 

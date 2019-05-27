@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
+import domain.Club;
 
 @Service
 @Transactional
@@ -85,6 +86,62 @@ public class AdministratorService {
 
 	public Administrator findAdminByUsername(final String username) {
 		return this.administratorRepository.findAdminByUsername(username);
+	}
+
+	public Object[] queryC1() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryC1();
+
+		return result;
+	}
+
+	public Object[] queryC2() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryC2();
+
+		return result;
+	}
+
+	public Object[] queryC3() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryC3();
+
+		return result;
+	}
+
+	public Object[] queryC4() {
+		Object[] result = null;
+
+		result = this.administratorRepository.queryC4();
+
+		return result;
+	}
+
+	public Double queryC5() {
+		Double result = null;
+
+		result = this.administratorRepository.queryC5();
+
+		return result;
+	}
+
+	public Double queryC6() {
+		Double result = null;
+
+		result = this.administratorRepository.queryC6();
+
+		return result;
+	}
+
+	public Collection<Club> queryC7() {
+		Collection<Club> result = null;
+
+		result = this.administratorRepository.queryC7();
+
+		return result;
 	}
 
 }

@@ -14,4 +14,7 @@ public interface OpinionRepository extends JpaRepository<Opinion, Integer> {
 
 	@Query("select o from Opinion o where o.client.id = ?1")
 	Collection<Opinion> findByClient(int clientId);
+
+	@Query("select o from Event e join e.opinions o where e.club.manager.id = ?1")
+	Collection<Opinion> findByManager(int managerId);
 }
