@@ -188,6 +188,16 @@
 			
 		<!-- DASHBOARD -->
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
+			access="hasRole('ADMIN')" />
+			
+		<!-- Ban/Unban -->	
+		<security:intercept-url pattern="/actor/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/actor/administrator/ban.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/actor/administrator/unban.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/actor/administrator/show.do"
 			access="hasRole('ADMIN')" />	
 
 		<!-- Register -->

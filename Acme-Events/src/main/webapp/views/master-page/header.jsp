@@ -116,7 +116,8 @@
 
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a> <br></li>
-
+			<li><a href="actor/administrator/list.do"><spring:message
+						code="master.page.administrator.actors" /></a></li>
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>

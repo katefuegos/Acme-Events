@@ -15,7 +15,14 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
 
-<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
+
+<p><jstl:out value="${welomeMessage }" /></p>
+
+<p>
+	<jstl:if test="${moment!=null}">
+		<spring:message code="welcome.greeting.current.time" />
+	${moment}</jstl:if>
+</p>

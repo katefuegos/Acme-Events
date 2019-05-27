@@ -74,6 +74,12 @@ public class ClientService {
 
 	// Other Methods--------------------------------------------
 
+	public Client isSuspicious(final Client client) {
+		final Client saved = this.clientRepository.save(client);
+
+		return saved;
+	}
+
 	public Client findClientByUseraccount(final UserAccount userAccount) {
 		return this.clientRepository.findClientByUserAccount(userAccount.getId());
 

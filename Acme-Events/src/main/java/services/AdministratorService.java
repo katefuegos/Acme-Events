@@ -15,6 +15,7 @@ import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Administrator;
 import domain.Club;
 
@@ -27,8 +28,14 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	administratorRepository;
 
-
 	//Services-------------------------------------------------
+
+	@Autowired
+	private ManagerService			managerService;
+
+	@Autowired
+	private ClientService			clientService;
+
 
 	//Constructor----------------------------------------------
 
@@ -78,6 +85,37 @@ public class AdministratorService {
 	}
 
 	//Other Methods--------------------------------------------
+
+	public Actor isSuspicious(final Actor actor) {
+		Actor result = null;
+		final UserAccount userAccount = actor.getUserAccount();
+		final Authority authority = userAccount.getAuthorities().iterator().next();
+
+		switch (authority.getAuthority()) {
+		case "ADMIN":
+			final Administrator administrator = this.findByUseraccount(userAccount);
+			administrator.setIsSuspicious(true);
+			result = this.isSuspicious(administrator);
+			break;
+		case "CLIENT":
+			final domain.Client client = this.clientService.findClientByUseraccount(userAccount);
+			client.setIsSuspicious(true);
+			result = this.clientService.isSuspicious(client);
+
+			break;
+		case "MANAGER":
+			final domain.Manager manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			manager.setIsSuspicious(true);
+			result = this.managerService.isSuspicious(manager);
+			break;
+		}
+		return result;
+	}
+	public Administrator isSuspicious(final Administrator administrator) {
+		final Administrator saved = this.administratorRepository.save(administrator);
+
+		return saved;
+	}
 
 	public Administrator findByUseraccount(final UserAccount userAccount) {
 		return this.administratorRepository.findAdministratorByUserAccount(userAccount.getId());

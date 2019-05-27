@@ -12,6 +12,7 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -29,7 +30,8 @@ public class WelcomeController extends AbstractController {
 	// Services
 
 	@Autowired
-	ConfigurationService configurationService;
+	ConfigurationService	configurationService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -40,18 +42,23 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(
-			@RequestParam(required = false, defaultValue = "John Doe") final String name) {
+	public ModelAndView index(@RequestParam(required = false, defaultValue = "Acme Events") final String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
 
-		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		final Map<String, String> welcomeMessages = this.configurationService.findOne().getWelcomeMessage();
+		final String welcomeMessage = this.configurationService.internacionalizcion(welcomeMessages);
+		final String banner = this.configurationService.findOne().getBanner();
+
+		formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
+		result.addObject("banner", banner);
 		result.addObject("moment", moment);
+		result.addObject("welomeMessage", welcomeMessage);
 
 		return result;
 	}
@@ -60,14 +67,11 @@ public class WelcomeController extends AbstractController {
 	public ModelAndView terms() {
 
 		ModelAndView result;
-		String lang = LocaleContextHolder.getLocale().getLanguage().toString()
-				.toUpperCase();
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toString().toUpperCase();
 		result = new ModelAndView("misc/terms");
 		result.addObject("lang", lang);
-		result.addObject("banner", this.configurationService.findAll()
-				.iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll()
-				.iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
