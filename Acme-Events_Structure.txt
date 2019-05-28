@@ -6,6 +6,10 @@ UNAUTHENTICATED:
 							
 ----------> LIST CLUBS 
 							----------> DISPLAY MANAGER
+							----------> LIST EVENTS
+
+----------> LIST EVENTS 
+							----------> DISPLAY CLUB
 							
 ----------> LIST MANAGERS   
 							----------> LIST SOCIAL PROFILES
