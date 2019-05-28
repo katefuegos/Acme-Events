@@ -1,6 +1,8 @@
 
 package controllers.Manager;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import services.ConfigurationService;
 import services.ManagerService;
 import controllers.AbstractController;
 import domain.Club;
+import domain.Follow;
 import domain.Manager;
 import forms.ClubManagerForm;
 
@@ -60,7 +63,23 @@ public class ClubManagerController extends AbstractController {
 			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
+
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/listFollows", method = RequestMethod.GET)
+	public ModelAndView listFollows(final int clubId) {
+		final ModelAndView result;
+		final Club club = this.clubService.findOne(clubId);
+		final Collection<Follow> follows = club.getFollows();
+		result = new ModelAndView("club/manager/listFollows");
+
+		result.addObject("follows", follows);
+		result.addObject("requestURI", "club/manager/listFollows.do");
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -76,7 +95,6 @@ public class ClubManagerController extends AbstractController {
 				final Club club = this.clubService.create();
 				club.setAddress(clubManagerForm.getAddress());
 				club.setDescription(clubManagerForm.getDescription());
-				club.setDraftMode(clubManagerForm.isDraftMode());
 				club.setDraftMode(clubManagerForm.isDraftMode());
 				club.setManager(clubManagerForm.getManager());
 				club.setName(clubManagerForm.getName());
@@ -105,7 +123,7 @@ public class ClubManagerController extends AbstractController {
 			Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
 			Assert.notNull(club);
-			//	Assert.isTrue(club.getManager().equals(manager));
+			Assert.isTrue(club.isDraftMode());
 
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
 			clubManagerForm.setId(club.getId());
@@ -125,8 +143,8 @@ public class ClubManagerController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
 				redirectAttrs.addFlashAttribute("message", "club.error.unexist");
-			else if (!club.getManager().equals(manager))
-				redirectAttrs.addFlashAttribute("message", "club.error.notFromManager");
+			else if (!club.isDraftMode())
+				redirectAttrs.addFlashAttribute("message", "club.error.notDraft");
 		}
 		return result;
 	}
@@ -146,8 +164,6 @@ public class ClubManagerController extends AbstractController {
 				Assert.notNull(manager);
 				club = this.clubService.findOne(clubManagerForm.getId());
 				Assert.notNull(club);
-				Assert.isTrue(club.getManager().equals(manager));
-
 				club.setAddress(clubManagerForm.getAddress());
 				club.setDescription(clubManagerForm.getDescription());
 				club.setDraftMode(clubManagerForm.isDraftMode());

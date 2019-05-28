@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,6 +104,8 @@ public class CreditCardClientController extends AbstractController {
 		ModelAndView result;
 
 		try {
+			Assert.isTrue(creditCardForm.getId() != 0);
+
 			final CreditCard creditCard = this.reconstruct(creditCardForm);
 
 			this.creditCardService.delete(creditCard);
@@ -150,17 +153,28 @@ public class CreditCardClientController extends AbstractController {
 
 	protected CreditCardForm construct(final CreditCard creditCard) {
 		final CreditCardForm result = new CreditCardForm();
+		if (creditCard == null) {
+			result.setId(0);
+			result.setVersion(0);
 
-		result.setId(creditCard.getId());
-		result.setVersion(creditCard.getVersion());
+			result.setHolderName("");
+			result.setBrandName("");
+			result.setNumber("");
+			result.setExpirationMonth("");
+			result.setExpirationYear("");
+			result.setCVVCode("");
 
-		result.setHolderName(creditCard.getHolderName());
-		result.setBrandName(creditCard.getBrandName());
-		result.setNumber(creditCard.getNumber());
-		result.setExpirationMonth(String.valueOf(creditCard.getExpirationMonth()));
-		result.setExpirationYear(String.valueOf(creditCard.getExpirationYear()));
-		result.setCVVCode(String.valueOf(creditCard.getCVVCode()));
+		} else {
+			result.setId(creditCard.getId());
+			result.setVersion(creditCard.getVersion());
 
+			result.setHolderName(creditCard.getHolderName());
+			result.setBrandName(creditCard.getBrandName());
+			result.setNumber(creditCard.getNumber());
+			result.setExpirationMonth(String.valueOf(creditCard.getExpirationMonth()));
+			result.setExpirationYear(String.valueOf(creditCard.getExpirationYear()));
+			result.setCVVCode(String.valueOf(creditCard.getCVVCode()));
+		}
 		return result;
 	}
 	protected CreditCard reconstruct(final CreditCardForm creditCardForm) {

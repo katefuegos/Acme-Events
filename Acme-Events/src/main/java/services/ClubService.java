@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.ClubRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.ApplicationClub;
 import domain.Client;
 import domain.Club;
 import domain.Follow;
@@ -45,7 +47,13 @@ public class ClubService {
 
 	public Club create() {
 		final Club club = new Club();
-
+		final String reasonReject = "";
+		final Collection<Follow> follows = new ArrayList<Follow>();
+		final Collection<ApplicationClub> appclubs = new ArrayList<ApplicationClub>();
+		club.setFollows(follows);
+		club.setApplicationsClub(appclubs);
+		club.setDraftMode(true);
+		club.setReasonReject(reasonReject);
 		return club;
 	}
 

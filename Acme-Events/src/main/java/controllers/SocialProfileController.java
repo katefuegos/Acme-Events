@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import security.Authority;
 import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
@@ -192,8 +193,15 @@ public class SocialProfileController extends AbstractController {
 		Actor actor = null;
 
 		try {
+
 			socialProfile = this.socialProfileService.findOne(socialProfileId);
 			actor = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			final Authority a = new Authority();
+			a.setAuthority(Authority.CLIENT);
+
+			if (actor.getUserAccount().getAuthorities().contains(a))
+				Assert.isTrue(actor.getId() == socialProfile.getActor().getId());
+
 			Assert.notNull(socialProfile);
 			final SocialProfileForm socialProfileForm = new SocialProfileForm();
 			socialProfileForm.setId(socialProfile.getId());
@@ -211,10 +219,11 @@ public class SocialProfileController extends AbstractController {
 				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
 			else if (!this.socialProfileService.findOne(socialProfileId).getActor().equals(actor))
 				redirectAttrs.addFlashAttribute("message", "socialProfile.error.notFromThisActor");
+			else
+				redirectAttrs.addFlashAttribute("message", "socialProfile.error.unexist");
 		}
 		return result;
 	}
-
 	// MODEL
 	protected ModelAndView createModelAndView(final SocialProfileForm socialProfileForm) {
 		ModelAndView result;
