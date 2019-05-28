@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -58,10 +59,11 @@ public class EventManagerController extends AbstractController {
 		ModelAndView result;
 
 		final Collection<Event> events = this.eventService.findEventsByClub(clubId);
-
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 		result = new ModelAndView("event/manager/list");
 
 		result.addObject("events", events);
+		result.addObject("lang", lang);
 		result.addObject("requestURI", "event/manager/list.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());

@@ -153,6 +153,8 @@
 		<!-- Participation Events -->
 		<security:intercept-url pattern="/participationEvent/client/list.do"
 			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/participationEvent/manager/list.do"
+			access="hasRole('MANAGER')" />
 
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"

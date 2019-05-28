@@ -153,6 +153,8 @@
 		<!-- Participation Events -->
 		<security:intercept-url pattern="/participationEvent/client/list.do"
 			access="hasRole('CLIENT')" />
+		<security:intercept-url pattern="/participationEvent/manager/list.do"
+			access="hasRole('MANAGER')" />
 
 		<!-- Events -->
 		<security:intercept-url pattern="/event/client/myList.do"
@@ -161,7 +163,18 @@
 			access="hasRole('CLIENT')" />
 		<security:intercept-url pattern="/event/client/participate.do"
 			access="hasRole('CLIENT')" />
-
+		
+		<security:intercept-url pattern="/event/manager/list.do"
+			access="hasRole('MANAGER')" />
+		
+		<security:intercept-url pattern="/event/manager/edit.do"
+			access="hasRole('MANAGER')" />
+			
+		<security:intercept-url pattern="/event/manager/create.do"
+			access="hasRole('MANAGER')" />
+		
+		<security:intercept-url pattern="/event/manager/show.do"
+			access="hasRole('MANAGER')" />
 			
 		<!-- Opinions -->
 		<security:intercept-url pattern="/opinion/manager/list.do"

@@ -38,6 +38,11 @@
 			<spring:message code="event.show" />
 		</a>
 	</display:column>
+	<display:column >
+		<a href="participationEvent/manager/list.do?eventId=${row.id}"> 
+			<spring:message code="event.participationes" />
+		</a>
+	</display:column>
 	
 	
 	<display:column property="ticker" titleKey="event.ticker" />
@@ -57,8 +62,14 @@
 			</jstl:if>
 		</jstl:forEach>
 	</display:column>
+	
+	
 </display:table>
 
-<a href="event/manager/create.do"> 
+<%-- <a href="event/manager/create.do?clubId=${row.club.id }"> 
+			<spring:message code="event.create" />
+</a> --%>
+
+<a href="event/manager/create.do?clubId"> 
 			<spring:message code="event.create" />
 </a>
