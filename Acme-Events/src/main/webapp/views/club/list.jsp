@@ -54,38 +54,3 @@
 
 </display:table>
 
-<h2>
-<jstl:out value="${club.rejected }"/>
-<br>
-</h2>
-<display:table name="clubsCanceled" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
-	
-	<display:column>
-			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
-					code="club.show" />
-			</a>
-	</display:column>
-
-	<display:column property="reasonReject" titleKey="club.reasonReject" />
-	<display:column property="name" titleKey="club.name" />
-	<display:column property="address" titleKey="club.address" />
-	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
-	<display:column>
-		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
-				code="club.showManager" />
-		</a>
-	</display:column>
-	<display:column>
-			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
-					code="club.event.list" />
-			</a>
-	</display:column>
-
-</display:table>
-
-
-
-
-

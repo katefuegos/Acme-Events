@@ -64,7 +64,7 @@
 			access="hasRole('MANAGER')" />
 
 		<security:intercept-url pattern="/club/manager/show.do"
-			access="hasRole('MANAGER')" />
+			access="permitAll" />
 
 		<security:intercept-url pattern="/club/manager/list.do"
 			access="hasRole('MANAGER')" />
@@ -165,7 +165,7 @@
 			access="hasRole('CLIENT')" />
 
 		<security:intercept-url pattern="/event/manager/list.do"
-			access="hasRole('MANAGER')" />
+			access="permitAll" />
 
 		<security:intercept-url pattern="/event/manager/edit.do"
 			access="hasRole('MANAGER')" />

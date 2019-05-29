@@ -52,7 +52,7 @@
 		test="${actorForm.auth != 'CLIENT'}">
 		<form:hidden path="DNI" />
 	</jstl:if>
-"src/main/webapp/views/manager/edit.jsp"
+
 	<jstl:if test="${actorForm.auth == 'CLIENT' }">
 		<acme:textbox code="actor.dni" path="DNI" />
 	</jstl:if>

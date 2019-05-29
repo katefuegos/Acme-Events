@@ -75,7 +75,7 @@
 				</ul></li>
 				
 			<li><a href="manager/listClubs.do"><spring:message
-								code="master.page.listclub" /></a></li>
+								code="master.page.listmyclubs" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CLIENT')">
@@ -171,6 +171,13 @@
 
 		</security:authorize>
 		<security:authorize access="isAnonymous()">
+		
+		<li><a class="fNiv" href="club/list.do"><spring:message
+					code="master.page.listclub" /></a></li>
+					
+		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
 		
 		<li><a class="fNiv" href="club/list.do"><spring:message
 					code="master.page.listclub" /></a></li>

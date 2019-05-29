@@ -219,10 +219,10 @@ public class ClubManagerController extends AbstractController {
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
 			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
-			Assert.notNull(manager);
+			//Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
-			Assert.notNull(club);
-			Assert.isTrue(club.getManager().equals(manager));
+			//Assert.notNull(club);
+			//Assert.isTrue(club.getManager().equals(manager));
 
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
 			clubManagerForm.setId(club.getId());
@@ -237,7 +237,7 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/manager/listClubs.do");
+			result = new ModelAndView("redirect:/club/list.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
