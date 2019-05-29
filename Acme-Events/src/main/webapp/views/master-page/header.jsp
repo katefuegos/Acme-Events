@@ -178,7 +178,8 @@
 		</security:authorize>
 		<li><a class="fNiv" href="manager/list.do"><spring:message
 					code="master.page.listManagers" /></a></li>
-
+		<li><a class="fNiv" href="event/list.do"><spring:message
+					code="master.page.listevent" /></a></li>
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv" href="welcome/terms.do"><spring:message
 						code="master.page.privacyPolicy" /></a></li>

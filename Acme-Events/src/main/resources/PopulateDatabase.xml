@@ -992,6 +992,55 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="event3" class="domain.Event">
+		<property name="ticker" value="190729-AKD126" />
+		<property name="title" value="Deep in techno" />
+		<property name="momentPublished" value="2019/02/19 00:00" />
+		<property name="poster" value="https://i.pinimg.com/originals/d4/fb/d5/d4fbd5a261c60d9ce8227861d59071b5.jpg" />
+		<property name="description" value="Noche mágica" />
+		<property name="address" value="---" />
+		<property name="price" value="50.0" />
+		<property name="momentStart" value="2019/07/29 00:00" />
+		<property name="momentEnd" value="2019/07/29 07:00" />
+		<property name="status" value="AVAILABLE" />
+		<property name="draftMode" value="false" />
+		<property name="club" ref="club1" />
+		<property name="category" ref="category6" />
+		<property name="opinions">
+			<list>
+			</list>
+		</property>
+		<property name="participationsEvent">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="event4" class="domain.Event">
+		<property name="ticker" value="190828-AKD103" />
+		<property name="title" value="Beach Party Summer" />
+		<property name="momentPublished" value="2019/02/19 00:00" />
+		<property name="poster" value="https://media.istockphoto.com/vectors/beach-party-poster-for-music-festival-electronic-music-cover-for-or-vector-id825937736" />
+		<property name="description" value="Beach Party Summer. YoUr PaRtY!" />
+		<property name="address" value="---" />
+		<property name="price" value="50.0" />
+		<property name="momentStart" value="2019/08/28 00:00" />
+		<property name="momentEnd" value="2019/08/28 07:00" />
+		<property name="status" value="AVAILABLE" />
+		<property name="draftMode" value="false" />
+		<property name="club" ref="club1" />
+		<property name="category" ref="category6" />
+		<property name="opinions">
+			<list>
+			</list>
+		</property>
+		<property name="participationsEvent">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 
 	<!-- CURRICULA -->
 

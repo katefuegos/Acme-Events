@@ -21,8 +21,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('CLIENT')">
-
 <form:form action="event/client/search.do"
 		modelAttribute="searchForm">
 
@@ -67,7 +65,7 @@
 
 	</form:form>
 
-</security:authorize>
+
 <display:table name="events" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
@@ -90,17 +88,16 @@
 	</display:column>
 	
 	<display:column>
-		<a href="event/opinions.do?eventId=${row.id}"> 
+		<a href="opinion/client/list.do?eventId=${row.id}"> 
 			<spring:message code="event.opinions" />
 		</a>
 		<br>
-		
-		<security:authorize access="hasRole('CLIENT')">
 		<a href="event/client/participate.do?eventId=${row.id}"> 
 			<spring:message code="event.participations" />
 		</a>
-		</security:authorize>
 	</display:column>
+
+
 </display:table>
 
 

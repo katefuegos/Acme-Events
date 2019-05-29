@@ -112,7 +112,7 @@ public class EventClientController extends AbstractController {
 			try {
 
 				final Collection<Event> events = this.eventService
-						.searchPosition(searchForm);
+						.searchEvent(searchForm);
 
 				result = this.listModelAndView(searchForm, events,
 						"actor.commit.ok");

@@ -115,7 +115,7 @@ public class EventService {
 		return result;
 	}
 
-	public Collection<domain.Event> searchPosition(final SearchForm f) {
+	public Collection<domain.Event> searchEvent(final SearchForm f) {
 
 		final SearchForm search = this.checkSearch(f);
 		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
@@ -165,4 +165,20 @@ public class EventService {
 
 	}
 
+	public Collection<Event> findFinalModel(final int clubId) {
+		Collection<Event> result;
+
+		Assert.notNull(clubId);
+
+		result = this.eventRepository.findFinalModelAndClub(clubId);
+
+		return result;
+	}
+
+	public Collection<Event> findFinalModel() {
+		Collection<Event> result;
+		result = this.eventRepository.findFinalModel();
+
+		return result;
+	}
 }
