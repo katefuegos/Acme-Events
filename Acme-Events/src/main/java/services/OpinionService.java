@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.OpinionRepository;
 import security.LoginService;
 import domain.Client;
+import domain.Event;
 import domain.Manager;
 import domain.Opinion;
 
@@ -78,6 +79,13 @@ public class OpinionService {
 
 	public Collection<Opinion> findByManager(final Manager manager) {
 		return this.opinionRepository.findByManager(manager.getId());
+
+	}
+
+	public Collection<Opinion> findByEvent(final Event e) {
+		Assert.notNull(e);
+
+		return this.opinionRepository.findByEvent(e.getId());
 
 	}
 

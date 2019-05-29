@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/opinion/list.jsp" />
 	</definition>
 	
+	<definition name="opinion/event/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de opiniones" />
+		<put-attribute name="body" value="/views/opinion/list2.jsp" />
+	</definition>
+	
 	<definition name="opinion/create" extends="master.page">	
 		<put-attribute name="title" value="Crear una opinion" />
 		<put-attribute name="body" value="/views/opinion/edit.jsp" />
