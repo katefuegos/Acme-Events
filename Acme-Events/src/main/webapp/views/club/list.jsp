@@ -21,15 +21,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
+<h2>
+<jstl:out value="${club.accepted }"/>
+<br>
+</h2>
 <display:table name="clubsAccepted" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-	
-	<display:column>
-			<a href="club/manager/edit.do?clubId=${row.id}"> <spring:message
-					code="club.edit" />
-			</a>
-	</display:column>
 	
 	<display:column>
 			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
@@ -50,12 +47,6 @@
 	</display:column>
 	
 	<display:column>
-			<a href="club/manager/listFollows.do?clubId=${row.id}"> <spring:message
-					code="club.follow.list" />
-			</a>
-	</display:column>
-	
-	<display:column>
 			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
 					code="club.event.list" />
 			</a>
@@ -63,14 +54,12 @@
 
 </display:table>
 
+<h2>
+<jstl:out value="${club.rejected }"/>
+<br>
+</h2>
 <display:table name="clubsCanceled" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-	
-	<display:column>
-			<a href="club/manager/edit.do?clubId=${row.id}"> <spring:message
-					code="club.edit" />
-			</a>
-	</display:column>
 	
 	<display:column>
 			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
@@ -89,16 +78,6 @@
 		</a>
 	</display:column>
 	<display:column>
-			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
-					code="club.show" />
-			</a>
-	</display:column>
-	<display:column>
-			<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
-					code="club.follow.list" />
-			</a>
-	</display:column>
-	<display:column>
 			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
 					code="club.event.list" />
 			</a>
@@ -106,9 +85,6 @@
 
 </display:table>
 
-<a href="club/manager/create.do"> <spring:message
-					code="club.create" />
-</a>
 
 
 

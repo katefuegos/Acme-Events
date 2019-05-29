@@ -44,12 +44,12 @@
 				code="club.delete" />
 
 		</jstl:if>
-		<acme:cancel url="club/list.do" code="club.cancel" />
+		<acme:cancel url="manager/listClubs.do" code="club.cancel" />
 	</jstl:if>
 
 
 	<jstl:if test="${isRead == true}">
-		<acme:cancel url="club/list.do" code="club.cancel" />
+		<acme:cancel url="manager/listClubs.do" code="club.cancel" />
 
 	</jstl:if>
 </form:form>

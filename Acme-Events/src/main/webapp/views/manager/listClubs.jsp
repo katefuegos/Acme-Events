@@ -24,7 +24,18 @@
 
 <display:table name="clubs" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-
+	
+	<display:column>
+			<a href="club/manager/edit.do?clubId=${row.id}"> <spring:message
+					code="club.edit" />
+			</a>
+	</display:column>
+	
+	<display:column>
+			<a href="club/manager/show.do?clubId=${row.id}"> <spring:message
+					code="club.show" />
+			</a>
+	</display:column>
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
@@ -34,9 +45,21 @@
 				code="club.showManager" />
 		</a>
 	</display:column>
+	<display:column>
+			<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
+					code="club.follow.list" />
+			</a>
+	</display:column>
+	<display:column>
+			<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
+					code="club.event.list" />
+			</a>
+	</display:column>
 
 </display:table>
 
 
-
+<a href="club/manager/create.do"> <spring:message
+					code="club.create" />
+</a>
 

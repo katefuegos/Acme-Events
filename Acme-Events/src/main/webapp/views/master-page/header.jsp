@@ -73,6 +73,9 @@
 								code="master.page.opinion.list" /></a></li>
 
 				</ul></li>
+				
+			<li><a href="manager/listClubs.do"><spring:message
+								code="master.page.listclub" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CLIENT')">
@@ -167,10 +170,12 @@
 			</li>
 
 		</security:authorize>
-
+		<security:authorize access="isAnonymous()">
+		
 		<li><a class="fNiv" href="club/list.do"><spring:message
 					code="master.page.listclub" /></a></li>
-
+					
+		</security:authorize>
 		<li><a class="fNiv" href="manager/list.do"><spring:message
 					code="master.page.listManagers" /></a></li>
 

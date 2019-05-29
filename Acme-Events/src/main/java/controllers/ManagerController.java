@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import security.LoginService;
 import services.ClubService;
 import services.ConfigurationService;
 import services.ManagerService;
@@ -58,9 +59,9 @@ public class ManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/listClubs", method = RequestMethod.GET)
-	public ModelAndView listClubs(final int managerId) {
+	public ModelAndView listClubs() {
 		ModelAndView result;
-
+		final int managerId = LoginService.getPrincipal().getId();
 		final Collection<Club> clubs = this.clubService.findByManagerIdAndAcepted(managerId);
 		result = new ModelAndView("manager/listClubs");
 
@@ -121,43 +122,43 @@ public class ManagerController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// SHOW
-		@RequestMapping(value = "/showByClub", method = RequestMethod.GET)
-		public ModelAndView showByClub(final int clubId, final RedirectAttributes redirectAttrs) {
-			ModelAndView result;
-			Manager manager = null;
-			Club club = null;
-			try {
-				
-				club = clubService.findOne(clubId);
-				Assert.notNull(club);
-				manager = club.getManager();
-				Assert.notNull(manager);
+	@RequestMapping(value = "/showByClub", method = RequestMethod.GET)
+	public ModelAndView showByClub(final int clubId, final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		Manager manager = null;
+		Club club = null;
+		try {
 
-				final ActorForm actorForm = new ActorForm();
-				actorForm.setId(manager.getId());
-				actorForm.setName(manager.getName());
-				actorForm.setMiddleName(manager.getMiddleName());
-				actorForm.setEmail(manager.getEmail());
-				actorForm.setPhoto(manager.getPhoto());
-				actorForm.setPhone(manager.getPhone());
-				actorForm.setSurname(manager.getSurname());
-				actorForm.setAddress(manager.getAddress());
-				actorForm.setIsBanned(manager.getIsBanned());
-				actorForm.setIsSuspicious(manager.getIsSuspicious());
+			club = this.clubService.findOne(clubId);
+			Assert.notNull(club);
+			manager = club.getManager();
+			Assert.notNull(manager);
 
-				result = this.ShowModelAndView(actorForm);
+			final ActorForm actorForm = new ActorForm();
+			actorForm.setId(manager.getId());
+			actorForm.setName(manager.getName());
+			actorForm.setMiddleName(manager.getMiddleName());
+			actorForm.setEmail(manager.getEmail());
+			actorForm.setPhoto(manager.getPhoto());
+			actorForm.setPhone(manager.getPhone());
+			actorForm.setSurname(manager.getSurname());
+			actorForm.setAddress(manager.getAddress());
+			actorForm.setIsBanned(manager.getIsBanned());
+			actorForm.setIsSuspicious(manager.getIsSuspicious());
 
-			} catch (final Throwable e) {
+			result = this.ShowModelAndView(actorForm);
 
-				result = new ModelAndView("redirect:/manager/list.do");
-				if (manager == null)
-					redirectAttrs.addFlashAttribute("message", "manager.commit.error");
-			}
+		} catch (final Throwable e) {
 
-			return result;
+			result = new ModelAndView("redirect:/manager/list.do");
+			if (manager == null)
+				redirectAttrs.addFlashAttribute("message", "manager.commit.error");
 		}
+
+		return result;
+	}
 
 	protected ModelAndView ShowModelAndView(final ActorForm actorForm) {
 		ModelAndView result;
