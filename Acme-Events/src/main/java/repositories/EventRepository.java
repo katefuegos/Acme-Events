@@ -51,5 +51,11 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
 	@Query("select f from Event f where f.club.manager.id = ?1")
 	Collection<Event> findByManager(int managerId);
+	
+	@Query("select f from Event f where f.club.manager.id = ?1 and f.draftMode=true")
+	Collection<Event> findByManagerAndDraft(int managerId);
+	
+	@Query("select f from Event f where f.club.manager.id = ?1 and f.draftMode=false")
+	Collection<Event> findByManagerAndFinal(int managerId);
 
 }

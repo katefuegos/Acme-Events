@@ -1,0 +1,31 @@
+Hay que añadir atributos derivados a modelo conceptual (scores).
+Falta score medio en display de club.
+Falta score medio de display de event.
+Comprobar que fecha de finalización de evento es posterior a la de inicio de ese evento.
+
+En la lista de my clubs (manager) hay que separar los clubes aceptados, rechazados, pendientes y draft mode. (ELENA)
+No salen los clubes no aceptados en la vista de mis clubes (manager). (ELENA)
+
+
+
+Falta display event en participations y opinions.
+
+Falta vista de my events (manager).(ADAM)
+Panic en create event (manager).(ADAM)
+Panic en edit event (manager).(ADAM)
+Panic en display event (manager). (ADAM)
+
+Falta display de events (client y manager). 
+No implementado "Cancel event".
+Falta número total de participaciones (manager).
+
+Falta enlace a cliente y sus perfiles desde participations (manager). (ELENA)
+
+Falta la vista de show opinions de un evento (manager).
+Falta separacion de eventos por estado (client).
+Falta el show events de los clubes que no sigo. (client).
+
+Falta filtrar los eventos que han acabado a la hora de publicar una opinion (client).
+Se meten los clubes pending en rejected directamente (admin).
+Crear jerarquía categorías.
+Notificaciones varias.

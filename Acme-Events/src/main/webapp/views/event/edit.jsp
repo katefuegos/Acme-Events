@@ -22,31 +22,32 @@
 <form:form action="${requestURI}" modelAttribute="eventManagerForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="club" />
-	<form:hidden path="status" />
-	
-	<acme:textbox code="event.name" path="name"/>
-	<acme:textbox code="event.address" path="address"/>
-	<acme:textbox code="event.description" path="description"/>
-	<acme:textbox code="event.price" path="price"/>
-	<acme:textbox code="event.ticker" path="ticker"/>
-	<acme:textbox code="event.momentPublished" path="momentPublished"/>
-	<acme:textbox code="event.poster" path="poster"/>
-	<acme:textbox code="event.momentStart" path="momentStart"/>
-	<acme:textbox code="event.momentEnd" path="momentEnd"/>
-	
-	
+
+	<acme:textbox code="event.title" path="title" readonly="${isRead}" />
+	<acme:textbox code="event.address" path="address" readonly="${isRead}" />
+	<acme:textbox code="event.description" path="description"
+		readonly="${isRead}" />
+	<acme:textbox code="event.price" path="price" readonly="${isRead}" />
+	<acme:textbox code="event.poster" path="poster" readonly="${isRead}" />
+	<acme:textbox code="event.momentStart" path="momentStart"
+		readonly="${isRead}" />
+	<acme:textbox code="event.momentEnd" path="momentEnd"
+		readonly="${isRead}" />
+
+
+	<acme:selectCollection items="${categories}" itemLabel="title"
+		code="event.category" path="category" />
+	<br />
+	<acme:selectCollection items="${clubs}" itemLabel="name"
+		code="event.club" path="club" />
+	<br />
 	<form:label path="draftMode">
 		<spring:message code="event.draftMode" />
 	</form:label>
+
 	<form:checkbox path="draftMode" />
-	<form:errors path="draftMode" cssClass="error" />
+	<form:errors path="draftMode" cssClass="error" readonly="${isRead}" />
 	<br />
-	
-	<jstl:if test="${isRead == false }">		
-		<acme:selectCollection items="${categories}" itemLabel="title" code="audit.category" path="category"/>
-	</jstl:if>
-	
 	<jstl:if test="${isRead == false}">
 		<acme:submit name="save" code="event.save" />
 		<jstl:if test="${id != 0}">
@@ -54,12 +55,12 @@
 				code="event.delete" />
 
 		</jstl:if>
-		<acme:cancel url="event/manager/list.do" code="event.cancel" />
+		<acme:cancel url="event/manager/myList.do" code="event.cancel" />
 	</jstl:if>
 
 
 	<jstl:if test="${isRead == true}">
-		<acme:cancel url="event/manager/list.do" code="event.cancel" />
+		<acme:cancel url="event/manager/myList.do" code="event.cancel" />
 
 	</jstl:if>
 </form:form>

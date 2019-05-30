@@ -5,15 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -26,16 +23,13 @@ import domain.Club;
 @Access(AccessType.PROPERTY)
 public class EventManagerForm {
 
-	private String		ticker;
 	private String		title;
-	private Date		momentPublished;
 	private String		poster;
 	private String		description;
 	private String		address;
 	private Double		price;
 	private Date		momentStart;
 	private Date		momentEnd;
-	private String		status;
 	private boolean		draftMode;
 	private int			id;
 	// Relationships ---------------------------------------------------------
@@ -53,17 +47,6 @@ public class EventManagerForm {
 		this.id = id;
 	}
 
-	@Column(unique = true)
-	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
-	@NotBlank
-	public String getTicker() {
-		return this.ticker;
-	}
-
-	public void setTicker(final String ticker) {
-		this.ticker = ticker;
-	}
-
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -73,19 +56,7 @@ public class EventManagerForm {
 		this.title = title;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
-	@Past
-	public Date getMomentPublished() {
-		return this.momentPublished;
-	}
-
-	public void setMomentPublished(final Date momentPublished) {
-		this.momentPublished = momentPublished;
-	}
-
 	@URL
-	@NotBlank
 	public String getPoster() {
 		return this.poster;
 	}
@@ -143,16 +114,6 @@ public class EventManagerForm {
 
 	public void setMomentEnd(final Date momentEnd) {
 		this.momentEnd = momentEnd;
-	}
-
-	@Pattern(regexp = "^(AVAILABLE|CANCELLED)$")
-	@NotBlank
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(final String status) {
-		this.status = status;
 	}
 
 	@NotNull

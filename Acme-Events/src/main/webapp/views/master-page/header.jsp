@@ -56,10 +56,10 @@
 				<ul>
 					<li class="arrow"></li>
 					<security:authorize access="hasRole('CLIENT')">
-					<li><a href="creditCard/client/edit.do"><spring:message
-								code="master.page.creditCard.edit" /></a></li>
-					</security:authorize>			
-					
+						<li><a href="creditCard/client/edit.do"><spring:message
+									code="master.page.creditCard.edit" /></a></li>
+					</security:authorize>
+
 					<li><a href="socialProfile/list.do"><spring:message
 								code="master.page.listProfiles" /></a></li>
 					<li><a href="actor/edit.do"><spring:message
@@ -100,15 +100,27 @@
 		<!-- =========================================================================================================================== -->
 
 		<security:authorize access="hasRole('MANAGER')">
-			
 
-			<li><a class="fNiv" ><spring:message
-						code="master.page.listmyclubs" /></a><ul>
+
+			<li><a class="fNiv"><spring:message
+						code="master.page.listmyclubs" /></a>
+			<ul>
 					<li class="arrow"></li>
 					<li><a href="manager/listClubs.do"><spring:message
-						code="master.page.manage.clubs" /></a></li>
+								code="master.page.manage.clubs" /></a></li>
 					<li><a href="opinion/manager/list.do"><spring:message
 								code="master.page.opinion.list" /></a></li>
+
+				</ul></li>
+
+			<li><a class="fNiv"><spring:message
+						code="master.page.listmyEvents" /></a>
+			<ul>
+					<li class="arrow"></li>
+					<li><a href="event/manager/myList.do"><spring:message
+								code="master.page.manage.events" /></a></li>
+					<li><a href="event/manager/create.do"><spring:message
+								code="master.page.create.event" /></a></li>
 
 				</ul></li>
 		</security:authorize>

@@ -75,7 +75,6 @@ public class Event extends DomainEntity {
 	}
 
 	@URL
-	@NotBlank
 	public String getPoster() {
 		return this.poster;
 	}

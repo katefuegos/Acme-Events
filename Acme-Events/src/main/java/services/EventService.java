@@ -1,9 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -31,8 +33,6 @@ public class EventService {
 	private EventRepository	eventRepository;
 
 	// Services-------------------------------------------------
-	@Autowired
-	private ClientService	clientService;
 
 
 	// Constructor----------------------------------------------
@@ -45,7 +45,11 @@ public class EventService {
 
 	public Event create() {
 		final Event event = new Event();
-
+		event.setTicker(generateTicker());
+		event.setStatus("AVAILABLE");
+		event.setDraftMode(true);
+		event.setParticipationsEvent(new ArrayList<ParticipationEvent>());
+		event.setOpinions(new ArrayList<Opinion>());
 		return event;
 	}
 
@@ -59,6 +63,9 @@ public class EventService {
 
 	public Event save(final Event event) {
 		Assert.notNull(event);
+		if(event.isDraftMode()==false && event.getMomentPublished() == null){
+			event.setMomentPublished(new Date(System.currentTimeMillis() - 1000));
+		}
 		final Event saved = this.eventRepository.save(event);
 		return saved;
 	}
@@ -164,6 +171,18 @@ public class EventService {
 		return this.eventRepository.findByManager(manager.getId());
 
 	}
+	
+	public Collection<Event> findByManagerAndDraft(final Manager manager) {
+		Assert.notNull(manager);
+		return this.eventRepository.findByManagerAndDraft(manager.getId());
+
+	}
+	
+	public Collection<Event> findByManagerAndFinal(final Manager manager) {
+		Assert.notNull(manager);
+		return this.eventRepository.findByManagerAndFinal(manager.getId());
+
+	}
 
 	public Collection<Event> findFinalModel(final int clubId) {
 		Collection<Event> result;
@@ -180,5 +199,32 @@ public class EventService {
 		result = this.eventRepository.findFinalModel();
 
 		return result;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public String generateTicker() {
+		final Date date = new Date();
+		final Integer s1 = date.getDate();
+		String day = s1.toString();
+		if (day.length() == 1)
+			day = "0" + day;
+		final Integer s2 = date.getMonth() + 1;
+		String month = s2.toString();
+		if (month.length() == 1)
+			month = "0" + month;
+		final Integer s3 = date.getYear();
+		final String year = s3.toString().substring(1);
+
+		return year + month + day + "-" + this.generateStringAux();
+	}
+
+	private String generateStringAux() {
+		final int length = 6;
+		final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		final Random rng = new Random();
+		final char[] text = new char[length];
+		for (int i = 0; i < 6; i++)
+			text[i] = characters.charAt(rng.nextInt(characters.length()));
+		return new String(text);
 	}
 }

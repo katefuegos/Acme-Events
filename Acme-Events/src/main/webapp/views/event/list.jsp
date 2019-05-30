@@ -64,11 +64,3 @@
 	</display:column>
 	
 </display:table>
-
-<%-- <a href="event/manager/create.do?clubId=${row.club.id }"> 
-			<spring:message code="event.create" />
-</a> --%>
-
-<a href="event/manager/create.do?clubId"> 
-			<spring:message code="event.create" />
-</a>
