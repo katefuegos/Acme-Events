@@ -29,6 +29,16 @@
 	<display:column property="creditCardNumber" titleKey="participationEvent.creditCardNumber" />
 	<display:column property="moment" titleKey="participationEvent.moment" />
 
+	<display:column>
+			<a href="socialProfile/show.do?socialProfileId=${row.client.socialProfile.id}"> <spring:message
+					code="socialProfile.show" />
+			</a>
+
+			<a href="event/manager/show.do?eventId=${row.event.id}"> 
+			<spring:message code="event.show" />
+			</a>
+	
+	</display:column>
 </display:table>
 
 

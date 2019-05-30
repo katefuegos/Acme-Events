@@ -193,4 +193,9 @@ public class ClubService {
 		final Collection<Club> result = this.clubRepository.findByManagerAndAccepted(managerId);
 		return result;
 	}
+
+	public Collection<Club> findClubsDraftMode() {
+		final Collection<Club> result = this.clubRepository.findClubsDraftMode();
+		return result;
+	}
 }

@@ -63,9 +63,15 @@ public class ManagerController extends AbstractController {
 		ModelAndView result;
 		final int managerId = LoginService.getPrincipal().getId();
 		final Collection<Club> clubs = this.clubService.findByManagerIdAndAcepted(managerId);
+		final Collection<Club> clubsPending = this.clubService.findClubsPending();
+		final Collection<Club> clubsRejected = this.clubService.findClubsRejected();
+		final Collection<Club> clubsDraftMode = this.clubService.findClubsDraftMode();
 		result = new ModelAndView("manager/listClubs");
 
 		result.addObject("clubs", clubs);
+		result.addObject("clubsPending", clubsPending);
+		result.addObject("clubsRejected", clubsRejected);
+		result.addObject("clubsDraftMode", clubsDraftMode);
 		result.addObject("requestURI", "manager/listClubs.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
