@@ -25,24 +25,7 @@
 <display:table name="events" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
-	<display:column>
-
-		<a href="event/manager/edit.do?eventId=${row.id}"> 
-			<spring:message code="event.edit" />
-		</a>
-	</display:column>
 	
-		<display:column>
-
-		<a href="event/manager/show.do?eventId=${row.id}"> 
-			<spring:message code="event.show" />
-		</a>
-	</display:column>
-	<display:column >
-		<a href="participationEvent/manager/list.do?eventId=${row.id}"> 
-			<spring:message code="event.participationes" />
-		</a>
-	</display:column>
 	
 	
 	<display:column property="ticker" titleKey="event.ticker" />
@@ -62,7 +45,23 @@
 			</jstl:if>
 		</jstl:forEach>
 	</display:column>
+	<display:column>
+		<jstl:if test="${row.draftMode==true }">
+		<a href="event/manager/edit.do?eventId=${row.id}"> 
+			<spring:message code="event.edit" />
+		</a>
+</jstl:if> 
+<jstl:if test="${row.draftMode==false }">
+		<a href="event/manager/show.do?eventId=${row.id}"> 
+			<spring:message code="event.show" />
+		</a></jstl:if>
+	</display:column>
 	
+	<display:column >
+		<a href="participationEvent/manager/list.do?eventId=${row.id}"> 
+			<spring:message code="event.participationes" />
+		</a>
+	</display:column>
 	
 </display:table>
 

@@ -24,7 +24,13 @@
 
 <display:table name="follows" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-
+	
+	<display:column>
+		<img src='<jstl:out value="${row.client.photo }"/>' height="100" width="auto">
+	</display:column>
+	<display:column property="client.userAccount.username" titleKey="actor.username" />
+	<display:column property="client.name" titleKey="actor.name" />
+	<display:column property="client.surname" titleKey="actor.surnames" />
 	<display:column property="moment" titleKey="follow.moment" />
 	
 	

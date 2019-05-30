@@ -42,8 +42,8 @@
 
 <security:authorize access="hasRole('MANAGER')">
 
-<display:table name="opinionsForms" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<%-- <display:table name="opinionsForms" id="row" requestURI="${requestURI}"
+	pagesize="3" class="displaytag">
 	
 	<display:column property="event.ticker" titleKey="opinion.ticker" />
 	<display:column property="event.title" titleKey="opinion.titleEvent" />
@@ -53,12 +53,12 @@
 	<display:column property="score" titleKey="opinion.score" />
 	<display:column property="moment" titleKey="opinion.moment" />
 	
-</display:table>
+</display:table> --%>
 
-<h3>
+<%-- <h3>
 	<spring:message code="opinion.events.size" />
 </h3>
-
+ --%>
 <display:table name="events" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
@@ -68,6 +68,12 @@
 	<display:column  titleKey="opinion.number" >
 		<jstl:out value="${fn:length(row.opinions) }"/>
 	</display:column>
+	<display:column>
+	<a href="event/opinions.do?eventId=${row.id}"> 
+			<spring:message code="event.opinions" />
+		</a>
+	</display:column>
+	
 </display:table>
 
 
