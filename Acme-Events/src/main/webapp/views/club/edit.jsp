@@ -19,23 +19,28 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${isRead == true}">
+	<img src='<jstl:out value="${clubManagerForm.pictures }"/>'  height="100" width="auto"> 
+</jstl:if>
+
 <form:form action="${requestURI}" modelAttribute="clubManagerForm">
 
 	<form:hidden path="id" />
 	<form:hidden path="manager" />
 	
-	<acme:textbox code="club.name" path="name"/>
-	<acme:textbox code="club.address" path="address"/>
-	<acme:textbox code="club.description" path="description"/>
-	<acme:textbox code="club.pictures" path="pictures"/>
+	<acme:textbox code="club.name" path="name" readonly="${isRead}" />
+	<acme:textbox code="club.address" path="address" readonly="${isRead}" />
+	<acme:textbox code="club.description" path="description" readonly="${isRead}" />
+	<acme:textbox code="club.pictures" path="pictures" readonly="${isRead}" />
 	
+	<jstl:if test="${isRead == false}">
 	<form:label path="draftMode">
 		<spring:message code="club.draftMode" />
 	</form:label>
-	<form:checkbox path="draftMode" />
+	<form:checkbox path="draftMode"  readonly="${isRead}" />
 	<form:errors path="draftMode" cssClass="error" />
 	<br />
-	
+	</jstl:if>
 	
 	<jstl:if test="${isRead == false}">
 		<acme:submit name="save" code="club.save" />
@@ -47,9 +52,4 @@
 		<acme:cancel url="manager/listClubs.do" code="club.cancel" />
 	</jstl:if>
 
-
-	<jstl:if test="${isRead == true}">
-		<acme:cancel url="manager/listClubs.do" code="club.cancel" />
-
-	</jstl:if>
 </form:form>

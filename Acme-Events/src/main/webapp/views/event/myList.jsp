@@ -80,7 +80,12 @@
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 
-	<display:column property="club.name" titleKey="event.club" />
+	<display:column titleKey="event.club">
+		<a href="club/list.do?eventId=${row.id}"> 
+			<jstl:out value="${row.club.name }"/>
+		</a>
+	
+	</display:column>
 	<display:column titleKey="event.category">
 		<jstl:forEach var="entry" items="${row.category.title}">
 			<jstl:if test="${lang==entry.key}">

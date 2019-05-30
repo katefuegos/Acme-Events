@@ -34,6 +34,13 @@
 <display:table name="opinions" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
+	<display:column >
+		<img src='<jstl:out value="${row.client.photo }"/>' height="100" width="auto">
+	</display:column>
+	<display:column property="client.userAccount.username" titleKey="actor.username" />
+	<display:column property="client.name" titleKey="actor.name" />
+	<display:column property="client.surname" titleKey="actor.surnames" />
+	<display:column property="client.middleName" titleKey="actor.middlename" />
 	<display:column property="title" titleKey="opinion.title" />
 	<display:column property="description" titleKey="opinion.description" />
 	<display:column property="score" titleKey="opinion.score" />

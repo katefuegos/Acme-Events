@@ -22,7 +22,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<img src='<jstl:out value="${actorForm.photo }"/>' alt="No <spring:message code='actor.photo' />" height="100" width="auto"> 
+<img src='<jstl:out value="${actorForm.photo }"/>'  height="100" width="auto"> 
  
  
    <br><br>
@@ -33,19 +33,19 @@
 	<form:hidden path="auth" />
 
 
-	<acme:textbox code="actor.name" path="name" />
-	<acme:textbox code="actor.surnames" path="surname" />
-	<acme:textbox code="actor.middlename" path="middleName" />
+	<acme:textbox code="actor.name" path="name" readonly="${isRead}"/>
+	<acme:textbox code="actor.surnames" path="surname" readonly="${isRead}"/>
+	<acme:textbox code="actor.middlename" path="middleName" readonly="${isRead}"/>
 
-	<acme:textbox code="actor.photo" path="photo" />
-	<acme:textbox code="actor.email" path="email" />
+	<acme:textbox code="actor.photo" path="photo" readonly="${isRead}"/>
+	<acme:textbox code="actor.email" path="email" readonly="${isRead}"/>
 	<form:label path="phone">
 		<spring:message code="actor.phone" />
 	</form:label>
 	<form:input path="phone" id="tlf" readonly="${isRead}" />
 	<form:errors path="phone" cssClass="error" />
 	<br />
-	<acme:textbox code="actor.address" path="address" />
+	<acme:textbox code="actor.address" path="address" readonly="${isRead}"/>
 
 
 	<jstl:if
@@ -58,8 +58,8 @@
 	</jstl:if>
 	
 
-<acme:cancel url="manager/list.do" code="manager.cancel"/>
-
+<%-- <acme:cancel url="manager/list.do" code="manager.cancel"/>
+ --%>
 
 </form:form>
 

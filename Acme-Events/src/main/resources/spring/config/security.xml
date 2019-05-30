@@ -47,6 +47,8 @@
 
 		<security:intercept-url pattern="/club/list.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/club/show.do"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/club/administrator/list.do"
 			access="hasRole('ADMIN')" />

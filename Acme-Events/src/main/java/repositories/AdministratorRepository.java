@@ -29,11 +29,11 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	Object[] queryC2();
 
 	//C3 -  Avg,min,max,stddev of the price per event.
-	@Query("select avg(e.price),min(e.price)*1.0,max(e.price)*1.0,stddev(e.price) from Event e")
+	@Query("select avg(e.price)*1.0,min(e.price)*1.0,max(e.price)*1.0,stddev(e.price)*1.0 from Event e")
 	Object[] queryC3();
 
 	//C4 - 
-	@Query("select avg(e.participationsEvent.size),min(e.participationsEvent.size)*1.0,max(e.participationsEvent.size)*1.0,stddev(e.participationsEvent.size) from Event e")
+	@Query("select avg(e.participationsEvent.size)*1.0,min(e.participationsEvent.size)*1.0,max(e.participationsEvent.size)*1.0,stddev(e.participationsEvent.size)*1.0 from Event e")
 	Object[] queryC4();
 
 	//C5 - The ratio of planned events.
@@ -45,7 +45,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	Double queryC6();
 
 	// C7 - The listing of clubs who have at least 10% or more events with cancelled status.
-	@Query("select c from Club c where (((select count(e) from Event e where e.club.id = c.id and e.draftMode=false and e.status = 'CANCELLED')*1.0)/1.0*(select ev from Event ev where ev.draftMode=false and ev.club.id = c.id))>=0.1")
+	@Query("select c from Club c where (((select count(e) from Event e where e.club.id = c.id and e.draftMode=false and e.status = 'CANCELLED')*1.0)/1.0*(select count(ev) from Event ev where ev.draftMode=false and ev.club.id = c.id))>=0.1")
 	Collection<Club> queryC7();
 
 }

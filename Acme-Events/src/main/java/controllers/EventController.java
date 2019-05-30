@@ -20,6 +20,7 @@ import services.OpinionService;
 import domain.Club;
 import domain.Event;
 import domain.Opinion;
+import forms.SearchForm;
 
 @Controller
 @RequestMapping("/event")
@@ -66,6 +67,7 @@ public class EventController extends AbstractController {
 
 			result = new ModelAndView("event/listFinal");
 			result.addObject("events", events);
+			result.addObject("searchForm", new SearchForm());
 			result.addObject("lang", lang);
 			result.addObject("requestURI", "event/list.do");
 

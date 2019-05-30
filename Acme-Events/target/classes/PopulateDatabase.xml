@@ -117,23 +117,23 @@
 	<!-- MANAGER -->
 
 	<bean id="manager1" class="domain.Manager">
-		<property name="name" value="Manager1" />
-		<property name="middleName" value="middleName1" />
-		<property name="surname" value="surname1" />
-		<property name="photo" value="https://www.manager1.com" />
+		<property name="name" value="Jonh" />
+		<property name="middleName" value="Snow" />
+		<property name="surname" value="Snow" />
+		<property name="photo" value="https://i.pinimg.com/736x/f3/35/30/f33530530e6a544f5838f2c98cda3f7e--kit-harrington-john-snow.jpg" />
 		<property name="email" value="manager1@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
-		<property name="address" value="C/Calle, 1" />
+		<property name="address" value="C/Calle falsa, 123" />
 		<property name="isSuspicious" value="false" />
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 
 	<bean id="manager2" class="domain.Manager">
-		<property name="name" value="Manager2" />
-		<property name="middleName" value="middleName2" />
-		<property name="surname" value="surname2" />
-		<property name="photo" value="https://www.manager2.com" />
+		<property name="name" value="Brie" />
+		<property name="middleName" value="C4pt41n M4rv3l" />
+		<property name="surname" value="Larson" />
+		<property name="photo" value="https://i.pinimg.com/originals/89/da/f9/89daf9c74648fcfb6a7dd7dfb583210e.jpg" />
 		<property name="email" value="manager2@gmail.com" />
 		<property name="phone" value="+34(456)234567890" />
 		<property name="address" value="C/Calle, 2" />
@@ -173,10 +173,10 @@
 	<!-- CLIENT -->
 
 	<bean id="client1" class="domain.Client">
-		<property name="name" value="Client1" />
-		<property name="middleName" value="middleName5" />
-		<property name="surname" value="surname5" />
-		<property name="photo" value="https://www.client1.com" />
+		<property name="name" value="Jack" />
+		<property name="middleName" value="Jacko" />
+		<property name="surname" value="Johnson" />
+		<property name="photo" value="https://images-na.ssl-images-amazon.com/images/I/51X8XmOiVDL.jpg" />
 		<property name="email" value="client1@gmail.com" />
 		<property name="phone" value="+34(456)567890123" />
 		<property name="address" value="C/Calle, 5" />
@@ -188,10 +188,10 @@
 	</bean>
 
 	<bean id="client2" class="domain.Client">
-		<property name="name" value="Client2" />
-		<property name="middleName" value="middleName6" />
-		<property name="surname" value="surname6" />
-		<property name="photo" value="https://www.client2.com" />
+		<property name="name" value="John" />
+		<property name="middleName" value="Snow" />
+		<property name="surname" value="Jackson" />
+		<property name="photo" value="http://image3.redbull.com/rbcom/010/2015-08-24/1331743117947_2/0012/0/66/597/623/1154/1500/2/john-jackson-portrait-wings-for-life-world-run-santa-clara-2015.jpg" />
 		<property name="email" value="client2@gmail.com" />
 		<property name="phone" value="+34(456)678901234" />
 		<property name="address" value="C/Calle, 6" />
@@ -819,10 +819,10 @@
 	<!-- CLUB -->
 
 	<bean id="club1" class="domain.Club">
-		<property name="name" value="Club1" />
-		<property name="address" value="adress1" />
-		<property name="description" value="description1" />
-		<property name="pictures" value="http://www.picture1.com" />
+		<property name="name" value="Santa Pura Club" />
+		<property name="address" value="Paseo marítimo , Islantilla Huelva (España)" />
+		<property name="description" value="Un club mágico en primera linea de la playa" />
+		<property name="pictures" value="https://media-cdn.tripadvisor.com/media/photo-s/0f/02/77/17/bonita-rides.jpg" />
 		<property name="accepted" value="true" />
 		<property name="reasonReject" value="reasonReject1" />
 		<property name="draftMode" value="false" />
@@ -841,12 +841,12 @@
 	</bean>
 
 	<bean id="club2" class="domain.Club">
-		<property name="name" value="Club2" />
-		<property name="address" value="adress2" />
-		<property name="description" value="description2" />
-		<property name="pictures" value="http://www.picture2.com" />
+		<property name="name" value="Drai's Club" />
+		<property name="address" value="C/Calle falsa, 124, Sevilla" />
+		<property name="description" value="Nada como pasar un buen rato en el mejor nightclub de toda Sevilla." />
+		<property name="pictures" value="https://web.ccpgamescdn.com/newssystem/media/73282/1/drais-night-club-event-photo-2.jpg" />
 		<property name="accepted" value="true" />
-		<property name="draftMode" value="true" />
+		<property name="draftMode" value="false" />
 		<property name="reasonReject" value="reasonReject1" />
 		<property name="manager" ref="manager2" />
 		<property name="follows">
@@ -866,7 +866,7 @@
 		<property name="name" value="Club3" />
 		<property name="address" value="adress3" />
 		<property name="description" value="description3" />
-		<property name="pictures" value="http://www.picture3.com" />
+		<property name="pictures" value="https://www.logodesignteam.com/blog/wp-content/uploads/2016/11/Night_Club_and_Bar_Logos-770x360.jpg" />
 		<property name="accepted" value="false" />
 		<property name="draftMode" value="false" />
 		<property name="reasonReject" value="reasonReject1" />
@@ -885,7 +885,7 @@
 		<property name="name" value="Club4" />
 		<property name="address" value="adress4" />
 		<property name="description" value="description4" />
-		<property name="pictures" value="http://www.picture4.com" />
+		<property name="pictures" value="https://www.logodesignteam.com/blog/wp-content/uploads/2016/11/Night_Club_and_Bar_Logos-770x360.jpg" />
 		<property name="accepted" value="false" />
 		<property name="draftMode" value="true" />
 		<property name="manager" ref="manager1" />
@@ -923,16 +923,16 @@
 	<!-- OPINION -->
 
 	<bean id="opinion1" class="domain.Opinion">
-		<property name="title" value="Opinion1" />
-		<property name="description" value="description1" />
+		<property name="title" value="Mejor club de islantilla" />
+		<property name="description" value="Mis amigos y yo pasamos unos días en Islantilla, no me esperaba encontrar un club así. Fue una grata sorpresa" />
 		<property name="score" value="8" />
 		<property name="moment" value="2019/05/19 00:00" />
 		<property name="client" ref="client1" />
 	</bean>
 
 	<bean id="opinion2" class="domain.Opinion">
-		<property name="title" value="Opinion2" />
-		<property name="description" value="description2" />
+		<property name="title" value="No estuvo mal" />
+		<property name="description" value="La noche fue muy buena, pero el lugar apenas tenia sitio para aparcar, es algo que valoro mucho." />
 		<property name="score" value="5" />
 		<property name="moment" value="2019/05/19 00:00" />
 		<property name="client" ref="client2" />
@@ -945,8 +945,8 @@
 		<property name="title" value="Fiesta de la espuma" />
 		<property name="momentPublished" value="2019/05/19 00:00" />
 		<property name="poster" value="http://postermywall.com.s3.amazonaws.com/posterpreviews/foam-party-flyer-template-31ce881859841e557c054cc708acf77f.jpg?ts=1456095158" />
-		<property name="description" value="description1" />
-		<property name="address" value="address1" />
+		<property name="description" value="Nada como una fiesta de la espuma para empezar el verano. Vente, no te arrepentirás." />
+		<property name="address" value="---" />
 		<property name="price" value="20.0" />
 		<property name="momentStart" value="2019/05/25 00:00" />
 		<property name="momentEnd" value="2019/05/25 07:00" />
@@ -972,8 +972,8 @@
 		<property name="title" value="DubStep NIGHT" />
 		<property name="momentPublished" value="2019/05/19 12:00" />
 		<property name="poster" value="http://designcrown.com/uploads/posts/2016-06/1466002594_designcrown.com_pocsm3lk6jpxgcv.jpeg"/>
-		<property name="description" value="description2" />
-		<property name="address" value="address2" />
+		<property name="description" value="Noche de bailes, noches de dejarte la piel en la pista. No te lo pienses, vente." />
+		<property name="address" value="Sala 2" />
 		<property name="price" value="40.0" />
 		<property name="momentStart" value="2019/05/24 22:00" />
 		<property name="momentEnd" value="2019/05/25 06:00" />

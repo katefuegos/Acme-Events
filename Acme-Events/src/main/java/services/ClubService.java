@@ -169,6 +169,11 @@ public class ClubService {
 		return result;
 	}
 
+	public Collection<Club> findClubsAccepted(final int eventId) {
+		final Collection<Club> result = this.clubRepository.findClubsAccepted(eventId);
+		return result;
+	}
+
 	public Collection<Club> findClubsRejected() {
 		final Collection<Club> result = this.clubRepository.findClubsRejected();
 		return result;
@@ -181,6 +186,11 @@ public class ClubService {
 
 	public Collection<Club> findByManagerIdAndAcepted(final int managerId) {
 		final Collection<Club> result = this.clubRepository.findByManagerIdAndAccepted(managerId);
+		return result;
+	}
+
+	public Collection<Club> findByManagerAndAcepted(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerAndAccepted(managerId);
 		return result;
 	}
 }

@@ -33,6 +33,9 @@ public interface ClubRepository extends JpaRepository<Club, Integer> {
 	@Query("select c from Club c where c.accepted = true")
 	Collection<Club> findClubsAccepted();
 
+	@Query("select e.club from Event e where e.club.accepted = true and e.id = ?1")
+	Collection<Club> findClubsAccepted(int eventId);
+
 	@Query("select c from Club c where c.accepted = false and c.reasonReject is not null")
 	Collection<Club> findClubsRejected();
 
@@ -41,4 +44,7 @@ public interface ClubRepository extends JpaRepository<Club, Integer> {
 
 	@Query("select c from Club c where c.manager.userAccount.id=?1 and c.accepted=true")
 	Collection<Club> findByManagerIdAndAccepted(int managerId);
+
+	@Query("select c from Club c where c.manager.id=?1 and c.accepted=true")
+	Collection<Club> findByManagerAndAccepted(int managerId);
 }
