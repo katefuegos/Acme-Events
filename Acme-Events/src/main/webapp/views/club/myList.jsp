@@ -35,7 +35,9 @@
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
 
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column  titleKey="club.pictures">
+		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+	</display:column>
 
 	<display:column>
 		<a href="manager/showByClub.do?clubId=${row.id}"> <spring:message
@@ -74,10 +76,17 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column  titleKey="club.pictures">
+		<img src='<jstl:out value="${row2.pictures }"/>' height="100" width="auto">
+	</display:column>
 	<display:column>
 		<a href="manager/showByClub.do?clubId=${row2.id}"> <spring:message
 				code="club.showManager" />
+		</a>
+		<br>
+		<br>
+		<a href="event/list.do?clubId=${row2.id}"> <spring:message
+				code="club.client.events" />
 		</a>
 	</display:column>
 

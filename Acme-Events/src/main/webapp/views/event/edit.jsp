@@ -19,13 +19,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${eventManagerForm.poster != null }">
+<img src='<jstl:out value="${eventManagerForm.poster }"/>'  height="200" width="auto"> 
+ </jstl:if>
+
 <form:form action="${requestURI}" modelAttribute="eventManagerForm">
 
 	<form:hidden path="id" />
 
 	<acme:textbox code="event.title" path="title" readonly="${isRead}" />
 	<acme:textbox code="event.address" path="address" readonly="${isRead}" />
-	<acme:textbox code="event.description" path="description"
+	<acme:textarea code="event.description" path="description"
 		readonly="${isRead}" />
 	<acme:textbox code="event.price" path="price" readonly="${isRead}" />
 	<acme:textbox code="event.poster" path="poster" readonly="${isRead}" />
@@ -33,14 +37,16 @@
 		readonly="${isRead}" />
 	<acme:textbox code="event.momentEnd" path="momentEnd"
 		readonly="${isRead}" />
+	
 
-
+<jstl:if test="${isRead == false}">
 	<acme:selectCollection items="${categories}" itemLabel="title"
 		code="event.category" path="category" />
 	<br />
 	<acme:selectCollection items="${clubs}" itemLabel="name"
 		code="event.club" path="club" />
 	<br />
+	
 	<form:label path="draftMode">
 		<spring:message code="event.draftMode" />
 	</form:label>
@@ -48,7 +54,7 @@
 	<form:checkbox path="draftMode" />
 	<form:errors path="draftMode" cssClass="error" readonly="${isRead}" />
 	<br />
-	<jstl:if test="${isRead == false}">
+	
 		<acme:submit name="save" code="event.save" />
 		<jstl:if test="${id != 0}">
 			<acme:delete confirmDelete="event.confirm.delete" name="delete"
@@ -59,8 +65,8 @@
 	</jstl:if>
 
 
-	<jstl:if test="${isRead == true}">
+<%-- 	<jstl:if test="${isRead == true}">
 		<acme:cancel url="event/manager/myList.do" code="event.cancel" />
 
-	</jstl:if>
+	</jstl:if> --%>
 </form:form>

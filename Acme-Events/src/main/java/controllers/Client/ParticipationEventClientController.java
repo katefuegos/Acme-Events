@@ -1,3 +1,4 @@
+
 package controllers.Client;
 
 import java.util.ArrayList;
@@ -27,16 +28,17 @@ public class ParticipationEventClientController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ParticipationEventService participationEventService;
+	private ParticipationEventService	participationEventService;
 
 	@Autowired
-	private ClientService clientService;
+	private ClientService				clientService;
 
 	@Autowired
-	private EventService eventService;
+	private EventService				eventService;
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService		configurationService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -49,20 +51,19 @@ public class ParticipationEventClientController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 
-		final Client client = this.clientService
-				.findClientByUseraccount(LoginService.getPrincipal());
+		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 
-		final Collection<ParticipationEvent> participationEvents = this.participationEventService
-				.findByClientId(client.getId());
+		final Collection<ParticipationEvent> participationEvents = this.participationEventService.findByClientId(client.getId());
 
-		Collection<ParticipationEventForm> participationEventForms = new ArrayList<ParticipationEventForm>();
-		for (ParticipationEvent e : participationEvents) {
-			Event event = eventService.findByParticipationForm(e);
-			ParticipationEventForm form = new ParticipationEventForm();
+		final Collection<ParticipationEventForm> participationEventForms = new ArrayList<ParticipationEventForm>();
+		for (final ParticipationEvent e : participationEvents) {
+			final Event event = this.eventService.findByParticipationForm(e);
+			final ParticipationEventForm form = new ParticipationEventForm();
 			form.setCreditCardNumber(e.getCreditCardNumber());
 			form.setMoment(e.getMoment());
 			form.setTicker(event.getTicker());
 			form.setTitle(event.getTitle());
+			form.setId(event.getId());
 			participationEventForms.add(form);
 		}
 
@@ -70,10 +71,8 @@ public class ParticipationEventClientController extends AbstractController {
 
 		result.addObject("participationEventForms", participationEventForms);
 		result.addObject("requestURI", "participationEvent/client/list.do");
-		result.addObject("banner", this.configurationService.findAll()
-				.iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll()
-				.iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}

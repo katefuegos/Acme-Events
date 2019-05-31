@@ -59,19 +59,20 @@ public class OpinionClientController extends AbstractController {
 
 		final Collection<Opinion> opinions = this.opinionService.findByClient(client);
 
-		Collection<OpinionForm2> opinionsForms = new ArrayList<OpinionForm2>();
-		for (Opinion o : opinions) {
-			Event event = eventService.findByOpinionForm(o);
-			OpinionForm2 form = new OpinionForm2();
+		final Collection<OpinionForm2> opinionsForms = new ArrayList<OpinionForm2>();
+		for (final Opinion o : opinions) {
+			final Event event = this.eventService.findByOpinionForm(o);
+			final OpinionForm2 form = new OpinionForm2();
 			form.setDescription(o.getDescription());
 			form.setScore(o.getScore());
 			form.setTicker(event.getTicker());
 			form.setTitle(o.getTitle());
 			form.setTitleEvent(event.getTitle());
 			form.setMoment(o.getMoment());
+			form.setId(event.getId());
 			opinionsForms.add(form);
 		}
-		
+
 		result = new ModelAndView("opinion/list");
 
 		result.addObject("opinionsForms", opinionsForms);

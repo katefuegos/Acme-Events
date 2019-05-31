@@ -32,7 +32,12 @@
 	<display:column property="description" titleKey="opinion.description" />
 	<display:column property="score" titleKey="opinion.score" />
 	<display:column property="moment" titleKey="opinion.moment" />
+	<display:column>
+	<a href="event/show.do?eventId=${row.id}"> 
+			<spring:message code="event.show" />
+			</a>
 	
+	</display:column>
 </display:table>
 
 <a href="opinion/client/create.do"> <spring:message

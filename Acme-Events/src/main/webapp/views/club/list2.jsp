@@ -60,17 +60,17 @@
 
 </h3>
 
-<display:table name="acceptedClubs" id="row" requestURI="${requestURI}"
+<display:table name="acceptedClubs" id="row2" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
 	<display:column  titleKey="club.pictures">
-		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+		<img src='<jstl:out value="${row2.pictures }"/>' height="100" width="auto">
 	</display:column>
 	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+		<a href="manager/show.do?clubId=${row2.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>
@@ -83,18 +83,18 @@
 
 </h3>
 
-<display:table name="rejectedClubs" id="row" requestURI="${requestURI}"
+<display:table name="rejectedClubs" id="row3" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
 	<display:column  titleKey="club.pictures">
-		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+		<img src='<jstl:out value="${row3.pictures }"/>' height="100" width="auto">
 	</display:column>
 	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+		<a href="manager/show.do?clubId=${row3.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>

@@ -1,3 +1,4 @@
+
 package forms;
 
 import java.util.Date;
@@ -18,10 +19,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class ParticipationEventForm {
 
-	private Date moment;
-	private String creditCardNumber;
-	private String ticker;
-	private String title;
+	private Date	moment;
+	private String	creditCardNumber;
+	private String	ticker;
+	private String	title;
+	private int		id;
+
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -31,17 +34,17 @@ public class ParticipationEventForm {
 		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotBlank
 	@CreditCardNumber
 	public String getCreditCardNumber() {
-		return creditCardNumber;
+		return this.creditCardNumber;
 	}
 
-	public void setCreditCardNumber(String creditCardNumber) {
+	public void setCreditCardNumber(final String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
 
@@ -63,5 +66,13 @@ public class ParticipationEventForm {
 
 	public void setTitle(final String title) {
 		this.title = title;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(final int id) {
+		this.id = id;
 	}
 }

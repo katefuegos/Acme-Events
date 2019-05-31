@@ -30,11 +30,11 @@
 	<display:column property="moment" titleKey="participationEvent.moment" />
 
 	<display:column>
-			<a href="socialProfile/show.do?socialProfileId=${row.client.socialProfile.id}"> <spring:message
+			<%-- <a href="socialProfile/show.do?socialProfileId=${row.client.socialProfile.id}"> <spring:message
 					code="socialProfile.show" />
-			</a>
+			</a> --%>
 
-			<a href="event/manager/show.do?eventId=${row.event.id}"> 
+			<a href="event/show.do?eventId=${row.id}"> 
 			<spring:message code="event.show" />
 			</a>
 	

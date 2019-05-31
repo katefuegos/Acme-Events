@@ -183,6 +183,8 @@
 
 		<security:intercept-url pattern="/event/list.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/event/show.do"
+			access="permitAll" />
 
 		<!-- Opinions -->
 		<security:intercept-url pattern="/opinion/manager/list.do"

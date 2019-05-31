@@ -1,3 +1,4 @@
+
 package forms;
 
 import java.util.Date;
@@ -23,13 +24,16 @@ public class OpinionForm2 {
 		super();
 	}
 
+
 	// Attributes -----------------------------------------------------
-	private String title;
-	private String description;
-	private int score;
-	private String ticker;
-	private String titleEvent;
-	private Date moment;
+	private String	title;
+	private String	description;
+	private int		score;
+	private String	ticker;
+	private String	titleEvent;
+	private Date	moment;
+	private int		id;
+
 
 	@NotBlank
 	public String getTitle() {
@@ -87,8 +91,16 @@ public class OpinionForm2 {
 		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
