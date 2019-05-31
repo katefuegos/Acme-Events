@@ -20,7 +20,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h2>
 	<spring:message code='event.saveds' />
 	<br>
@@ -48,6 +48,12 @@
 			</jstl:if>
 		</jstl:forEach>
 	</display:column>
+	<display:column titleKey="event.total.participations">
+		<jstl:out value="${fn:length(row.participationsEvent) }"/>
+	</display:column>
+	<display:column  titleKey="opinion.number" >
+		<jstl:out value="${fn:length(row.opinions) }"/>
+	</display:column>
 	<display:column>
 		<a href="event/manager/show.do?eventId=${row.id}"> <spring:message
 				code="event.show" />
@@ -58,8 +64,15 @@
 			<a href="participationEvent/manager/list.do?eventId=${row.id}"> <spring:message
 					code="event.participationes" />
 			</a>
+			<br><br>
+			<a href="event/opinions.do?eventId=${row.id}"> 
+			<spring:message code="event.opinions" />
+		</a>
+			
 		</jstl:if>
 	</display:column>
+	
+	
 
 </display:table>
 
