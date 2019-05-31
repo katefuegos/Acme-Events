@@ -47,13 +47,13 @@ public class ClubService {
 
 	public Club create() {
 		final Club club = new Club();
-		final String reasonReject = "";
+		//		final String reasonReject = "";
 		final Collection<Follow> follows = new ArrayList<Follow>();
 		final Collection<ApplicationClub> appclubs = new ArrayList<ApplicationClub>();
 		club.setFollows(follows);
 		club.setApplicationsClub(appclubs);
 		club.setDraftMode(true);
-		club.setReasonReject(reasonReject);
+		//		club.setReasonReject(reasonReject);
 		return club;
 	}
 

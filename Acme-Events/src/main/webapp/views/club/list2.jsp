@@ -33,7 +33,9 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column  titleKey="club.pictures">
+		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+	</display:column>
 	<display:column>
 		<a href="manager/show.do?clubId=${row.id}"> <spring:message
 				code="club.showManager" />
@@ -64,7 +66,9 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column  titleKey="club.pictures">
+		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+	</display:column>
 	<display:column>
 		<a href="manager/show.do?clubId=${row.id}"> <spring:message
 				code="club.showManager" />
@@ -85,7 +89,9 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
-	<display:column property="pictures" titleKey="club.pictures" />
+	<display:column  titleKey="club.pictures">
+		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
+	</display:column>
 	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column>
 		<a href="manager/show.do?clubId=${row.id}"> <spring:message
