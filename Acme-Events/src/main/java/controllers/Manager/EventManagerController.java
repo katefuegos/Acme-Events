@@ -1,7 +1,7 @@
-
 package controllers.Manager;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -36,20 +36,19 @@ public class EventManagerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private EventService			eventService;
+	private EventService eventService;
 
 	@Autowired
-	private ManagerService			managerService;
+	private ManagerService managerService;
 
 	@Autowired
-	private ClubService				clubService;
+	private ClubService clubService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService configurationService;
 
 	@Autowired
-	private CategoryService			categoryService;
-
+	private CategoryService categoryService;
 
 	// Constructor---------------------------------------
 
@@ -58,36 +57,46 @@ public class EventManagerController extends AbstractController {
 	public ModelAndView list(final int clubId) {
 		ModelAndView result;
 
-		final Collection<Event> events = this.eventService.findEventsByClub(clubId);
-		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final Collection<Event> events = this.eventService
+				.findEventsByClub(clubId);
+		final String lang = LocaleContextHolder.getLocale().getLanguage()
+				.toUpperCase();
 		result = new ModelAndView("event/manager/list");
 
 		result.addObject("events", events);
 		result.addObject("lang", lang);
 		result.addObject("clubId", clubId);
 		result.addObject("requestURI", "event/manager/list.do");
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/myList", method = RequestMethod.GET)
 	public ModelAndView myList() {
 		ModelAndView result;
-		Manager manager = managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Manager manager = managerService.findManagerByUserAccount(LoginService
+				.getPrincipal().getId());
 		Assert.notNull(manager);
-		final Collection<Event> eventsDraft = this.eventService.findByManagerAndDraft(manager);
-		final Collection<Event> eventsFinal = this.eventService.findByManagerAndFinal(manager);
-		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final Collection<Event> eventsDraft = this.eventService
+				.findByManagerAndDraft(manager);
+		final Collection<Event> eventsFinal = this.eventService
+				.findByManagerAndFinal(manager);
+		final String lang = LocaleContextHolder.getLocale().getLanguage()
+				.toUpperCase();
 		result = new ModelAndView("event/manager/myList");
 
 		result.addObject("eventsDraft", eventsDraft);
 		result.addObject("eventsFinal", eventsFinal);
 		result.addObject("lang", lang);
 		result.addObject("requestURI", "event/manager/myList.do");
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 
 		return result;
 	}
@@ -102,7 +111,7 @@ public class EventManagerController extends AbstractController {
 			eventManagerForm.setId(0);
 
 			result = this.createModelAndView(eventManagerForm);
-		
+
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/event/manager/list.do");
 		}
@@ -111,14 +120,16 @@ public class EventManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EventManagerForm eventManagerForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final EventManagerForm eventManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
-
+		Event event = null;
 		if (binding.hasErrors())
-			result = this.createModelAndView(eventManagerForm, "event.commit.error");
+			result = this.createModelAndView(eventManagerForm,
+					"event.commit.error");
 		else
 			try {
-				final Event event = this.eventService.create();
+				event = this.eventService.create();
 				event.setAddress(eventManagerForm.getAddress());
 				event.setDescription(eventManagerForm.getDescription());
 				event.setDraftMode(eventManagerForm.isDraftMode());
@@ -129,27 +140,35 @@ public class EventManagerController extends AbstractController {
 				event.setPoster(eventManagerForm.getPoster());
 				event.setPrice(eventManagerForm.getPrice());
 				event.setTitle(eventManagerForm.getTitle());
-
+				Assert.isTrue(event.getMomentStart().before(
+						event.getMomentEnd()));
 				this.eventService.save(event);
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(eventManagerForm, "event.commit.error");
-			}
+				result = this.createModelAndView(eventManagerForm,
+						"event.commit.error");
+				if (!event.getMomentStart().before(
+						event.getMomentEnd()))
+					result = this.createModelAndView(eventManagerForm,
+							"event.error.dateBad");
+							}
 
 		return result;
 	}
 
 	// EDIT
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int eventId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int eventId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Event event = null;
 		Manager manager = null;
 
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
 			Assert.notNull(manager);
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
@@ -174,27 +193,33 @@ public class EventManagerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/event/manager/list.do");
 			if (manager == null)
-				redirectAttrs.addFlashAttribute("message", "event.commit.error");
+				redirectAttrs
+						.addFlashAttribute("message", "event.commit.error");
 			else if (event == null)
-				redirectAttrs.addFlashAttribute("message", "event.error.unexist");
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.unexist");
 			else if (!event.isDraftMode())
-				redirectAttrs.addFlashAttribute("message", "event.error.notDraft");
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notDraft");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save2(@Valid final EventManagerForm eventManagerForm, final BindingResult binding) {
+	public ModelAndView save2(@Valid final EventManagerForm eventManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
 		Manager manager = null;
 		Event event = null;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(eventManagerForm, "event.commit.error");
+			result = this.editModelAndView(eventManagerForm,
+					"event.commit.error");
 		else
 			try {
 				final UserAccount userAccount = LoginService.getPrincipal();
-				manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+				manager = this.managerService
+						.findManagerByUserAccount(userAccount.getId());
 				Assert.notNull(manager);
 				event = this.eventService.findOne(eventManagerForm.getId());
 				Assert.notNull(event);
@@ -208,29 +233,38 @@ public class EventManagerController extends AbstractController {
 				event.setPoster(eventManagerForm.getPoster());
 				event.setPrice(eventManagerForm.getPrice());
 				event.setTitle(eventManagerForm.getTitle());
-
+				Assert.isTrue(event.getMomentStart().before(
+						event.getMomentEnd()));
 				this.eventService.save(event);
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(eventManagerForm, "event.commit.error");
+				result = this.editModelAndView(eventManagerForm,
+						"event.commit.error");
+				if (!event.getMomentStart().before(
+						event.getMomentEnd()))
+					result = this.createModelAndView(eventManagerForm,
+							"event.error.dateBad");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final EventManagerForm eventManagerForm, final BindingResult binding) {
+	public ModelAndView delete(@Valid final EventManagerForm eventManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
 		Manager manager = null;
 		Event event = null;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(eventManagerForm, "event.commit.error");
+			result = this.editModelAndView(eventManagerForm,
+					"event.commit.error");
 		else
 			try {
 				final UserAccount userAccount = LoginService.getPrincipal();
-				manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+				manager = this.managerService
+						.findManagerByUserAccount(userAccount.getId());
 				Assert.notNull(manager);
 				event = this.eventService.findOne(eventManagerForm.getId());
 				Assert.notNull(event);
@@ -239,7 +273,8 @@ public class EventManagerController extends AbstractController {
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(eventManagerForm, "event.commit.error");
+				result = this.editModelAndView(eventManagerForm,
+						"event.commit.error");
 			}
 
 		return result;
@@ -247,14 +282,16 @@ public class EventManagerController extends AbstractController {
 
 	// SHOW
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(final int eventId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(final int eventId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Manager manager = null;
 		Event event = null;
 
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
 			Assert.notNull(manager);
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
@@ -277,30 +314,76 @@ public class EventManagerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/event/manager/myList.do");
 			if (manager == null)
-				redirectAttrs.addFlashAttribute("message", "event.commit.error");
+				redirectAttrs
+						.addFlashAttribute("message", "event.commit.error");
 			else if (event == null)
-				redirectAttrs.addFlashAttribute("message", "event.error.unexist");
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.unexist");
 		}
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(final int eventId,
+			final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		Event event = null;
+		UserAccount ua = null;
+		try {
+			event = this.eventService.findOne(eventId);
+			ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			Assert.isTrue(ua.getAuthorities().toString().contains("MANAGER"));
+			Assert.notNull(event);
+			Assert.isTrue(event.getStatus().equals("AVAILABLE"));
+			Assert.isTrue(event.isDraftMode() == false);
+			Assert.isTrue(event.getMomentEnd().after(new Date()));
+			this.eventService.cancel(event);
+
+			result = new ModelAndView("redirect:/event/manager/myList.do");
+
+		} catch (final Throwable e) {
+
+			result = new ModelAndView("redirect:/event/manager/myList.do");
+			if (event.equals(null))
+				redirectAttrs
+						.addFlashAttribute("message", "event.error.unexist");
+			else if (event.isDraftMode() == true)
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.draft");
+			else if (!event.getStatus().equals("AVAILABLE"))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notAvailable");
+			else if (event.getMomentEnd().before(new Date()))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.eventFinished");
+			else
+				redirectAttrs.addFlashAttribute("message", "commit.error");
+		}
+		return result;
+	}
 
 	// MODEL
-	protected ModelAndView createModelAndView(final EventManagerForm eventManagerForm) {
+	protected ModelAndView createModelAndView(
+			final EventManagerForm eventManagerForm) {
 		ModelAndView result;
 		result = this.createModelAndView(eventManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final EventManagerForm eventManagerForm, final String message) {
+	protected ModelAndView createModelAndView(
+			final EventManagerForm eventManagerForm, final String message) {
 		final ModelAndView result;
 		UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
-		Manager manager = managerService.findManagerByUsername(ua.getUsername());
+		Manager manager = managerService
+				.findManagerByUsername(ua.getUsername());
 		Assert.notNull(manager);
-		
+
 		final Collection<Category> categories = this.categoryService.findAll();
-		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager.getId());
+		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager
+				.getId());
 		result = new ModelAndView("event/manager/create");
 
 		result.addObject("categories", categories);
@@ -310,67 +393,83 @@ public class EventManagerController extends AbstractController {
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("isRead", false);
 		result.addObject("id", eventManagerForm.getId());
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final EventManagerForm eventManagerForm) {
+	protected ModelAndView editModelAndView(
+			final EventManagerForm eventManagerForm) {
 		ModelAndView result;
 		result = this.editModelAndView(eventManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final EventManagerForm eventManagerForm, final String message) {
+	protected ModelAndView editModelAndView(
+			final EventManagerForm eventManagerForm, final String message) {
 		final ModelAndView result;
 
 		UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
-		Manager manager = managerService.findManagerByUsername(ua.getUsername());
+		Manager manager = managerService
+				.findManagerByUsername(ua.getUsername());
 		Assert.notNull(manager);
-		
+
 		final Collection<Category> categories = this.categoryService.findAll();
-		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager.getId());
+		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager
+				.getId());
 		result = new ModelAndView("event/manager/edit");
 		result.addObject("categories", categories);
 		result.addObject("clubs", clubs);
 		result.addObject("message", message);
-		result.addObject("requestURI", "event/manager/edit.do?eventId=" + eventManagerForm.getId());
+		result.addObject("requestURI", "event/manager/edit.do?eventId="
+				+ eventManagerForm.getId());
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("id", eventManagerForm.getId());
 		result.addObject("isRead", false);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final EventManagerForm eventManagerForm) {
+	protected ModelAndView ShowModelAndView(
+			final EventManagerForm eventManagerForm) {
 		ModelAndView result;
 		result = this.ShowModelAndView(eventManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final EventManagerForm eventManagerForm, final String message) {
+	protected ModelAndView ShowModelAndView(
+			final EventManagerForm eventManagerForm, final String message) {
 		final ModelAndView result;
 
 		UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
-		Manager manager = managerService.findManagerByUsername(ua.getUsername());
+		Manager manager = managerService
+				.findManagerByUsername(ua.getUsername());
 		Assert.notNull(manager);
-		
+
 		final Collection<Category> categories = this.categoryService.findAll();
-		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager.getId());
-		
+		Collection<Club> clubs = clubService.findByManagerAndAcepted(manager
+				.getId());
+
 		result = new ModelAndView("event/manager/show");
 		result.addObject("categories", categories);
 		result.addObject("clubs", clubs);
 		result.addObject("message", message);
-		result.addObject("requestURI", "event/manager/show.do?eventId=" + eventManagerForm.getId());
+		result.addObject("requestURI", "event/manager/show.do?eventId="
+				+ eventManagerForm.getId());
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("id", eventManagerForm.getId());
 		result.addObject("isRead", true);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 }

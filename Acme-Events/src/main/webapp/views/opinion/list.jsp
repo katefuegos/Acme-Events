@@ -34,7 +34,7 @@
 	<display:column property="moment" titleKey="opinion.moment" />
 	<display:column>
 	<a href="event/show.do?eventId=${row.id}"> 
-			<spring:message code="event.show" />
+			<spring:message code="event.showEvent" />
 			</a>
 	
 	</display:column>

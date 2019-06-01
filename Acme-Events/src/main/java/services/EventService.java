@@ -81,6 +81,13 @@ public class EventService {
 
 	// Other Methods--------------------------------------------
 
+	public void cancel(final Event event) {
+		Assert.notNull(event);
+		Assert.isTrue(event.getStatus().equals("AVAILABLE"));
+		event.setStatus("CANCELLED");
+		this.eventRepository.save(event);
+	}
+	
 	public Collection<Event> findEventsByCategoryId(final int categoryId) {
 		final Collection<Event> events = this.eventRepository.findEventByCategoryId(categoryId);
 		return events;

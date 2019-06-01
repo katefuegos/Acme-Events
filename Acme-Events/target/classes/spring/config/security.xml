@@ -181,6 +181,9 @@
 		<security:intercept-url pattern="/event/manager/show.do"
 			access="hasRole('MANAGER')" />
 
+		<security:intercept-url pattern="/event/manager/cancel.do"
+			access="hasRole('MANAGER')" />
+
 		<security:intercept-url pattern="/event/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/event/show.do"

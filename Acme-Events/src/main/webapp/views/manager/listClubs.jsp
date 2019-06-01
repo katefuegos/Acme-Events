@@ -96,23 +96,6 @@
 			</a>
 		</jstl:if>
 	</display:column>
-	<display:column>
-		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
-				code="club.showManager" />
-		</a>
-		<br>
-		<br>
-
-		<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
-				code="club.follow.list" />
-		</a>
-		<br>
-		<br>
-
-		<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
-				code="club.event.list" />
-		</a>
-	</display:column>
 
 </display:table>
 
@@ -129,6 +112,7 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
+	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column  titleKey="club.pictures">
 		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
 	</display:column>
@@ -143,23 +127,6 @@
 					code="club.show" />
 			</a>
 		</jstl:if>
-	</display:column>
-	<display:column>
-		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
-				code="club.showManager" />
-		</a>
-		<br>
-		<br>
-
-		<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
-				code="club.follow.list" />
-		</a>
-		<br>
-		<br>
-
-		<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
-				code="club.event.list" />
-		</a>
 	</display:column>
 
 </display:table>
@@ -192,26 +159,9 @@
 			</a>
 		</jstl:if>
 	</display:column>
-	<display:column>
-		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
-				code="club.showManager" />
-		</a>
-		<br>
-		<br>
-
-		<a href="club/manager/listFollows.do?clubId=${row.id }"> <spring:message
-				code="club.follow.list" />
-		</a>
-		<br>
-		<br>
-
-		<a href="event/manager/list.do?clubId=${row.id }"> <spring:message
-				code="club.event.list" />
-		</a>
-	</display:column>
 
 </display:table>
-
+<br />
 <a href="club/manager/create.do"> <spring:message code="club.create" />
 </a>
 
