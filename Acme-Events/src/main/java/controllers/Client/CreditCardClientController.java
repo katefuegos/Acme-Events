@@ -1,6 +1,9 @@
 
 package controllers.Client;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,9 +142,16 @@ public class CreditCardClientController extends AbstractController {
 
 		result = new ModelAndView("creditcard/edit");
 
+		final Collection<String> brandNames = new ArrayList<>();
+		brandNames.add("VISA");
+		brandNames.add("MASTER");
+		brandNames.add("DINNERS");
+		brandNames.add("AMEX");
+
 		result.addObject("creditCardForm", creditCardForm);
 
 		result.addObject("message", message);
+		result.addObject("brandNames", brandNames);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "creditCard/client/edit.do");
 

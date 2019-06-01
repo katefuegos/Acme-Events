@@ -30,7 +30,18 @@
 	<form:hidden path="version" />
 
 	<acme:textbox code="creditcard.holderName" path="holderName" />
-	<acme:textbox code="creditcard.brandName" path="brandName" />
+	
+	<%-- <acme:textbox code="creditcard.brandName" path="brandName" />
+	 --%>
+	 <form:label path="brandName">
+		<spring:message code="creditcard.brandName" />:
+	</form:label>
+	<form:select id="brandNames" path="brandName" readonly="${isRead }">
+		<form:options items="${brandNames}" />
+	</form:select>
+	<form:errors cssClass="error" path="brandName" /> 
+	
+	
 	<acme:textbox code="creditcard.number" path="number" />
 	<acme:textbox code="creditcard.expirationMonth" path="expirationMonth" />
 	<acme:textbox code="creditcard.expirationYear" path="expirationYear" />
