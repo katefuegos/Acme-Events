@@ -42,6 +42,16 @@ public class Event extends DomainEntity {
 	private String	status;
 	private boolean	draftMode;
 
+	private Double	score;
+
+
+	public Double getScore() {
+		return this.score;
+	}
+
+	public void setScore(final Double score) {
+		this.score = score;
+	}
 
 	@Column(unique = true)
 	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")

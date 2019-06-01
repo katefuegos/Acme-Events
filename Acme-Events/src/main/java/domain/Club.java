@@ -17,85 +17,97 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-
 public class Club extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private String	name;
-	private String 	address;
-	private String 	description;
-	private String 	pictures;
+	private String	address;
+	private String	description;
+	private String	pictures;
 	private boolean	accepted;
 	private boolean	draftMode;
-	private String 	reasonReject;
-	
-	@NotBlank
-	public String getName() {
-		return name;
+	private String	reasonReject;
+
+	private Double	score;
+
+
+	public Double getScore() {
+		return this.score;
 	}
 
-	public void setName(String name) {
+	public void setScore(final Double score) {
+		this.score = score;
+	}
+
+	@NotBlank
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	@NotBlank
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	@URL
 	public String getPictures() {
-		return pictures;
+		return this.pictures;
 	}
 
-	public void setPictures(String pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 
 	@NotNull
 	public boolean isAccepted() {
-		return accepted;
+		return this.accepted;
 	}
 
-	public void setAccepted(boolean accepted) {
+	public void setAccepted(final boolean accepted) {
 		this.accepted = accepted;
 	}
 
 	@NotNull
 	public boolean isDraftMode() {
-		return draftMode;
+		return this.draftMode;
 	}
 
-	public void setDraftMode(boolean draftMode) {
+	public void setDraftMode(final boolean draftMode) {
 		this.draftMode = draftMode;
 	}
 
 	public String getReasonReject() {
-		return reasonReject;
+		return this.reasonReject;
 	}
 
-	public void setReasonReject(String reasonReject) {
+	public void setReasonReject(final String reasonReject) {
 		this.reasonReject = reasonReject;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Manager			manager;
-	private Collection<ApplicationClub> applicationsClub;
-	private Collection<Follow> follows;
+	private Manager						manager;
+	private Collection<ApplicationClub>	applicationsClub;
+	private Collection<Follow>			follows;
+
 
 	@NotNull
 	@Valid
@@ -107,16 +119,16 @@ public class Club extends DomainEntity {
 	public void setManager(final Manager manager) {
 		this.manager = manager;
 	}
-	
+
 	@NotNull
 	@ElementCollection
 	@Valid
 	@OneToMany()
 	public Collection<ApplicationClub> getApplicationsClub() {
-		return applicationsClub;
+		return this.applicationsClub;
 	}
 
-	public void setApplicationsClub(Collection<ApplicationClub> applicationsClub) {
+	public void setApplicationsClub(final Collection<ApplicationClub> applicationsClub) {
 		this.applicationsClub = applicationsClub;
 	}
 
@@ -125,10 +137,10 @@ public class Club extends DomainEntity {
 	@Valid
 	@OneToMany()
 	public Collection<Follow> getFollows() {
-		return follows;
+		return this.follows;
 	}
 
-	public void setFollows(Collection<Follow> follows) {
+	public void setFollows(final Collection<Follow> follows) {
 		this.follows = follows;
 	}
 }

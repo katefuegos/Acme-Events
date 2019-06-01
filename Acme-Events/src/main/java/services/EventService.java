@@ -32,8 +32,8 @@ public class EventService {
 	@Autowired
 	private EventRepository	eventRepository;
 
-	// Services-------------------------------------------------
 
+	// Services-------------------------------------------------
 
 	// Constructor----------------------------------------------
 
@@ -45,7 +45,7 @@ public class EventService {
 
 	public Event create() {
 		final Event event = new Event();
-		event.setTicker(generateTicker());
+		event.setTicker(this.generateTicker());
 		event.setStatus("AVAILABLE");
 		event.setDraftMode(true);
 		event.setParticipationsEvent(new ArrayList<ParticipationEvent>());
@@ -63,9 +63,8 @@ public class EventService {
 
 	public Event save(final Event event) {
 		Assert.notNull(event);
-		if(event.isDraftMode()==false && event.getMomentPublished() == null){
+		if (event.isDraftMode() == false && event.getMomentPublished() == null)
 			event.setMomentPublished(new Date(System.currentTimeMillis() - 1000));
-		}
 		final Event saved = this.eventRepository.save(event);
 		return saved;
 	}
@@ -142,7 +141,7 @@ public class EventService {
 
 		Assert.notNull(client, "opinion.client.null");
 
-		result = this.eventRepository.findByParticipation(client.getId());
+		result = this.eventRepository.findByParticipationAndFinalize(client.getId());
 
 		final Collection<Event> result2 = this.eventRepository.findByOpinion(client.getId());
 
@@ -171,13 +170,13 @@ public class EventService {
 		return this.eventRepository.findByManager(manager.getId());
 
 	}
-	
+
 	public Collection<Event> findByManagerAndDraft(final Manager manager) {
 		Assert.notNull(manager);
 		return this.eventRepository.findByManagerAndDraft(manager.getId());
 
 	}
-	
+
 	public Collection<Event> findByManagerAndFinal(final Manager manager) {
 		Assert.notNull(manager);
 		return this.eventRepository.findByManagerAndFinal(manager.getId());
@@ -200,7 +199,7 @@ public class EventService {
 
 		return result;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public String generateTicker() {
 		final Date date = new Date();
@@ -227,4 +226,5 @@ public class EventService {
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		return new String(text);
 	}
+
 }

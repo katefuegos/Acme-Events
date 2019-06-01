@@ -77,6 +77,7 @@
 		<img src='<jstl:out value="${row.poster }"/>' alt="No <spring:message code='actor.photo' />" height="150" width="auto"> 
 	</display:column>
 	<display:column property="price" titleKey="event.price" />
+	<display:column property="score" titleKey="administrator.score" />
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 

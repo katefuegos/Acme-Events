@@ -33,6 +33,7 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
+	<display:column property="score" titleKey="administrator.score" />
 	<display:column  titleKey="club.pictures">
 		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
 	</display:column>
@@ -66,6 +67,7 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
+	<display:column property="score" titleKey="administrator.score" />
 	<display:column  titleKey="club.pictures">
 		<img src='<jstl:out value="${row2.pictures }"/>' height="100" width="auto">
 	</display:column>
@@ -89,6 +91,7 @@
 	<display:column property="name" titleKey="club.name" />
 	<display:column property="address" titleKey="club.address" />
 	<display:column property="description" titleKey="club.description" />
+	<display:column property="score" titleKey="administrator.score" />
 	<display:column  titleKey="club.pictures">
 		<img src='<jstl:out value="${row3.pictures }"/>' height="100" width="auto">
 	</display:column>

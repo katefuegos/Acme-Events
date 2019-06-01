@@ -823,6 +823,7 @@
 		<property name="address" value="Paseo marítimo , Islantilla Huelva (España)" />
 		<property name="description" value="Un club mágico en primera linea de la playa" />
 		<property name="pictures" value="https://media-cdn.tripadvisor.com/media/photo-s/0f/02/77/17/bonita-rides.jpg" />
+		<property name="score" value="2.66"/>
 		<property name="accepted" value="true" />
 		<property name="draftMode" value="false" />
 		<property name="manager" ref="manager1" />
@@ -944,6 +945,7 @@
 		<property name="description" value="Nada como una fiesta de la espuma para empezar el verano. Vente, no te arrepentirás." />
 		<property name="address" value="---" />
 		<property name="price" value="20.0" />
+		<property name="score" value="8.0" />
 		<property name="momentStart" value="2019/05/25 00:00" />
 		<property name="momentEnd" value="2019/05/25 07:00" />
 		<property name="status" value="AVAILABLE" />
@@ -970,6 +972,7 @@
 		<property name="poster" value="http://designcrown.com/uploads/posts/2016-06/1466002594_designcrown.com_pocsm3lk6jpxgcv.jpeg"/>
 		<property name="description" value="Noche de bailes, noches de dejarte la piel en la pista. No te lo pienses, vente." />
 		<property name="address" value="Sala 2" />
+		<property name="score" value="8.0" />
 		<property name="price" value="40.0" />
 		<property name="momentStart" value="2019/05/24 22:00" />
 		<property name="momentEnd" value="2019/05/25 06:00" />

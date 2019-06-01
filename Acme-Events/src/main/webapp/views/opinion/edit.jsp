@@ -25,13 +25,13 @@
 	<acme:textarea code="opinion.description" path="description" />
 	<acme:textbox code="opinion.score" path="score" />
 
-	<form:label path="event">
+	 <form:label path="event">
 		<spring:message code="opinion.event" />:
 	</form:label>
 	<form:select id="events" path="event" readonly="${isRead }">
 		<form:options items="${events}" itemValue="id" itemLabel="title" />
 	</form:select>
-	<form:errors cssClass="error" path="event" />
+	<form:errors cssClass="error" path="event" /> 
 
 
 

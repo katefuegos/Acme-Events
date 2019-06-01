@@ -119,13 +119,14 @@ public class OpinionClientController extends AbstractController {
 				event.getOpinions().add(saved);
 				this.eventService.save(event);
 
+				this.opinionService.calculateScore(event);
+
 				result = new ModelAndView("redirect:/opinion/client/list.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(opinionForm, "message.commit.error");
 			}
 		return result;
 	}
-
 	// AUXILIARY METHODS
 
 	protected ModelAndView createModelAndView(final OpinionForm opinionForm) {
@@ -140,10 +141,14 @@ public class OpinionClientController extends AbstractController {
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 		final Collection<Event> events = this.eventService.findOpinionable(client);
 
-		if (events.isEmpty()) {
+		if (events == null || events.isEmpty()) {
 			result = this.list();
 			result.addObject("message", "opinion.error.notEvent");
 		} else {
+			System.out.println("=============================");
+			System.out.println("=============================");
+			System.out.println("=============================");
+			System.out.println("=============================");
 			result = new ModelAndView("opinion/create");
 			result.addObject("opinionForm", opinionForm);
 			result.addObject("events", events);

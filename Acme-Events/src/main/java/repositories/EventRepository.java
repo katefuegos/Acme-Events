@@ -34,6 +34,9 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1")
 	Collection<Event> findByParticipation(int clientId);
 
+	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1 and e.momentEnd<current_date")
+	Collection<Event> findByParticipationAndFinalize(int clientId);
+
 	@Query("select e from Event e join e.opinions o where o.client.id = ?1")
 	Collection<Event> findByOpinion(int clientId);
 
@@ -51,10 +54,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
 	@Query("select f from Event f where f.club.manager.id = ?1")
 	Collection<Event> findByManager(int managerId);
-	
+
 	@Query("select f from Event f where f.club.manager.id = ?1 and f.draftMode=true")
 	Collection<Event> findByManagerAndDraft(int managerId);
-	
+
 	@Query("select f from Event f where f.club.manager.id = ?1 and f.draftMode=false")
 	Collection<Event> findByManagerAndFinal(int managerId);
 
