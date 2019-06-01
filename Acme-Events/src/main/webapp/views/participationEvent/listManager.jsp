@@ -43,7 +43,12 @@
 <%-- 	<display:column property="creditCardNumber" titleKey="participationEvent.creditCardNumber" />
  --%>	
  	<display:column property="moment" titleKey="participationEvent.moment" />
-
+	<display:column>
+	<a href="client/show.do?clientId=${row.client.id}"> 
+			<spring:message code="client.show" />
+	</a>
+	
+	</display:column>
 </display:table>
 
 

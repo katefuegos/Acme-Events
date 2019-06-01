@@ -203,6 +203,9 @@
 			access="hasRole('CLIENT')" />
 
 
+		<!-- Client -->
+		<security:intercept-url pattern="/client/show.do"
+			access="hasRole('MANAGER')" />
 
 		<!-- Category -->
 		<security:intercept-url pattern="/category/administrator/list.do"

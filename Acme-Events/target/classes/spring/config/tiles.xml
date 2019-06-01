@@ -37,6 +37,7 @@
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/participationEvent/tiles.xml</value>
 		<value>/views/opinion/tiles.xml</value>
+		<value>/views/client/tiles.xml</value>
 		
 	</util:list>
 
