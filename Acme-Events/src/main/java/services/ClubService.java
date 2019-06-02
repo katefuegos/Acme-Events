@@ -18,6 +18,7 @@ import domain.ApplicationClub;
 import domain.Client;
 import domain.Club;
 import domain.Follow;
+import domain.Manager;
 import forms.ClubForm;
 
 @Service
@@ -36,6 +37,9 @@ public class ClubService {
 	@Autowired
 	private ClientService	clientService;
 
+	@Autowired
+	private ManagerService	managerService;
+
 
 	// Constructor----------------------------------------------
 
@@ -48,8 +52,10 @@ public class ClubService {
 	public Club create() {
 		final Club club = new Club();
 		//		final String reasonReject = "";
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
 		final Collection<Follow> follows = new ArrayList<Follow>();
 		final Collection<ApplicationClub> appclubs = new ArrayList<ApplicationClub>();
+		club.setManager(this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId()));
 		club.setFollows(follows);
 		club.setApplicationsClub(appclubs);
 		club.setDraftMode(true);
@@ -67,11 +73,18 @@ public class ClubService {
 
 	public Club save(final Club club) {
 		Assert.notNull(club);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
+		final Manager manager = this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.isTrue(club.getManager().equals(manager));
 		final Club saved = this.clubRepository.save(club);
 		return saved;
 	}
 
 	public void delete(final Club club) {
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
+		final Manager manager = this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.isTrue(club.isDraftMode(), "club.error.notDraft");
+		Assert.isTrue(club.getManager().equals(manager));
 		this.clubRepository.delete(club);
 	}
 
@@ -197,5 +210,9 @@ public class ClubService {
 	public Collection<Club> findClubsDraftMode() {
 		final Collection<Club> result = this.clubRepository.findClubsDraftMode();
 		return result;
+	}
+
+	public void flush() {
+		this.clubRepository.flush();
 	}
 }
