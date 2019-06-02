@@ -255,6 +255,28 @@ public class MessageService {
 		this.messageRepository.save(messages);
 
 	}
+	
+	public void notificationMessage(final Message message, Collection<Actor> allActor) {
+		this.checkPriorities(message);
+
+		final Collection<Message> messages = new ArrayList<>();
+
+		for (final Actor recipient : allActor) {
+			final Message message2 = this.copyMessage(message);
+			message2.setRecipient(recipient);
+			Box box;
+			if (this.isSpam(message2)) {
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
+				this.administratorService.isSuspicious(message.getSender());
+			} else
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "notification box");
+			message2.setBox(box);
+			messages.add(message2);
+		}
+
+		this.messageRepository.save(messages);
+
+	}
 
 	private Message copyMessage(final Message message) {
 		final Message result = this.create();

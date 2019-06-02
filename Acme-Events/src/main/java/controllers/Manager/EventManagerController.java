@@ -1,5 +1,6 @@
 package controllers.Manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,11 +23,16 @@ import services.ClubService;
 import services.ConfigurationService;
 import services.EventService;
 import services.ManagerService;
+import services.MessageService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Category;
 import domain.Club;
 import domain.Event;
+import domain.Follow;
 import domain.Manager;
+import domain.Message;
+import domain.ParticipationEvent;
 import forms.EventManagerForm;
 
 @Controller
@@ -40,6 +46,9 @@ public class EventManagerController extends AbstractController {
 
 	@Autowired
 	private ManagerService managerService;
+	
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private ClubService clubService;
@@ -250,6 +259,24 @@ public class EventManagerController extends AbstractController {
 				Assert.isTrue(event.getMomentStart().before(
 						event.getMomentEnd()));
 				this.eventService.save(event);
+				
+				if(!event.isDraftMode()){
+					Collection<Actor> receivers = new ArrayList<Actor>();
+					
+					for(Follow follow : event.getClub().getFollows()){
+						receivers.add(follow.getClient());
+					}
+						
+					Message message = messageService.create();
+					message.setBody("El evento " + event.getTitle()
+							+ " ha sido creado en el club " + event.getClub().getName() + ". / The event "
+							+ event.getTitle() + " was created in the club " + event.getClub().getName() + ".");
+					message.setPriority("HIGH");
+					message.setSender(event.getClub().getManager());
+					message.setSubject("Nuevo evento: " + event.getTitle() + " creado. / New event: " + event.getTitle() + " created.");
+					message.setTags("evento, event, cancelled, cancelado");
+					messageService.notificationMessage(message, receivers);
+				}
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
@@ -365,6 +392,21 @@ public class EventManagerController extends AbstractController {
 			Assert.isTrue(event.isDraftMode() == false);
 			Assert.isTrue(event.getMomentEnd().after(new Date()));
 			this.eventService.cancel(event);
+			
+			Collection<Actor> receivers = new ArrayList<Actor>();
+			for(ParticipationEvent participation : event.getParticipationsEvent()){
+				receivers.add(participation.getClient());
+			}
+				
+			Message message = messageService.create();
+			message.setBody("El evento " + event.getTitle()
+					+ " ha sido cancelado. / The event "
+					+ event.getTitle() + " was cancelled.");
+			message.setPriority("HIGH");
+			message.setSender(event.getClub().getManager());
+			message.setSubject("Event " + event.getTitle() + " cancelado. / Event " + event.getTitle() + " cancelled.");
+			message.setTags("evento, event, cancelled, cancelado");
+			messageService.notificationMessage(message, receivers);
 
 			result = new ModelAndView("redirect:/event/manager/myList.do");
 
