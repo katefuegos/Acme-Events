@@ -79,7 +79,7 @@ public class CreditCardClientController extends AbstractController {
 		else
 			try {
 
-				final Integer d1 = Integer.valueOf(creditCardForm.getCVVCode());
+				//final Integer d1 = Integer.valueOf(creditCardForm.getCVVCode());
 
 				final CreditCard creditCard = this.reconstruct(creditCardForm);
 

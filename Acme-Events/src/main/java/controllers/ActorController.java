@@ -25,7 +25,6 @@ import security.LoginService;
 import services.ActorService;
 import services.ClientService;
 import services.ConfigurationService;
-import services.ManagerService;
 import domain.Actor;
 import domain.Client;
 import forms.ActorForm;
@@ -39,9 +38,6 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ClientService			clientService;
-
-	@Autowired
-	private ManagerService			managerService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

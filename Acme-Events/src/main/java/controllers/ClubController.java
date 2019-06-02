@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ClubService;
 import services.ConfigurationService;
-import services.ManagerService;
 import domain.Club;
 import forms.ClubManagerForm;
 
@@ -26,9 +25,6 @@ public class ClubController extends AbstractController {
 
 	@Autowired
 	private ClubService				clubService;
-
-	@Autowired
-	private ManagerService			managerService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

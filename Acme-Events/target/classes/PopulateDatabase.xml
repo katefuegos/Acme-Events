@@ -1358,7 +1358,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 	<bean id="category3" class="domain.Category">
@@ -1421,7 +1421,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 	<bean id="category6" class="domain.Category">
@@ -1442,7 +1442,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 	<bean id="category7" class="domain.Category">
@@ -1463,7 +1463,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 	<bean id="category8" class="domain.Category">
@@ -1484,7 +1484,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 	<bean id="category9" class="domain.Category">
@@ -1505,7 +1505,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category4" />
 	</bean>
 
 
@@ -1527,7 +1527,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category3" />
 	</bean>
 
 	<bean id="category11" class="domain.Category">
@@ -1548,7 +1548,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category3" />
 	</bean>
 
 	<bean id="category12" class="domain.Category">
@@ -1569,7 +1569,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category3" />
 	</bean>
 
 	<bean id="category13" class="domain.Category">
@@ -1590,7 +1590,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category3" />
 	</bean>
 
 	<bean id="category14" class="domain.Category">
@@ -1611,7 +1611,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category1" />
 	</bean>
 
 	<bean id="category15" class="domain.Category">
@@ -1632,7 +1632,7 @@
 			</map>
 		</property>
 		<property name="root" value="false" />
-		<property name="rootCategory" ref="rootCategory" />
+		<property name="rootCategory" ref="category1" />
 	</bean>
 
 	<!-- CREDIT CARD -->

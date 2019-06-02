@@ -1,5 +1,6 @@
 package controllers.Administrator;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -15,10 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import security.UserAccount;
+import services.AdministratorService;
 import services.ClubService;
 import services.ConfigurationService;
+import services.MessageService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Club;
+import domain.Message;
 import forms.ClubForm;
 
 @Controller
@@ -30,6 +35,12 @@ public class ClubAdministratorController extends AbstractController {
 	@Autowired
 	private ClubService clubService;
 
+	@Autowired
+	private MessageService messageService;
+
+	@Autowired
+	private AdministratorService administratorService;
+	
 	@Autowired
 	private ConfigurationService configurationService;
 
@@ -75,6 +86,18 @@ public class ClubAdministratorController extends AbstractController {
 			Assert.isTrue(!club.isAccepted());
 			Assert.isTrue(club.getReasonReject() == null);
 			this.clubService.accept(club);
+
+			Collection<Actor> receivers = new ArrayList<Actor>();
+			receivers.add(club.getManager());
+			Message message = messageService.create();
+			message.setBody("Su club " + club.getName()
+					+ " ha sido aceptado en el sistema. / Your club "
+					+ club.getName() + " was acepted in the system.");
+			message.setPriority("HIGH");
+			message.setSender(administratorService.findByUseraccount(ua));
+			message.setSubject("Club " + club.getName() + " aceptado. / Club " + club.getName() + " acepted.");
+			message.setTags("club,acepted,aceptado");
+			messageService.notificationMessage(message, receivers);
 
 			result = new ModelAndView("redirect:/club/administrator/list.do");
 
@@ -135,12 +158,34 @@ public class ClubAdministratorController extends AbstractController {
 	public ModelAndView reject(@Valid final ClubForm clubForm,
 			final BindingResult binding) {
 		ModelAndView result;
-
+		Club club = null;
+		UserAccount ua = null;
 		if (binding.hasErrors())
 			result = this.rejectModelAndView(clubForm, "commit.error");
 		else
 			try {
+				club = this.clubService.findOne(clubForm.getId());
+				ua = LoginService.getPrincipal();
+				Assert.notNull(ua);
+				Assert.isTrue(ua.getAuthorities().toString().contains("ADMIN"));
+				Assert.notNull(club);
+				Assert.isTrue(!club.isAccepted());
+				Assert.isTrue(club.getReasonReject() == null);
+				
 				this.clubService.reject(clubForm);
+				
+				Collection<Actor> receivers = new ArrayList<Actor>();
+				receivers.add(club.getManager());
+				Message message = messageService.create();
+				message.setBody("Su club " + club.getName()
+						+ " ha sido rechazado en el sistema. / Your club "
+						+ club.getName() + " was rejected in the system.");
+				message.setPriority("HIGH");
+				message.setSender(administratorService.findByUseraccount(ua));
+				message.setSubject("Club " + club.getName() + " rechazado. / Club " + club.getName() + " rejected.");
+				message.setTags("club,acepted,aceptado");
+				messageService.notificationMessage(message, receivers);
+				
 				result = new ModelAndView(
 						"redirect:/club/administrator/list.do");
 			} catch (final Throwable oops) {

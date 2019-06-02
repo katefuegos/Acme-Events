@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.CategoryService;
 import services.ClubService;
 import services.ConfigurationService;
 import services.EventService;
-import services.ManagerService;
 import services.OpinionService;
 import domain.Club;
 import domain.Event;
@@ -35,16 +33,10 @@ public class EventController extends AbstractController {
 	private ClubService				clubService;
 
 	@Autowired
-	private ManagerService			managerService;
-
-	@Autowired
 	private EventService			eventService;
 
 	@Autowired
 	private OpinionService			opinionService;
-
-	@Autowired
-	private CategoryService			categoryService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

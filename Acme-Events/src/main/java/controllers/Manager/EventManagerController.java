@@ -1,5 +1,6 @@
 package controllers.Manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,11 +23,16 @@ import services.ClubService;
 import services.ConfigurationService;
 import services.EventService;
 import services.ManagerService;
+import services.MessageService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Category;
 import domain.Club;
 import domain.Event;
+import domain.Follow;
 import domain.Manager;
+import domain.Message;
+import domain.ParticipationEvent;
 import forms.EventManagerForm;
 
 @Controller
@@ -40,6 +46,9 @@ public class EventManagerController extends AbstractController {
 
 	@Autowired
 	private ManagerService managerService;
+	
+	@Autowired
+	private MessageService messageService;
 
 	@Autowired
 	private ClubService clubService;
@@ -105,15 +114,26 @@ public class EventManagerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
-
+		Manager manager = null;
+		UserAccount ua = null;
 		try {
+			ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			manager = managerService.findManagerByUserAccount(ua.getId());
+			Assert.notNull(manager);
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setId(0);
-
+			Assert.isTrue(!clubService.findByManagerAndAcepted(manager.getId()).isEmpty());
 			result = this.createModelAndView(eventManagerForm);
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/event/manager/list.do");
+			result = new ModelAndView("redirect:/event/manager/myList.do");
+			if (manager == null)
+				redirectAttrs
+						.addFlashAttribute("message", "event.commit.error");
+			else if (clubService.findByManagerAndAcepted(manager.getId()).isEmpty())
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.emptyClubs");
 		}
 
 		return result;
@@ -173,7 +193,7 @@ public class EventManagerController extends AbstractController {
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
 			Assert.isTrue(event.isDraftMode());
-
+			Assert.isTrue(event.getClub().getManager().equals(manager));
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setId(event.getId());
 			eventManagerForm.setAddress(event.getAddress());
@@ -191,13 +211,16 @@ public class EventManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/event/manager/list.do");
+			result = new ModelAndView("redirect:/event/manager/myList.do");
 			if (manager == null)
 				redirectAttrs
 						.addFlashAttribute("message", "event.commit.error");
 			else if (event == null)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.unexist");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 			else if (!event.isDraftMode())
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.notDraft");
@@ -236,6 +259,24 @@ public class EventManagerController extends AbstractController {
 				Assert.isTrue(event.getMomentStart().before(
 						event.getMomentEnd()));
 				this.eventService.save(event);
+				
+				if(!event.isDraftMode()){
+					Collection<Actor> receivers = new ArrayList<Actor>();
+					
+					for(Follow follow : event.getClub().getFollows()){
+						receivers.add(follow.getClient());
+					}
+						
+					Message message = messageService.create();
+					message.setBody("El evento " + event.getTitle()
+							+ " ha sido creado en el club " + event.getClub().getName() + ". / The event "
+							+ event.getTitle() + " was created in the club " + event.getClub().getName() + ".");
+					message.setPriority("HIGH");
+					message.setSender(event.getClub().getManager());
+					message.setSubject("Nuevo evento: " + event.getTitle() + " creado. / New event: " + event.getTitle() + " created.");
+					message.setTags("evento, event, cancelled, cancelado");
+					messageService.notificationMessage(message, receivers);
+				}
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
@@ -295,7 +336,8 @@ public class EventManagerController extends AbstractController {
 			Assert.notNull(manager);
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
-
+			Assert.isTrue(event.getClub().getManager().equals(manager));
+			Assert.isTrue(!event.isDraftMode());
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setAddress(event.getAddress());
 			eventManagerForm.setDescription(event.getDescription());
@@ -319,6 +361,12 @@ public class EventManagerController extends AbstractController {
 			else if (event == null)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.unexist");
+			else if (event.isDraftMode()==true)
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.draft");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 		}
 
 		return result;
@@ -330,25 +378,47 @@ public class EventManagerController extends AbstractController {
 		ModelAndView result;
 		Event event = null;
 		UserAccount ua = null;
+		Manager manager = null;
 		try {
 			event = this.eventService.findOne(eventId);
+			Assert.notNull(event);
 			ua = LoginService.getPrincipal();
 			Assert.notNull(ua);
+			manager = managerService.findManagerByUserAccount(ua.getId());
+			Assert.notNull(manager);
 			Assert.isTrue(ua.getAuthorities().toString().contains("MANAGER"));
-			Assert.notNull(event);
+			Assert.isTrue(event.getClub().getManager().equals(manager));
 			Assert.isTrue(event.getStatus().equals("AVAILABLE"));
 			Assert.isTrue(event.isDraftMode() == false);
 			Assert.isTrue(event.getMomentEnd().after(new Date()));
 			this.eventService.cancel(event);
+			
+			Collection<Actor> receivers = new ArrayList<Actor>();
+			for(ParticipationEvent participation : event.getParticipationsEvent()){
+				receivers.add(participation.getClient());
+			}
+				
+			Message message = messageService.create();
+			message.setBody("El evento " + event.getTitle()
+					+ " ha sido cancelado. / The event "
+					+ event.getTitle() + " was cancelled.");
+			message.setPriority("HIGH");
+			message.setSender(event.getClub().getManager());
+			message.setSubject("Event " + event.getTitle() + " cancelado. / Event " + event.getTitle() + " cancelled.");
+			message.setTags("evento, event, cancelled, cancelado");
+			messageService.notificationMessage(message, receivers);
 
 			result = new ModelAndView("redirect:/event/manager/myList.do");
 
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/event/manager/myList.do");
-			if (event.equals(null))
+			if (event == null)
 				redirectAttrs
 						.addFlashAttribute("message", "event.error.unexist");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 			else if (event.isDraftMode() == true)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.draft");
