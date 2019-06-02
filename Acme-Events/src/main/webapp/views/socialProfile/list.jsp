@@ -42,7 +42,7 @@
 	<display:column property="link" titleKey="socialProfile.link" />
 	
 </display:table>
-
+<br/>
 <a href="socialProfile/create.do"> <spring:message
 					code="socialProfile.create" />
 			</a>

@@ -15,7 +15,6 @@ import security.LoginService;
 import services.ConfigurationService;
 import services.EventService;
 import services.ManagerService;
-import services.ParticipationEventService;
 import controllers.AbstractController;
 import domain.Event;
 import domain.Manager;
@@ -26,9 +25,6 @@ import domain.ParticipationEvent;
 public class ParticipationEventManagerController extends AbstractController {
 
 	// Services-----------------------------------------------------------
-
-	@Autowired
-	private ParticipationEventService	participationEventService;
 
 	@Autowired
 	private ManagerService				managerService;
@@ -58,7 +54,8 @@ public class ParticipationEventManagerController extends AbstractController {
 			manager = this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
 			Assert.notNull(manager);
 			Assert.isTrue(this.eventService.findByManager(manager).contains(event));
-
+			Assert.isTrue(!event.isDraftMode());
+			Assert.isTrue(event.getClub().getManager().equals(manager));
 			final Collection<ParticipationEvent> participationEvents = event.getParticipationsEvent();
 
 			result = new ModelAndView("participationEvent/manager/list");
@@ -72,10 +69,14 @@ public class ParticipationEventManagerController extends AbstractController {
 
 		} catch (final Throwable oops) {
 
-			result = new ModelAndView("redirect:/welcome/index.do");
+			result = new ModelAndView("redirect:/");
 			if (event == null)
 				redirectAttrs.addFlashAttribute("message", "event.error.unexist");
-			else
+			else if (event.isDraftMode())
+				redirectAttrs.addFlashAttribute("message", "event.error.draft");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message", "event.error.notFromThisActor");
+			else 
 				redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}
 

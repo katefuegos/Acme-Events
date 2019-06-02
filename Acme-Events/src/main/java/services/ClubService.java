@@ -193,9 +193,29 @@ public class ClubService {
 		final Collection<Club> result = this.clubRepository.findByManagerAndAccepted(managerId);
 		return result;
 	}
+	
+	public Collection<Club> findByManagerIdAndPending(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerIdAndPending(managerId);
+		return result;
+	}
+	
+	public Collection<Club> findByManagerIdAndRejected(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerIdAndRejected(managerId);
+		return result;
+	}
+	
+	public Collection<Club> findByManagerIdAndDraftMode(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerIdAndDraftMode(managerId);
+		return result;
+	}
 
 	public Collection<Club> findClubsDraftMode() {
 		final Collection<Club> result = this.clubRepository.findClubsDraftMode();
+		return result;
+	}
+	
+	public Collection<Club> findByManagerAndAccepted(final int managerId) {
+		final Collection<Club> result = this.clubRepository.findByManagerAndAccepted(managerId);
 		return result;
 	}
 }

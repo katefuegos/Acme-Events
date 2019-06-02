@@ -105,15 +105,26 @@ public class EventManagerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(final RedirectAttributes redirectAttrs) {
 		ModelAndView result = null;
-
+		Manager manager = null;
+		UserAccount ua = null;
 		try {
+			ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			manager = managerService.findManagerByUserAccount(ua.getId());
+			Assert.notNull(manager);
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setId(0);
-
+			Assert.isTrue(!clubService.findByManagerAndAcepted(manager.getId()).isEmpty());
 			result = this.createModelAndView(eventManagerForm);
 
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/event/manager/list.do");
+			result = new ModelAndView("redirect:/event/manager/myList.do");
+			if (manager == null)
+				redirectAttrs
+						.addFlashAttribute("message", "event.commit.error");
+			else if (clubService.findByManagerAndAcepted(manager.getId()).isEmpty())
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.emptyClubs");
 		}
 
 		return result;
@@ -173,7 +184,7 @@ public class EventManagerController extends AbstractController {
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
 			Assert.isTrue(event.isDraftMode());
-
+			Assert.isTrue(event.getClub().getManager().equals(manager));
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setId(event.getId());
 			eventManagerForm.setAddress(event.getAddress());
@@ -191,13 +202,16 @@ public class EventManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/event/manager/list.do");
+			result = new ModelAndView("redirect:/event/manager/myList.do");
 			if (manager == null)
 				redirectAttrs
 						.addFlashAttribute("message", "event.commit.error");
 			else if (event == null)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.unexist");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 			else if (!event.isDraftMode())
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.notDraft");
@@ -295,7 +309,8 @@ public class EventManagerController extends AbstractController {
 			Assert.notNull(manager);
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
-
+			Assert.isTrue(event.getClub().getManager().equals(manager));
+			Assert.isTrue(!event.isDraftMode());
 			final EventManagerForm eventManagerForm = new EventManagerForm();
 			eventManagerForm.setAddress(event.getAddress());
 			eventManagerForm.setDescription(event.getDescription());
@@ -319,6 +334,12 @@ public class EventManagerController extends AbstractController {
 			else if (event == null)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.unexist");
+			else if (event.isDraftMode()==true)
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.draft");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 		}
 
 		return result;
@@ -330,12 +351,16 @@ public class EventManagerController extends AbstractController {
 		ModelAndView result;
 		Event event = null;
 		UserAccount ua = null;
+		Manager manager = null;
 		try {
 			event = this.eventService.findOne(eventId);
+			Assert.notNull(event);
 			ua = LoginService.getPrincipal();
 			Assert.notNull(ua);
+			manager = managerService.findManagerByUserAccount(ua.getId());
+			Assert.notNull(manager);
 			Assert.isTrue(ua.getAuthorities().toString().contains("MANAGER"));
-			Assert.notNull(event);
+			Assert.isTrue(event.getClub().getManager().equals(manager));
 			Assert.isTrue(event.getStatus().equals("AVAILABLE"));
 			Assert.isTrue(event.isDraftMode() == false);
 			Assert.isTrue(event.getMomentEnd().after(new Date()));
@@ -346,9 +371,12 @@ public class EventManagerController extends AbstractController {
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/event/manager/myList.do");
-			if (event.equals(null))
+			if (event == null)
 				redirectAttrs
 						.addFlashAttribute("message", "event.error.unexist");
+			else if (!event.getClub().getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"event.error.notFromThisActor");
 			else if (event.isDraftMode() == true)
 				redirectAttrs.addFlashAttribute("message",
 						"event.error.draft");

@@ -1,4 +1,3 @@
-
 package controllers.Manager;
 
 import java.util.Collection;
@@ -32,14 +31,13 @@ public class ClubManagerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ClubService				clubService;
+	private ClubService clubService;
 
 	@Autowired
-	private ManagerService			managerService;
+	private ManagerService managerService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
-
+	private ConfigurationService configurationService;
 
 	// Constructor---------------------------------------
 
@@ -51,7 +49,8 @@ public class ClubManagerController extends AbstractController {
 
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
 			Assert.notNull(manager);
 
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
@@ -70,26 +69,55 @@ public class ClubManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/listFollows", method = RequestMethod.GET)
-	public ModelAndView listFollows(final int clubId) {
-		final ModelAndView result;
-		final Club club = this.clubService.findOne(clubId);
-		final Collection<Follow> follows = club.getFollows();
-		result = new ModelAndView("club/manager/listFollows");
+	public ModelAndView listFollows(final int clubId,
+			final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		Manager manager = null;
+		Club club = null;
+		try {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
+			Assert.notNull(manager);
+			club = this.clubService.findOne(clubId);
+			Assert.notNull(club);
+			Assert.isTrue(club.getManager().equals(manager));
+			Assert.isTrue(!club.isDraftMode());
+			final Collection<Follow> follows = club.getFollows();
+			result = new ModelAndView("club/manager/listFollows");
 
-		result.addObject("follows", follows);
-		result.addObject("requestURI", "club/manager/listFollows.do");
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+			result.addObject("follows", follows);
+			result.addObject("requestURI", "club/manager/listFollows.do");
+			result.addObject("banner", this.configurationService.findAll()
+					.iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll()
+					.iterator().next().getSystemName());
+		} catch (final Throwable e) {
 
+			result = new ModelAndView("redirect:/manager/listClubs.do");
+			if (manager == null)
+				redirectAttrs.addFlashAttribute("message", "club.commit.error");
+			else if (club == null)
+				redirectAttrs
+						.addFlashAttribute("message", "club.error.unexist");
+			else if (!club.getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"club.error.notFromThisActor");
+			else if (club.isDraftMode())
+				redirectAttrs.addFlashAttribute("message",
+						"club.error.isDraft");
+		}
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ClubManagerForm clubManagerForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final ClubManagerForm clubManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createModelAndView(clubManagerForm, "club.commit.error");
+			result = this.createModelAndView(clubManagerForm,
+					"club.commit.error");
 		else
 			try {
 				final Club club = this.clubService.create();
@@ -104,7 +132,8 @@ public class ClubManagerController extends AbstractController {
 
 				result = new ModelAndView("redirect:/manager/listClubs.do");
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(clubManagerForm, "club.commit.error");
+				result = this.createModelAndView(clubManagerForm,
+						"club.commit.error");
 			}
 
 		return result;
@@ -112,19 +141,21 @@ public class ClubManagerController extends AbstractController {
 
 	// EDIT
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int clubId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int clubId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Club club = null;
 		Manager manager = null;
 
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
 			Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
 			Assert.notNull(club);
 			Assert.isTrue(club.isDraftMode());
-
+			Assert.isTrue(club.getManager().equals(manager));
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
 			clubManagerForm.setId(club.getId());
 			clubManagerForm.setAddress(club.getAddress());
@@ -142,25 +173,33 @@ public class ClubManagerController extends AbstractController {
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
-				redirectAttrs.addFlashAttribute("message", "club.error.unexist");
+				redirectAttrs
+						.addFlashAttribute("message", "club.error.unexist");
+			else if (!club.getManager().equals(manager))
+				redirectAttrs.addFlashAttribute("message",
+						"club.error.notFromThisActor");
 			else if (!club.isDraftMode())
-				redirectAttrs.addFlashAttribute("message", "club.error.notDraft");
+				redirectAttrs.addFlashAttribute("message",
+						"club.error.notDraft");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save2(@Valid final ClubManagerForm clubManagerForm, final BindingResult binding) {
+	public ModelAndView save2(@Valid final ClubManagerForm clubManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
 		Manager manager = null;
 		Club club = null;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(clubManagerForm, "club.commit.error");
+			result = this
+					.editModelAndView(clubManagerForm, "club.commit.error");
 		else
 			try {
 				final UserAccount userAccount = LoginService.getPrincipal();
-				manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+				manager = this.managerService
+						.findManagerByUserAccount(userAccount.getId());
 				Assert.notNull(manager);
 				club = this.clubService.findOne(clubManagerForm.getId());
 				Assert.notNull(club);
@@ -176,24 +215,28 @@ public class ClubManagerController extends AbstractController {
 
 				result = new ModelAndView("redirect:/manager/listClubs.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(clubManagerForm, "club.commit.error");
+				result = this.editModelAndView(clubManagerForm,
+						"club.commit.error");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final ClubManagerForm clubManagerForm, final BindingResult binding) {
+	public ModelAndView delete(@Valid final ClubManagerForm clubManagerForm,
+			final BindingResult binding) {
 		ModelAndView result;
 		Manager manager = null;
 		Club club = null;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(clubManagerForm, "club.commit.error");
+			result = this
+					.editModelAndView(clubManagerForm, "club.commit.error");
 		else
 			try {
 				final UserAccount userAccount = LoginService.getPrincipal();
-				manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+				manager = this.managerService
+						.findManagerByUserAccount(userAccount.getId());
 				Assert.notNull(manager);
 				club = this.clubService.findOne(clubManagerForm.getId());
 				Assert.notNull(club);
@@ -203,7 +246,8 @@ public class ClubManagerController extends AbstractController {
 
 				result = new ModelAndView("redirect:/manager/listClubs.do");
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(clubManagerForm, "club.commit.error");
+				result = this.editModelAndView(clubManagerForm,
+						"club.commit.error");
 			}
 
 		return result;
@@ -211,19 +255,21 @@ public class ClubManagerController extends AbstractController {
 
 	// SHOW
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(final int clubId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(final int clubId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Manager manager = null;
 		Club club = null;
 
 		try {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
-			//Assert.notNull(manager);
+			manager = this.managerService.findManagerByUserAccount(userAccount
+					.getId());
+			Assert.notNull(manager);
 			club = this.clubService.findOne(clubId);
-			//Assert.notNull(club);
-			//Assert.isTrue(club.getManager().equals(manager));
-
+			Assert.notNull(club);
+			Assert.isTrue(club.getManager().equals(manager));
+			Assert.isTrue(!club.isDraftMode());
 			final ClubManagerForm clubManagerForm = new ClubManagerForm();
 			clubManagerForm.setId(club.getId());
 			clubManagerForm.setAddress(club.getAddress());
@@ -237,26 +283,33 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/club/list.do");
+			result = new ModelAndView("redirect:/manager/listClubs.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
-				redirectAttrs.addFlashAttribute("message", "club.error.unexist");
+				redirectAttrs
+						.addFlashAttribute("message", "club.error.unexist");
 			else if (!club.getManager().equals(manager))
-				redirectAttrs.addFlashAttribute("message", "club.error.notFromManager");
+				redirectAttrs.addFlashAttribute("message",
+						"club.error.notFromThisActor");
+			else if (club.isDraftMode())
+				redirectAttrs
+						.addFlashAttribute("message", "club.error.isDraft");
 		}
 
 		return result;
 	}
 
 	// MODEL
-	protected ModelAndView createModelAndView(final ClubManagerForm clubManagerForm) {
+	protected ModelAndView createModelAndView(
+			final ClubManagerForm clubManagerForm) {
 		ModelAndView result;
 		result = this.createModelAndView(clubManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final ClubManagerForm clubManagerForm, final String message) {
+	protected ModelAndView createModelAndView(
+			final ClubManagerForm clubManagerForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("club/create");
@@ -266,48 +319,60 @@ public class ClubManagerController extends AbstractController {
 		result.addObject("clubManagerForm", clubManagerForm);
 		result.addObject("isRead", false);
 		result.addObject("id", clubManagerForm.getId());
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final ClubManagerForm clubManagerForm) {
+	protected ModelAndView editModelAndView(
+			final ClubManagerForm clubManagerForm) {
 		ModelAndView result;
 		result = this.editModelAndView(clubManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final ClubManagerForm clubManagerForm, final String message) {
+	protected ModelAndView editModelAndView(
+			final ClubManagerForm clubManagerForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("club/edit");
 		result.addObject("message", message);
-		result.addObject("requestURI", "club/manager/edit.do?clubId=" + clubManagerForm.getId());
+		result.addObject("requestURI", "club/manager/edit.do?clubId="
+				+ clubManagerForm.getId());
 		result.addObject("clubManagerForm", clubManagerForm);
 		result.addObject("id", clubManagerForm.getId());
 		result.addObject("isRead", false);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final ClubManagerForm clubManagerForm) {
+	protected ModelAndView ShowModelAndView(
+			final ClubManagerForm clubManagerForm) {
 		ModelAndView result;
 		result = this.ShowModelAndView(clubManagerForm, null);
 		return result;
 	}
 
-	protected ModelAndView ShowModelAndView(final ClubManagerForm clubManagerForm, final String message) {
+	protected ModelAndView ShowModelAndView(
+			final ClubManagerForm clubManagerForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("club/show");
 		result.addObject("message", message);
-		result.addObject("requestURI", "club/manager/show.do?clubId=" + clubManagerForm.getId());
+		result.addObject("requestURI", "club/manager/show.do?clubId="
+				+ clubManagerForm.getId());
 		result.addObject("clubManagerForm", clubManagerForm);
 		result.addObject("id", clubManagerForm.getId());
 		result.addObject("isRead", true);
-		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
-		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+		result.addObject("banner", this.configurationService.findAll()
+				.iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll()
+				.iterator().next().getSystemName());
 		return result;
 	}
 }

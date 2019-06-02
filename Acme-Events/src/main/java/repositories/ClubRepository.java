@@ -50,4 +50,13 @@ public interface ClubRepository extends JpaRepository<Club, Integer> {
 
 	@Query("select c from Club c where c.manager.id=?1 and c.accepted=true")
 	Collection<Club> findByManagerAndAccepted(int managerId);
+	
+	@Query("select c from Club c where c.accepted = false and c.manager.id=?1 and c.draftMode=false and (c.reasonReject is null or c.reasonReject ='')")
+	Collection<Club> findByManagerIdAndPending(int managerId);
+	
+	@Query("select c from Club c where c.accepted = false and c.manager.id=?1 and c.draftMode=false and c.reasonReject is not null")
+	Collection<Club> findByManagerIdAndRejected(int managerId);
+	
+	@Query("select c from Club c where c.draftMode = true and c.manager.id=?1")
+	Collection<Club> findByManagerIdAndDraftMode(int managerId);
 }
