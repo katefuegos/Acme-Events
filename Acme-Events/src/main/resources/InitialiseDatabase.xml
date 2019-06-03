@@ -32,4 +32,153 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<!-- ADMIN -->
+
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Admin" />
+		<property name="middleName" value="admin" />
+		<property name="surname" value="admin" />
+		<property name="photo"
+			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+		<property name="email" value="elena@gmail.com" />
+		<property name="phone" value="+34(456)123456789" />
+		<property name="address" value="C/Calle, 0" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	<!-- BOX -->
+
+	<bean id="trashBoxA" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="inBoxA" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="outBoxA" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="spamBoxA" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="notificationBoxA" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="countryCode" value="+34" />
+		<property name="banner" value="http://www.tinyurl.com/acme-madruga" />
+		<property name="welcomeMessage">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Welcome to Acme Events! The best place to make and go to
+						events.
+					</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>¡Bienvenidos a Acme Events! El major sitio para publicitar y
+						asistir a eventos.
+					</value>
+				</entry>
+			</map>
+		</property>
+		<property name="spamWords">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<list>
+						<value>sex</value>
+						<value>viagra</value>
+						<value>cialis</value>
+						<value>nigeria</value>
+						<value>one million</value>
+						<value>you've been selected</value>
+					</list>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<list>
+						<value>sexo</value>
+						<value>viagra</value>
+						<value>cialis</value>
+						<value>nigeria</value>
+						<value>un millon</value>
+						<value>has sido seleccionado</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="priorities">
+			<list>
+				<value>HIGH</value>
+				<value>LOW</value>
+				<value>NEUTRAL</value>
+			</list>
+		</property>
+		<property name="finderMaxResults" value="10" />
+		<property name="systemName" value="Acme Events" />
+	</bean>
+	
 </beans>
