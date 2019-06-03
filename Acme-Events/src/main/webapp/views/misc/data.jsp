@@ -17,6 +17,9 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<link rel="stylesheet" href="styles/common.css" type="text/css">
+<link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
+<link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 
 <input type="button"
 	value="<spring:message code="misc.exportPersonalData"/>"
@@ -24,23 +27,27 @@
 <br>
 <br>
 <security:authorize access="hasRole('CLIENT')">
-	<input type="button"
-		value="<spring:message code="misc.deletePersonalData"/>"
-		onclick="javascript: window.location.href = 'data/deletePersonalData.do';" />
-	<br>
+	<a class="enlaceboton"
+		href="data/deletePersonalData.do" onclick="return confirm('<spring:message code="actor.confirm.delete.personalData"/>')">
+			<spring:message code="misc.deletePersonalData" />
+	</a><br>
 	<spring:message code="misc.deletePersonalDataInfo" />
 </security:authorize>
 <security:authorize access="hasRole('MANAGER')">
-	<input type="button"
+	<%-- <input type="button"
 		value="<spring:message code="misc.deletePersonalData"/>"
-		onclick="javascript: window.location.href = 'data/deletePersonalData.do';" />
-	<br>
+		onclick="return confirm('<spring:message code="actor.confirm.delete.personalData"/>') javascript: window.location.href = 'data/deletePersonalData.do';" />
+	<br> --%>
+	<a class="enlaceboton"
+		href="data/deletePersonalData.do" onclick="return confirm('<spring:message code="actor.confirm.delete.personalData"/>')">
+			<spring:message code="misc.deletePersonalData" />
+	</a><br>
 	<spring:message code="misc.deletePersonalDataInfo" />
 </security:authorize>
 <security:authorize access="hasRole('PUBLICITER')">
-	<input type="button"
-		value="<spring:message code="misc.deletePersonalData"/>"
-		onclick="javascript: window.location.href = 'data/deletePersonalData.do';" />
-	<br>
+	<a class="enlaceboton"
+		href="data/deletePersonalData.do" onclick="return confirm('<spring:message code="actor.confirm.delete.personalData"/>')">
+			<spring:message code="misc.deletePersonalData" />
+	</a><br>
 	<spring:message code="misc.deletePersonalDataInfo" />
 </security:authorize>

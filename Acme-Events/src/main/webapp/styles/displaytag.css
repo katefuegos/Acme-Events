@@ -162,3 +162,21 @@ span.pagelinks {
 .grandtotal-row {
 	border-top: 2px solid black;
 }
+
+.enlaceboton {
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 15px;
+	color: #ffffff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #f2595e;
+	border-color: #F69DA1;
+	border-width: 1px;
+	border-style: solid;
+	display: table;
+	border-radius: 10px;
+	
+}
