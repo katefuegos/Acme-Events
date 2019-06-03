@@ -77,7 +77,9 @@
 	<display:column titleKey="event.poster">
 		<img src='<jstl:out value="${row.poster }"/>' height="150" width="auto"> 
 	</display:column>
-	<display:column property="price" titleKey="event.price" />
+	<display:column  titleKey="event.price" >
+	<jstl:out value="${row.price*((varTax/100) +1) }"/>
+	</display:column>
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 	
@@ -117,8 +119,9 @@
 	<display:column titleKey="event.poster">
 		<img src='<jstl:out value="${row2.poster }"/>' alt="No <spring:message code='actor.photo' />" height="150" width="auto"> 
 	</display:column>
-	<display:column property="price" titleKey="event.price" />
-	<display:column property="score" titleKey="administrator.score" />
+<display:column  titleKey="event.price" >
+	<jstl:out value="${row2.price*((varTax/100) +1) }"/>
+	</display:column>	<display:column property="score" titleKey="administrator.score" />
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 	
@@ -162,7 +165,9 @@
 	<display:column titleKey="event.poster">
 		<img src='<jstl:out value="${row3.poster }"/>' alt="No <spring:message code='actor.photo' />" height="150" width="auto"> 
 	</display:column>
-	<display:column property="price" titleKey="event.price" />
+	<display:column  titleKey="event.price" >
+	<jstl:out value="${row3.price*((varTax/100) +1) }"/>
+	</display:column>
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 		

@@ -73,6 +73,7 @@ public class EventManagerController extends AbstractController {
 		result = new ModelAndView("event/manager/list");
 
 		result.addObject("events", events);
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("lang", lang);
 		result.addObject("clubId", clubId);
 		result.addObject("requestURI", "event/manager/list.do");
@@ -94,6 +95,7 @@ public class EventManagerController extends AbstractController {
 
 		result.addObject("eventsDraft", eventsDraft);
 		result.addObject("eventsFinal", eventsFinal);
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("lang", lang);
 		result.addObject("requestURI", "event/manager/myList.do");
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
@@ -409,6 +411,7 @@ public class EventManagerController extends AbstractController {
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("isRead", false);
 		result.addObject("id", eventManagerForm.getId());
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
@@ -438,6 +441,7 @@ public class EventManagerController extends AbstractController {
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("id", eventManagerForm.getId());
 		result.addObject("isRead", false);
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;
@@ -468,6 +472,7 @@ public class EventManagerController extends AbstractController {
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("id", eventManagerForm.getId());
 		result.addObject("isRead", true);
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;

@@ -21,6 +21,7 @@ public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
+	private int								varTax;
 	private int								countryCode;
 	private Map<String, String>				welcomeMessage;
 	private String							banner;
@@ -28,6 +29,7 @@ public class Configuration extends DomainEntity {
 	private int								finderMaxResults;
 	private String							systemName;
 	private Collection<String>				priorities;
+
 
 	@NotNull
 	@ElementCollection
@@ -38,13 +40,22 @@ public class Configuration extends DomainEntity {
 	public void setPriorities(final Collection<String> priorities) {
 		this.priorities = priorities;
 	}
-	
-	@NotBlank
-	public String getSystemName() {
-		return systemName;
+
+	@Range(min = 0, max = 100)
+	public int getVarTax() {
+		return this.varTax;
 	}
 
-	public void setSystemName(String systemName) {
+	public void setVarTax(final int varTax) {
+		this.varTax = varTax;
+	}
+
+	@NotBlank
+	public String getSystemName() {
+		return this.systemName;
+	}
+
+	public void setSystemName(final String systemName) {
 		this.systemName = systemName;
 	}
 

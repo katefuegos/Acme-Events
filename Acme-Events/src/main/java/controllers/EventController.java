@@ -68,7 +68,7 @@ public class EventController extends AbstractController {
 			result.addObject("searchForm", new SearchForm());
 			result.addObject("lang", lang);
 			result.addObject("requestURI", "event/list.do");
-
+			result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
@@ -155,6 +155,7 @@ public class EventController extends AbstractController {
 		result.addObject("eventManagerForm", eventManagerForm);
 		result.addObject("id", eventManagerForm.getId());
 		result.addObject("isRead", true);
+		result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
 		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		return result;

@@ -50,6 +50,7 @@ public class WelcomeController extends AbstractController {
 		final Map<String, String> welcomeMessages = this.configurationService.findOne().getWelcomeMessage();
 		final String welcomeMessage = this.configurationService.internacionalizcion(welcomeMessages);
 		final String banner = this.configurationService.findOne().getBanner();
+		final String systemName = this.configurationService.findOne().getSystemName();
 
 		formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		moment = formatter.format(new Date());
@@ -57,6 +58,7 @@ public class WelcomeController extends AbstractController {
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("banner", banner);
+		result.addObject("systemName", systemName);
 		result.addObject("moment", moment);
 		result.addObject("welomeMessage", welcomeMessage);
 

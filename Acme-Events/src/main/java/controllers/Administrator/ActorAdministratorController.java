@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ActorService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Actor;
 
@@ -23,7 +24,10 @@ public class ActorAdministratorController extends AbstractController {
 	// Service---------------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructor-----------------------------------------------------
@@ -43,6 +47,8 @@ public class ActorAdministratorController extends AbstractController {
 		modelAndView = new ModelAndView("actor/list");
 		modelAndView.addObject("actors", actors);
 		modelAndView.addObject("requestURI", "/actor/administrator/list.do");
+		modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return modelAndView;
 
@@ -61,6 +67,9 @@ public class ActorAdministratorController extends AbstractController {
 
 			modelAndView.addObject("actor", actor);
 			modelAndView.addObject("isRead", true);
+			modelAndView.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			modelAndView.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
+
 			modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:list.do");

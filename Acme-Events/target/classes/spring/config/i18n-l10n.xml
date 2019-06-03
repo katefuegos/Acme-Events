@@ -38,6 +38,7 @@
 		<value>/views/participationEvent/messages</value>
 		<value>/views/opinion/messages</value>
 		<value>/views/client/messages</value>
+		<value>/views/configuration/messages</value>
 		
 	</util:list>
 

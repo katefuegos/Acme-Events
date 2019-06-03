@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.CategoryService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Category;
 import forms.CategoryForm;
@@ -30,7 +31,10 @@ public class CategoryAdministratorController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private CategoryService	categoryService;
+	private CategoryService			categoryService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructor---------------------------------------------------------
@@ -55,6 +59,8 @@ public class CategoryAdministratorController extends AbstractController {
 
 		result.addObject("lang", lang);
 		result.addObject("categories", categories);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		result.addObject("requestURI", "category/administrator/list.do");
 		return result;
 	}
@@ -117,7 +123,8 @@ public class CategoryAdministratorController extends AbstractController {
 			result = new ModelAndView("category/edit");
 			result.addObject("categoryForm", categoryForm);
 			result.addObject("categories", categories);
-
+			result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 
 			result = new ModelAndView("redirect:/category/administrator/list.do");
@@ -193,6 +200,8 @@ public class CategoryAdministratorController extends AbstractController {
 		result.addObject("requestURI", "category/administrator/create.do");
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("categories", categories);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}
@@ -216,6 +225,8 @@ public class CategoryAdministratorController extends AbstractController {
 		result.addObject("requestURI", "category/administrator/edit.do");
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("categories", categories);
+		result.addObject("banner", this.configurationService.findAll().iterator().next().getBanner());
+		result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 
 		return result;
 	}

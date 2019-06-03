@@ -1760,6 +1760,7 @@
 
 	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
+	    <property name="varTax" value="21" />
 		<property name="countryCode" value="+34" />
 		<property name="banner" value="http://www.tinyurl.com/acme-madruga" />
 		<property name="welcomeMessage">

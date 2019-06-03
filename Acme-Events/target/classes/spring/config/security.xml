@@ -222,6 +222,9 @@
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
 
+		<!-- Configuration -->
+		<security:intercept-url pattern="/configuration/administrator/**"
+			access="hasRole('ADMIN')" />
 		<!-- Ban/Unban -->
 		<security:intercept-url pattern="/actor/administrator/list.do"
 			access="hasRole('ADMIN')" />

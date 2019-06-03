@@ -246,6 +246,7 @@ public class MessageController extends AbstractController {
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("isMove", true);
 			modelAndView.addObject("boxes", boxes);
+
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
 			if (message == null)

@@ -31,7 +31,12 @@
 	<acme:textbox code="event.address" path="address" readonly="${isRead}" />
 	<acme:textarea code="event.description" path="description"
 		readonly="${isRead}" />
+	<jstl:if test="${isRead == false}">
 	<acme:textbox code="event.price" path="price" readonly="${isRead}" />
+	</jstl:if>
+	<jstl:if test="${isRead == true}">
+	<spring:message code="event.price" /> <input type="text" readonly="true" name="price" value="<jstl:out value="${eventManagerForm.price*((varTax/100) +1) }"/>">	
+	</jstl:if>
 	<acme:textbox code="event.poster" path="poster" readonly="${isRead}" />
 	<acme:textbox code="event.momentStart" path="momentStart"
 		readonly="${isRead}" />

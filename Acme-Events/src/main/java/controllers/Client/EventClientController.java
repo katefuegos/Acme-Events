@@ -84,6 +84,7 @@ public class EventClientController extends AbstractController {
 			result.addObject("eventsAvailable", events.get(0));
 			result.addObject("eventsFinished", events.get(1));
 			result.addObject("eventsCancelled", events.get(2));
+			result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 			result.addObject("searchForm", new SearchForm());
 			result.addObject("client", client);
 			result.addObject("lang", lang);
@@ -175,6 +176,7 @@ public class EventClientController extends AbstractController {
 
 			result.addObject("events", events);
 			result.addObject("searchForm", searchForm);
+			result.addObject("varTax", this.configurationService.findAll().iterator().next().getVarTax());
 			result.addObject("client", client);
 			result.addObject("lang", lang);
 			result.addObject("message", message);

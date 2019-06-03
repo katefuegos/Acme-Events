@@ -39,6 +39,9 @@ public class AbstractController {
 
 		if (!ClassUtils.getShortName(new TypeMismatchException("").getClass()).equals(ClassUtils.getShortName(oops.getClass()))) {
 			result = new ModelAndView("misc/panic");
+			final String banner = this.configurationService.findOne().getBanner();
+			result.addObject("banner", banner);
+
 			result.addObject("name", ClassUtils.getShortName(oops.getClass()));
 			result.addObject("exception", oops.getMessage());
 			result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));

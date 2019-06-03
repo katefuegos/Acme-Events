@@ -16,8 +16,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/cabeceraacmeevents2.jpg"
-		alt="Sample Co., Inc." /></a>
+	<a href="#"><img src="${banner }"
+		alt="Acme-Events Co., Inc." height="200px" width="auto"/></a>
 </div>
 
 <div>
@@ -154,7 +154,8 @@
 		</security:authorize>
 		<!-- =========================================================================================================================== -->
 		<security:authorize access="hasRole('ADMIN')">
-
+			<li><a href="configuration/administrator/list.do"><spring:message
+						code="master.page.administrator.configuration" /></a></li>
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a> <br></li>
 			<li><a href="actor/administrator/list.do"><spring:message
