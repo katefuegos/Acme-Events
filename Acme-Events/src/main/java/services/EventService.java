@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EventRepository;
+import security.LoginService;
 import domain.Client;
 import domain.Club;
 import domain.Event;
@@ -30,10 +30,11 @@ public class EventService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private EventRepository	eventRepository;
-
+	private EventRepository eventRepository;
 
 	// Services-------------------------------------------------
+	@Autowired
+	private ManagerService managerService;
 
 	// Constructor----------------------------------------------
 
@@ -63,6 +64,10 @@ public class EventService {
 
 	public Event save(final Event event) {
 		Assert.notNull(event);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
+		final Manager manager = managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.notNull(manager);
+		Assert.isTrue(event.getClub().getManager().equals(manager));
 		if (event.isDraftMode() == false && event.getMomentPublished() == null)
 			event.setMomentPublished(new Date(System.currentTimeMillis() - 1000));
 		final Event saved = this.eventRepository.save(event);
@@ -76,6 +81,13 @@ public class EventService {
 	}
 
 	public void delete(final Event event) {
+		Assert.notNull(event);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
+		final Manager manager = managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.notNull(manager);
+		Assert.isTrue(event.getClub().getManager().equals(manager));
+		Assert.isTrue(event.isDraftMode());
+		
 		this.eventRepository.delete(event);
 	}
 
@@ -83,13 +95,19 @@ public class EventService {
 
 	public void cancel(final Event event) {
 		Assert.notNull(event);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
+		final Manager manager = managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.notNull(manager);
+		Assert.isTrue(event.getClub().getManager().equals(manager));
+		Assert.isTrue(!event.isDraftMode());
 		Assert.isTrue(event.getStatus().equals("AVAILABLE"));
 		event.setStatus("CANCELLED");
 		this.eventRepository.save(event);
 	}
 
 	public Collection<Event> findEventsByCategoryId(final int categoryId) {
-		final Collection<Event> events = this.eventRepository.findEventByCategoryId(categoryId);
+		final Collection<Event> events = this.eventRepository
+				.findEventByCategoryId(categoryId);
 		return events;
 	}
 
@@ -98,6 +116,7 @@ public class EventService {
 		return this.eventRepository.findEventsByFollower(c.getId());
 	}
 
+	
 	public ArrayList<Collection<Event>> listEventsByFollower(final Client c) {
 		final ArrayList<Collection<Event>> result = new ArrayList<>();
 		final Collection<Event> eventsAvailable = this.eventRepository.findAvailableEventsByFollower(c.getId());
@@ -127,7 +146,8 @@ public class EventService {
 
 	public Collection<Event> findEventsByFollowerAndClub(final Client c, final Club club) {
 
-		return this.eventRepository.findEventsByFollowerAndClub(c.getId(), club.getId());
+		return this.eventRepository.findEventsByFollowerAndClub(c.getId(),
+				club.getId());
 	}
 
 	private SearchForm checkSearch(final SearchForm f) {
@@ -148,7 +168,12 @@ public class EventService {
 			f.setDateMin(currentDate);
 
 		if (f.getDateMax() == null)
-			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L son 10 años en milisegundos
+			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L
+																				// son
+																				// 10
+																				// aï¿½os
+																				// en
+																				// milisegundos
 
 		result = f;
 
@@ -158,9 +183,13 @@ public class EventService {
 	public Collection<domain.Event> searchEvent(final SearchForm f) {
 
 		final SearchForm search = this.checkSearch(f);
-		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final String langCategory = LocaleContextHolder.getLocale()
+				.getLanguage().toUpperCase();
 
-		final Collection<Event> result = this.eventRepository.searchEvent(search.getKeyWord(), langCategory, search.getDateMin(), search.getDateMax(), search.getPriceMin(), search.getPriceMax());
+		final Collection<Event> result = this.eventRepository
+				.searchEvent(search.getKeyWord(), langCategory,
+						search.getDateMin(), search.getDateMax(),
+						search.getPriceMin(), search.getPriceMax());
 
 		return result;
 	}
@@ -175,9 +204,11 @@ public class EventService {
 
 		Assert.notNull(client, "opinion.client.null");
 
-		result = this.eventRepository.findByParticipationAndFinalize(client.getId());
+		result = this.eventRepository.findByParticipationAndFinalize(client
+				.getId());
 
-		final Collection<Event> result2 = this.eventRepository.findByOpinion(client.getId());
+		final Collection<Event> result2 = this.eventRepository
+				.findByOpinion(client.getId());
 
 		result.removeAll(result2);
 
@@ -261,4 +292,8 @@ public class EventService {
 		return new String(text);
 	}
 
+	public void flush() {
+		this.eventRepository.flush();
+
+	}
 }
