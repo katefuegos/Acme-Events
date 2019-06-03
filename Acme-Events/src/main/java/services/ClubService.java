@@ -51,7 +51,6 @@ public class ClubService {
 
 	public Club create() {
 		final Club club = new Club();
-		//		final String reasonReject = "";
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
 		final Collection<Follow> follows = new ArrayList<Follow>();
 		final Collection<ApplicationClub> appclubs = new ArrayList<ApplicationClub>();
@@ -59,7 +58,6 @@ public class ClubService {
 		club.setFollows(follows);
 		club.setApplicationsClub(appclubs);
 		club.setDraftMode(true);
-		//		club.setReasonReject(reasonReject);
 		return club;
 	}
 
@@ -75,6 +73,7 @@ public class ClubService {
 		Assert.notNull(club);
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
 		final Manager manager = this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
+		Assert.notNull(manager);
 		Assert.isTrue(club.getManager().equals(manager));
 		final Club saved = this.clubRepository.save(club);
 		return saved;
@@ -83,7 +82,7 @@ public class ClubService {
 	public void delete(final Club club) {
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
 		final Manager manager = this.managerService.findManagerByUserAccount(LoginService.getPrincipal().getId());
-		Assert.isTrue(club.isDraftMode(), "club.error.notDraft");
+		Assert.isTrue(club.isDraftMode());
 		Assert.isTrue(club.getManager().equals(manager));
 		this.clubRepository.delete(club);
 	}
@@ -193,6 +192,7 @@ public class ClubService {
 	}
 
 	public Collection<Club> findByManagerId(final int managerId) {
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("MANAGER"));
 		final Collection<Club> result = this.clubRepository.findByManagerId(managerId);
 		return result;
 	}
