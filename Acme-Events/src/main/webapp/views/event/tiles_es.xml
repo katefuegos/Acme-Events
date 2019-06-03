@@ -20,7 +20,7 @@
 	
 	<definition name="event/client/myList" extends="master.page">	
 		<put-attribute name="title" value="Mi lista de eventos" />
-		<put-attribute name="body" value="/views/event/myList.jsp" />
+		<put-attribute name="body" value="/views/event/myListClient.jsp" />
 	</definition>
 	
 	<definition name="event/listFinal" extends="master.page">	

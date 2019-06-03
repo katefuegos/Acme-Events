@@ -102,6 +102,7 @@ public class ClubController extends AbstractController {
 			clubManagerForm.setName(club.getName());
 			clubManagerForm.setPictures(club.getPictures());
 			clubManagerForm.setManager(club.getManager());
+			clubManagerForm.setScore(club.getScore());
 
 			result = this.ShowModelAndView(clubManagerForm);
 

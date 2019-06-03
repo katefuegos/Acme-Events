@@ -70,6 +70,7 @@
 	<display:column property="ticker" titleKey="opinion.ticker" />
 	<display:column property="title" titleKey="opinion.titleEvent" />
 	<display:column property="club.name" titleKey="opinion.club" />
+	<display:column property="score" titleKey="administrator.score" />
 	<display:column  titleKey="opinion.number" >
 		<jstl:out value="${fn:length(row.opinions) }"/>
 	</display:column>

@@ -24,7 +24,7 @@ public interface OpinionRepository extends JpaRepository<Opinion, Integer> {
 	@Query("select (sum(o.score)*1.0)/(1.0*count(o)) from Event e join e.opinions o where e.id = ?1")
 	Double calculateScoreEvent(int eventId);
 
-	@Query("select (sum(e.score)*1.0)/(1.0*count(e)) from Event e where e.club.id = ?1")
+	@Query("select (sum(e.score)*1.0)/(1.0*count(e)) from Event e where e.club.id = ?1 and e.score <> null")
 	Double calculateScoreClub(int clubId);
 
 }

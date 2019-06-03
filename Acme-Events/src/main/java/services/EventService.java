@@ -87,7 +87,7 @@ public class EventService {
 		event.setStatus("CANCELLED");
 		this.eventRepository.save(event);
 	}
-	
+
 	public Collection<Event> findEventsByCategoryId(final int categoryId) {
 		final Collection<Event> events = this.eventRepository.findEventByCategoryId(categoryId);
 		return events;
@@ -96,6 +96,33 @@ public class EventService {
 	public Collection<Event> findEventsByFollower(final Client c) {
 
 		return this.eventRepository.findEventsByFollower(c.getId());
+	}
+
+	public ArrayList<Collection<Event>> listEventsByFollower(final Client c) {
+		final ArrayList<Collection<Event>> result = new ArrayList<>();
+		final Collection<Event> eventsAvailable = this.eventRepository.findAvailableEventsByFollower(c.getId());
+		final Collection<Event> eventsCancelled = this.eventRepository.findCancelledEventsByFollower(c.getId());
+		final Collection<Event> eventsFinished = this.eventRepository.findFinishedEventsByFollower(c.getId());
+
+		result.add(eventsAvailable);
+		result.add(eventsFinished);
+		result.add(eventsCancelled);
+
+		return result;
+	}
+
+	public ArrayList<Collection<Event>> listEventsByFollowerAndClub(final Client c, final Club club) {
+		final ArrayList<Collection<Event>> result = new ArrayList<>();
+
+		final Collection<Event> eventsAvailable = this.eventRepository.findAvailableEventsByFollowerAndClub(c.getId(), club.getId());
+		final Collection<Event> eventsCancelled = this.eventRepository.findCancelledEventsByFollowerAndClub(c.getId(), club.getId());
+		final Collection<Event> eventsFinished = this.eventRepository.findFinishedEventsByFollowerAndClub(c.getId(), club.getId());
+
+		result.add(eventsAvailable);
+		result.add(eventsFinished);
+		result.add(eventsCancelled);
+
+		return result;
 	}
 
 	public Collection<Event> findEventsByFollowerAndClub(final Client c, final Club club) {
