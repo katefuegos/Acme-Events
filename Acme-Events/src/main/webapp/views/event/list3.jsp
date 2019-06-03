@@ -101,7 +101,7 @@
 				code="event.opinions" />
 		</a>
 		<br>
-		<a href="event/client/participate.do?eventId=${row.id}"> <spring:message
+		<a href="event/client/participate.do?eventId=${row.id}" onclick="return confirm('<spring:message code="actor.confirm.participateEvent"/>')"> <spring:message
 				code="event.participations" />
 		</a>
 	</display:column>

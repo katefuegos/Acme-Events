@@ -109,7 +109,7 @@
 		<br>
 		
 		<security:authorize access="hasRole('CLIENT')">
-		<a href="event/client/participate.do?eventId=${row.id}"> 
+		<a href="event/client/participate.do?eventId=${row.id}" onclick="return confirm('<spring:message code="actor.confirm.participateEvent"/>')"> 
 			<spring:message code="event.participations" />
 		</a>
 		</security:authorize>

@@ -97,7 +97,7 @@
 	</display:column>
 	
 	<display:column>
-		<a href="event/client/participate.do?eventId=${row.id}"> 
+		<a href="event/client/participate.do?eventId=${row.id}" onclick="return confirm('<spring:message code="actor.confirm.participateEvent"/>')"> 
 			<spring:message code="event.participations" />
 		</a><br><br>
 		<a href="event/show.do?eventId=${row.id}"> 

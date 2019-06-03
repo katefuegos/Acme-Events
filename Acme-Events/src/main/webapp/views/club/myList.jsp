@@ -53,7 +53,7 @@
 	
 		<security:authorize access="hasRole('CLIENT')">
 		<display:column>
-			<a href="club/client/unfollow.do?clubId=${row.id}"> <spring:message
+			<a href="club/client/unfollow.do?clubId=${row.id}" onclick="return confirm('<spring:message code="actor.confirm.unfollow"/>')"> <spring:message
 					code="club.client.unfollow" />
 			</a>
 		</display:column>
@@ -93,7 +93,7 @@
 
 	<security:authorize access="hasRole('CLIENT')">
 		<display:column>
-			<a href="club/client/follow.do?clubId=${row2.id}"> <spring:message
+			<a href="club/client/follow.do?clubId=${row2.id}" onclick="return confirm('<spring:message code="actor.confirm.follow"/>')"> <spring:message
 					code="club.client.follow" />
 			</a>
 		</display:column>
