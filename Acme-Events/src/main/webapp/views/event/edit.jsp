@@ -38,7 +38,10 @@
 	<acme:textbox code="event.momentEnd" path="momentEnd"
 		readonly="${isRead}" />
 	
-
+<jstl:if test="${isRead == true}">
+	<acme:textbox code="administrator.score" path="score"
+		readonly="${isRead}" />
+</jstl:if>
 <jstl:if test="${isRead == false}">
 	<acme:selectCollection items="${categories}" itemLabel="title"
 		code="event.category" path="category" />

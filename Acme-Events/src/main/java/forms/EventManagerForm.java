@@ -28,6 +28,7 @@ public class EventManagerForm {
 	private String		description;
 	private String		address;
 	private Double		price;
+	private Double		score;
 	private Date		momentStart;
 	private Date		momentEnd;
 	private boolean		draftMode;
@@ -145,6 +146,14 @@ public class EventManagerForm {
 
 	public void setClub(final Club club) {
 		this.club = club;
+	}
+
+	public Double getScore() {
+		return this.score;
+	}
+
+	public void setScore(final Double score) {
+		this.score = score;
 	}
 
 }

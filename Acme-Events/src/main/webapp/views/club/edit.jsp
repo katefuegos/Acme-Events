@@ -33,6 +33,11 @@
 	<acme:textbox code="club.description" path="description" readonly="${isRead}" />
 	<acme:textbox code="club.pictures" path="pictures" readonly="${isRead}" />
 	
+	<jstl:if test="${isRead == true}">
+	<acme:textbox code="administrator.score" path="score"
+		readonly="${isRead}" />
+</jstl:if>
+	
 	<jstl:if test="${isRead == false}">
 	<form:label path="draftMode">
 		<spring:message code="club.draftMode" />

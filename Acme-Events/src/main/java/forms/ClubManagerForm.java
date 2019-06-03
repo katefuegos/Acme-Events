@@ -20,6 +20,7 @@ public class ClubManagerForm {
 	private String	address;
 	private String	description;
 	private String	pictures;
+	private Double	score;
 	private boolean	draftMode;
 	private Manager	manager;
 
@@ -87,6 +88,14 @@ public class ClubManagerForm {
 
 	public void setId(final int id) {
 		this.id = id;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 }

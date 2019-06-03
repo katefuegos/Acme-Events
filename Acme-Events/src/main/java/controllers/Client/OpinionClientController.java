@@ -145,10 +145,7 @@ public class OpinionClientController extends AbstractController {
 			result = this.list();
 			result.addObject("message", "opinion.error.notEvent");
 		} else {
-			System.out.println("=============================");
-			System.out.println("=============================");
-			System.out.println("=============================");
-			System.out.println("=============================");
+
 			result = new ModelAndView("opinion/create");
 			result.addObject("opinionForm", opinionForm);
 			result.addObject("events", events);

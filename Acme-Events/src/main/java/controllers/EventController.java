@@ -127,6 +127,7 @@ public class EventController extends AbstractController {
 			eventManagerForm.setPoster(event.getPoster());
 			eventManagerForm.setPrice(event.getPrice());
 			eventManagerForm.setTitle(event.getTitle());
+			eventManagerForm.setScore(event.getScore());
 
 			result = this.ShowModelAndView(eventManagerForm);
 

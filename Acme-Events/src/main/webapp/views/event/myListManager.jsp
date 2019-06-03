@@ -40,7 +40,14 @@
 	<display:column property="score" titleKey="administrator.score" />
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
-
+	
+	<jstl:if test="${row.status =='AVAILABLE' }">
+			<display:column property="status" titleKey="event.status" style="background-color: green;"/>
+		</jstl:if>
+		<jstl:if test="${row.status =='CANCELLED' }">
+			<display:column property="status" titleKey="event.status" style="background-color: red;"/>
+		</jstl:if>
+	
 	<display:column property="club.name" titleKey="event.club" />
 	<display:column titleKey="event.category">
 		<jstl:forEach var="entry" items="${row.category.title}">
@@ -102,7 +109,6 @@
 			width="auto">
 	</display:column>
 	<display:column property="price" titleKey="event.price" />
-	<display:column property="score" titleKey="administrator.score" />
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
 

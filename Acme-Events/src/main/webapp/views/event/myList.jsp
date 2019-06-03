@@ -80,7 +80,14 @@
 	<display:column property="score" titleKey="administrator.score" />
 	<display:column property="momentStart" titleKey="event.momentStart" />
 	<display:column property="momentEnd" titleKey="event.momentEnd" />
-
+	
+	<jstl:if test="${row.status =='AVAILABLE' }">
+			<display:column property="status" titleKey="event.status" style="background-color: green;"/>
+		</jstl:if>
+		<jstl:if test="${row.status =='CANCELLED' }">
+			<display:column property="status" titleKey="event.status" style="background-color: red;"/>
+		</jstl:if>
+	
 	<display:column titleKey="event.club">
 		<a href="club/list.do?eventId=${row.id}"> 
 			<jstl:out value="${row.club.name }"/>

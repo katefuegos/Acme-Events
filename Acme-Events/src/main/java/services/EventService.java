@@ -116,8 +116,35 @@ public class EventService {
 		return this.eventRepository.findEventsByFollower(c.getId());
 	}
 
-	public Collection<Event> findEventsByFollowerAndClub(final Client c,
-			final Club club) {
+	
+	public ArrayList<Collection<Event>> listEventsByFollower(final Client c) {
+		final ArrayList<Collection<Event>> result = new ArrayList<>();
+		final Collection<Event> eventsAvailable = this.eventRepository.findAvailableEventsByFollower(c.getId());
+		final Collection<Event> eventsCancelled = this.eventRepository.findCancelledEventsByFollower(c.getId());
+		final Collection<Event> eventsFinished = this.eventRepository.findFinishedEventsByFollower(c.getId());
+
+		result.add(eventsAvailable);
+		result.add(eventsFinished);
+		result.add(eventsCancelled);
+
+		return result;
+	}
+
+	public ArrayList<Collection<Event>> listEventsByFollowerAndClub(final Client c, final Club club) {
+		final ArrayList<Collection<Event>> result = new ArrayList<>();
+
+		final Collection<Event> eventsAvailable = this.eventRepository.findAvailableEventsByFollowerAndClub(c.getId(), club.getId());
+		final Collection<Event> eventsCancelled = this.eventRepository.findCancelledEventsByFollowerAndClub(c.getId(), club.getId());
+		final Collection<Event> eventsFinished = this.eventRepository.findFinishedEventsByFollowerAndClub(c.getId(), club.getId());
+
+		result.add(eventsAvailable);
+		result.add(eventsFinished);
+		result.add(eventsCancelled);
+
+		return result;
+	}
+
+	public Collection<Event> findEventsByFollowerAndClub(final Client c, final Club club) {
 
 		return this.eventRepository.findEventsByFollowerAndClub(c.getId(),
 				club.getId());
@@ -144,7 +171,7 @@ public class EventService {
 			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L
 																				// son
 																				// 10
-																				// años
+																				// aï¿½os
 																				// en
 																				// milisegundos
 
