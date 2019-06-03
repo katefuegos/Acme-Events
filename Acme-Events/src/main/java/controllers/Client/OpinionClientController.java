@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import repositories.EventRepository;
 import security.LoginService;
 import services.ClientService;
 import services.ConfigurationService;
@@ -40,6 +41,9 @@ public class OpinionClientController extends AbstractController {
 
 	@Autowired
 	private EventService			eventService;
+	
+	@Autowired
+	private EventRepository			eventRepository;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -117,7 +121,7 @@ public class OpinionClientController extends AbstractController {
 
 				final Opinion saved = this.opinionService.save(opinion);
 				event.getOpinions().add(saved);
-				this.eventService.save(event);
+				this.eventRepository.save(event);
 
 				this.opinionService.calculateScore(event);
 

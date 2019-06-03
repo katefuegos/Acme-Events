@@ -118,7 +118,7 @@ public class ClubService {
 		final Follow saved = this.followService.save(follow);
 		club.getFollows().add(saved);
 
-		this.save(club);
+		clubRepository.save(club);
 
 	}
 
