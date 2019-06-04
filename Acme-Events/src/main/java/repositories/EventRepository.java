@@ -52,7 +52,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1")
 	Collection<Event> findByParticipation(int clientId);
 
-	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1 and e.status <> 'CANCELLED' and e.momentEnd<current_date")
+	@Query("select e from Event e join e.participationsEvent p where p.client.id = ?1 and e.status <> 'CANCELLED' and e.momentEnd<current_timestamp")
 	Collection<Event> findByParticipationAndFinalize(int clientId);
 
 	@Query("select e from Event e join e.opinions o where o.client.id = ?1")

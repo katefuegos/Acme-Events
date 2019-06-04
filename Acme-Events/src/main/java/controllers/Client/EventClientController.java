@@ -3,6 +3,7 @@ package controllers.Client;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -127,11 +128,13 @@ public class EventClientController extends AbstractController {
 		try {
 			event = this.eventService.findOne(eventId);
 			Assert.notNull(event);
+			Assert.isTrue(!event.isDraftMode());
 			client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 			Assert.notNull(client);
 			Assert.notNull(client.getCreditCard());
 			Assert.isTrue(this.eventService.findEventsByFollower(client).contains(event));
 			Assert.isTrue(this.clubService.findClubByClient(client.getId(), event.getClub().getId()) != null);
+			Assert.isTrue(event.getMomentEnd().after(new Date()));
 			final Collection<ParticipationEvent> pes1 = event.getParticipationsEvent();
 			for (final ParticipationEvent e : pes1)
 				Assert.isTrue(!e.getClient().equals(client));
@@ -148,12 +151,16 @@ public class EventClientController extends AbstractController {
 			result = new ModelAndView("redirect:/event/client/myList.do");
 			if (event == null)
 				redirectAttrs.addFlashAttribute("message", "event.error.unexist");
+			else if(event.isDraftMode())
+				redirectAttrs.addFlashAttribute("message", "event.error.participateDraft");
 			else if (client.getCreditCard() == null)
 				redirectAttrs.addFlashAttribute("message", "event.error.creditCardBad");
 			else if (this.eventService.findEventsByFollower(client).contains(event))
 				redirectAttrs.addFlashAttribute("message", "event.error.alreadyParticipate");
 			else if (this.clubService.findClubByClient(client.getId(), event.getClub().getId()) == null)
 				redirectAttrs.addFlashAttribute("message", "club.error.follow.unexist2");
+			else if(event.getMomentEnd().before(new Date()))
+				redirectAttrs.addFlashAttribute("message", "event.error.participateFinish");
 			else
 				redirectAttrs.addFlashAttribute("message", "message.commit.error");
 		}
