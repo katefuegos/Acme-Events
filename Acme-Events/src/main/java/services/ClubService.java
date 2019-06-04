@@ -89,6 +89,11 @@ public class ClubService {
 
 	// Other Methods--------------------------------------------
 
+	public void updateScore(final Club club, final Double score) {
+		club.setScore(score);
+		this.clubRepository.save(club);
+	}
+
 	public Club findByFollow(final int followId) {
 		return this.clubRepository.findByFollow(followId);
 	}
@@ -118,7 +123,7 @@ public class ClubService {
 		final Follow saved = this.followService.save(follow);
 		club.getFollows().add(saved);
 
-		clubRepository.save(club);
+		this.clubRepository.save(club);
 
 	}
 

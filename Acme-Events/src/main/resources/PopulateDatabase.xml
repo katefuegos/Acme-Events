@@ -828,7 +828,7 @@
 		<property name="description" value="Un club mágico en primera linea de la playa" />
 		<property name="pictures"
 			value="https://media-cdn.tripadvisor.com/media/photo-s/0f/02/77/17/bonita-rides.jpg" />
-		<property name="score" value="2.66" />
+		<property name="score" value="8.0" />
 		<property name="accepted" value="true" />
 		<property name="draftMode" value="false" />
 		<property name="manager" ref="manager1" />
@@ -853,6 +853,7 @@
 		<property name="pictures"
 			value="https://web.ccpgamescdn.com/newssystem/media/73282/1/drais-night-club-event-photo-2.jpg" />
 		<property name="accepted" value="true" />
+		<property name="score" value="5.0" />
 		<property name="draftMode" value="false" />
 		<property name="manager" ref="manager2" />
 		<property name="follows">
@@ -1004,7 +1005,7 @@
 		<property name="description"
 			value="Noche de bailes, noches de dejarte la piel en la pista. No te lo pienses, vente." />
 		<property name="address" value="Sala 2" />
-		<property name="score" value="8.0" />
+		<property name="score" value="5.0" />
 		<property name="price" value="40.0" />
 		<property name="momentStart" value="2019/05/24 22:00" />
 		<property name="momentEnd" value="2019/05/25 06:00" />
@@ -1762,7 +1763,7 @@
 	<bean id="configuration1" class="domain.Configuration">
 	    <property name="varTax" value="21" />
 		<property name="countryCode" value="+34" />
-		<property name="banner" value="http://www.tinyurl.com/acme-madruga" />
+		<property name="banner" value="https://www.milton.ca/en/live/resources/Events.jpg" />
 		<property name="welcomeMessage">
 			<map>
 				<entry>

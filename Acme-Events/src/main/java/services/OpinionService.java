@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 import repositories.OpinionRepository;
 import security.LoginService;
 import domain.Client;
-import domain.Club;
 import domain.Event;
 import domain.Manager;
 import domain.Opinion;
@@ -95,20 +94,17 @@ public class OpinionService {
 
 	}
 
-	// TODO comprobar en rendimiento posible lugar de fallos
 	public void calculateScore(final Event event) {
 
 		Double score;
 
+		//Actualizamos la puntuación del evento
 		score = this.opinionRepository.calculateScoreEvent(event.getId());
-		event.setScore(score);
-		this.eventService.save(event);
+		this.eventService.updateScore(event, score);
 
-		score = 0.0;
-		final Club club = event.getClub();
-		score = this.opinionRepository.calculateScoreClub(club.getId());
-		club.setScore(score);
-		this.clubService.save(club);
+		//Actualizamos la puntuación del club
+		score = this.opinionRepository.calculateScoreClub(event.getClub().getId());
+		this.clubService.updateScore(event.getClub(), score);
 
 	}
 }
