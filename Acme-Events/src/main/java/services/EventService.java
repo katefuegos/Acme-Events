@@ -36,8 +36,13 @@ public class EventService {
 	// Services-------------------------------------------------
 	@Autowired
 	private ManagerService	managerService;
+	
+	@Autowired
+	private ClientService	clientService;
 
-
+	@Autowired
+	private ClubService	clubService;
+	
 	// Constructor----------------------------------------------
 
 	public EventService() {
@@ -78,6 +83,14 @@ public class EventService {
 
 	public Event participate(final Event event) {
 		Assert.notNull(event);
+		Assert.isTrue(!event.isDraftMode());
+		Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.notNull(client);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("CLIENT"));
+		Assert.notNull(client.getCreditCard());
+		Assert.isTrue(this.findEventsByFollower(client).contains(event));
+		Assert.isTrue(clubService.findClubByClient(client.getId(), event.getClub().getId()) != null);
+		Assert.isTrue(event.getMomentEnd().after(new Date()));
 		final Event saved = this.eventRepository.save(event);
 		return saved;
 	}

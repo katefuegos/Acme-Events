@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -25,18 +24,17 @@ public class OpinionService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private OpinionRepository	opinionRepository;
+	private OpinionRepository opinionRepository;
 
 	// Services-------------------------------------------------
 
 	@Autowired
-	private ClientService		clientService;
+	private ClientService clientService;
 	@Autowired
-	private EventService		eventService;
+	private EventService eventService;
 
 	@Autowired
-	private ClubService			clubService;
-
+	private ClubService clubService;
 
 	// Constructor----------------------------------------------
 
@@ -48,7 +46,8 @@ public class OpinionService {
 
 	public Opinion create() {
 		final Opinion opinion = new Opinion();
-		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
+		final Client client = this.clientService
+				.findClientByUseraccount(LoginService.getPrincipal());
 		Assert.notNull(client);
 
 		opinion.setClient(client);
@@ -68,10 +67,16 @@ public class OpinionService {
 
 	public Opinion save(final Opinion opinion) {
 		Assert.notNull(opinion);
+		final Client client = this.clientService
+				.findClientByUseraccount(LoginService.getPrincipal());
+		Assert.notNull(client);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString()
+				.contains("CLIENT"));
 
 		final Opinion saved = this.opinionRepository.save(opinion);
 		return saved;
 	}
+
 	public void delete(final Opinion opinion) {
 		this.opinionRepository.delete(opinion);
 	}
@@ -98,13 +103,19 @@ public class OpinionService {
 
 		Double score;
 
-		//Actualizamos la puntuación del evento
+		// Actualizamos la puntuación del evento
 		score = this.opinionRepository.calculateScoreEvent(event.getId());
 		this.eventService.updateScore(event, score);
 
-		//Actualizamos la puntuación del club
-		score = this.opinionRepository.calculateScoreClub(event.getClub().getId());
+		// Actualizamos la puntuación del club
+		score = this.opinionRepository.calculateScoreClub(event.getClub()
+				.getId());
 		this.clubService.updateScore(event.getClub(), score);
+
+	}
+
+	public void flush() {
+		this.opinionRepository.flush();
 
 	}
 }

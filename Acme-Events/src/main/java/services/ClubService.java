@@ -58,6 +58,7 @@ public class ClubService {
 		club.setFollows(follows);
 		club.setApplicationsClub(appclubs);
 		club.setDraftMode(true);
+		club.setAccepted(false);
 		return club;
 	}
 
@@ -116,6 +117,7 @@ public class ClubService {
 
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 		Assert.notNull(client);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("CLIENT"));
 		Assert.isTrue(club.isAccepted());
 		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) == null, "club.error.follow.exist");
 
@@ -130,6 +132,7 @@ public class ClubService {
 	public void unFollowClub(final Club club) {
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
 		Assert.notNull(client);
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().contains("CLIENT"));
 		Assert.notNull(club, "club.error.unexist");
 		Assert.isTrue(this.findClubByClient(client.getId(), club.getId()) != null, "club.error.follow.unexist");
 
