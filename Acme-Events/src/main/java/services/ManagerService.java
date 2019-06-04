@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.ManagerRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 import domain.Manager;
 
@@ -67,6 +68,11 @@ public class ManagerService {
 
 	public Manager save(final Manager manager) {
 		Assert.notNull(manager);
+		if(manager.getId()!=0){
+			final UserAccount ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			Assert.isTrue(manager.getUserAccount().equals(ua));
+		}
 		final Manager saved = this.managerRepository.save(manager);
 		return saved;
 	}

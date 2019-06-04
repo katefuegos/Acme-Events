@@ -76,6 +76,11 @@ public class AdministratorService {
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(admin), "actor.register.error.authority");
+		if(administrator.getId()!=0){
+			final UserAccount ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			Assert.isTrue(administrator.getUserAccount().equals(ua));
+		}
 
 		final Administrator saved = this.administratorRepository.save(administrator);
 		return saved;
