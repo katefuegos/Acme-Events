@@ -150,13 +150,16 @@ public class EventManagerController extends AbstractController {
 				event.setPoster(eventManagerForm.getPoster());
 				event.setPrice(eventManagerForm.getPrice());
 				event.setTitle(eventManagerForm.getTitle());
+				Assert.isTrue(event.getMomentStart().after(new Date()));
 				Assert.isTrue(event.getMomentStart().before(event.getMomentEnd()));
 				this.eventService.save(event);
 
 				result = new ModelAndView("redirect:/event/manager/myList.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(eventManagerForm, "event.commit.error");
-				if (!event.getMomentStart().before(event.getMomentEnd()))
+				if (event.getMomentStart().before(new Date()))
+					result = this.createModelAndView(eventManagerForm, "event.error.dateBadStart");
+				else if (!event.getMomentStart().before(event.getMomentEnd()))
 					result = this.createModelAndView(eventManagerForm, "event.error.dateBad");
 			}
 
