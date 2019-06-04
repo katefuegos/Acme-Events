@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -29,9 +23,9 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
+
+	<!-- Other domain beans come here -->
+
 	<!-- ADMIN -->
 
 	<bean id="admin" class="domain.Administrator">
@@ -116,10 +110,351 @@
 		</property>
 		<property name="actor" ref="admin" />
 	</bean>
-	
+
+	<!-- CATEGORY -->
+
+	<bean id="rootCategory" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>CATEGORY</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>CATEGORIA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="true" />
+	</bean>
+
+	<bean id="category1" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>POPULAR</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>POPULAR</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category2" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>REGGAETON</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>REGGAETON</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+	<bean id="category3" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>CLASSIC</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>CLÁSICO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category4" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>MODERN</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>MODERNO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category5" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ELECTRO</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ELECTRO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+	<bean id="category6" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>DEEP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>DEEP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+	<bean id="category7" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>TECH</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>TECH</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+	<bean id="category8" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>TRAP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>TRAP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+	<bean id="category9" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>RAP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>RAP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category4" />
+	</bean>
+
+
+	<bean id="category10" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ORCHEST</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ORQUESTA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category3" />
+	</bean>
+
+	<bean id="category11" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>PIANO</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>PIANO</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category3" />
+	</bean>
+
+	<bean id="category12" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>VIOLIN</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>VIOLÍN</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category3" />
+	</bean>
+
+	<bean id="category13" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>GUITAR</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>GUITARRA</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category3" />
+	</bean>
+
+	<bean id="category14" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>ROCK</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>ROCK</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category1" />
+	</bean>
+
+	<bean id="category15" class="domain.Category">
+		<property name="title">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>POP</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>POP</value>
+				</entry>
+			</map>
+		</property>
+		<property name="root" value="false" />
+		<property name="rootCategory" ref="category1" />
+	</bean>
+
+	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
+		<property name="varTax" value="21" />
 		<property name="countryCode" value="+34" />
-		<property name="banner" value="http://www.tinyurl.com/acme-madruga" />
+		<property name="banner"
+			value="https://www.milton.ca/en/live/resources/Events.jpg" />
 		<property name="welcomeMessage">
 			<map>
 				<entry>
@@ -180,5 +515,5 @@
 		<property name="finderMaxResults" value="10" />
 		<property name="systemName" value="Acme Events" />
 	</bean>
-	
+
 </beans>
