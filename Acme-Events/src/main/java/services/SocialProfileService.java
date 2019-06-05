@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -12,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.SocialProfileRepository;
 import security.LoginService;
+import domain.Actor;
 import domain.SocialProfile;
 
 @Service
@@ -21,13 +21,12 @@ public class SocialProfileService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private SocialProfileRepository	socialProfileRepository;
+	private SocialProfileRepository socialProfileRepository;
 
 	// Services-------------------------------------------------
 
 	@Autowired
-	private ActorService			actorService;
-
+	private ActorService actorService;
 
 	// Constructor----------------------------------------------
 
@@ -39,7 +38,8 @@ public class SocialProfileService {
 
 	public SocialProfile create() {
 		final SocialProfile profile = new SocialProfile();
-		profile.setActor(this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
+		profile.setActor(this.actorService.findByUserAccountId(LoginService
+				.getPrincipal().getId()));
 		return profile;
 	}
 
@@ -53,23 +53,37 @@ public class SocialProfileService {
 
 	public SocialProfile save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
-		final SocialProfile saved = this.socialProfileRepository.save(socialProfile);
+		if (socialProfile.getId() != 0) {
+			Actor actor = actorService.findByUserAccount(LoginService
+					.getPrincipal());
+			Assert.notNull(actor);
+			Assert.isTrue(socialProfile.getActor().equals(actor));
+		}
+		final SocialProfile saved = this.socialProfileRepository
+				.save(socialProfile);
 		return saved;
 	}
 
 	public void delete(final SocialProfile socialProfile) {
+		Assert.notNull(socialProfile);
+		Actor actor = actorService.findByUserAccount(LoginService
+				.getPrincipal());
+		Assert.notNull(actor);
+		Assert.isTrue(socialProfile.getActor().equals(actor));
 		this.socialProfileRepository.delete(socialProfile);
 	}
 
 	// Other Methods--------------------------------------------
 
 	public Collection<SocialProfile> findProfilesByActor(final int actorId) {
-		final Collection<SocialProfile> result = this.socialProfileRepository.findProfilesByActor(actorId);
+		final Collection<SocialProfile> result = this.socialProfileRepository
+				.findProfilesByActor(actorId);
 		return result;
 	}
 
 	public Collection<SocialProfile> findProfileByUserAccount(final int uaId) {
-		final Collection<SocialProfile> result = this.socialProfileRepository.findProfileByUserAccount(uaId);
+		final Collection<SocialProfile> result = this.socialProfileRepository
+				.findProfileByUserAccount(uaId);
 		return result;
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.ClientRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 import domain.Client;
 
@@ -64,12 +65,23 @@ public class ClientService {
 
 	public Client save(final Client client) {
 		Assert.notNull(client);
+		if(client.getId()!=0){
+			final UserAccount ua = LoginService.getPrincipal();
+			Assert.notNull(ua);
+			Assert.isTrue(client.getUserAccount().equals(ua));
+		}
+		
 		final Client saved = this.clientRepository.save(client);
 		return saved;
 	}
 
 	public void delete(final Client client) {
 		this.clientRepository.delete(client);
+	}
+	
+	public void flush() {
+		this.clientRepository.flush();
+
 	}
 
 	// Other Methods--------------------------------------------

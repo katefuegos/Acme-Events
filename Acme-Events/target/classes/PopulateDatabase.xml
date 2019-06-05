@@ -924,6 +924,23 @@
 		</property>
 	</bean>
 
+	<bean id="club6" class="domain.Club">
+		<property name="name" value="Long Island Club" />
+		<property name="address" value="C/Calle falsa, 456, Madrid" />
+		<property name="description" value="Bañate en la piscina de Long Island Club." />
+		<property name="accepted" value="true" />
+		<property name="draftMode" value="false" />
+		<property name="manager" ref="manager2" />
+		<property name="follows">
+			<list>
+			</list>
+		</property>
+		<property name="applicationsClub">
+			<list>
+			</list>
+		</property>
+	</bean>
+
 	<!-- PARTICIPATION EVENT -->
 
 	<bean id="participationEvent1" class="domain.ParticipationEvent">
@@ -1078,8 +1095,7 @@
 	<bean id="event5" class="domain.Event">
 		<property name="ticker" value="190618-JDH4H4" />
 		<property name="title" value="Rap Night" />
-		<property name="description"
-			value="La mejor fiesta del mundo." />
+		<property name="description" value="La mejor fiesta del mundo." />
 		<property name="address" value="Sala 2" />
 		<property name="price" value="40.0" />
 		<property name="momentStart" value="2019/09/24 22:00" />
@@ -1097,12 +1113,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="event6" class="domain.Event">
 		<property name="ticker" value="210918-EUR467" />
 		<property name="title" value="House Night" />
-		<property name="description"
-			value="Ven a sentir la música." />
+		<property name="description" value="Ven a sentir la música." />
 		<property name="address" value="Sala 2" />
 		<property name="price" value="40.0" />
 		<property name="momentStart" value="2019/09/24 23:00" />
@@ -1761,9 +1776,10 @@
 
 	<!-- CONFIGURATION -->
 	<bean id="configuration1" class="domain.Configuration">
-	    <property name="varTax" value="21" />
+		<property name="varTax" value="21" />
 		<property name="countryCode" value="+34" />
-		<property name="banner" value="https://www.milton.ca/en/live/resources/Events.jpg" />
+		<property name="banner"
+			value="https://www.milton.ca/en/live/resources/Events.jpg" />
 		<property name="welcomeMessage">
 			<map>
 				<entry>

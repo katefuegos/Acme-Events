@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.CreditCardRepository;
 import security.LoginService;
+import security.UserAccount;
 import domain.Client;
 import domain.CreditCard;
 
@@ -53,6 +54,9 @@ public class CreditCardService {
 
 	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		Assert.isTrue(ua.getAuthorities().toString().contains("CLIENT"));
 		if (creditCard.getId() != 0)
 			this.checkPrincipal(creditCard);
 
@@ -78,7 +82,7 @@ public class CreditCardService {
 	}
 	public void delete(final CreditCard creditCard) {
 		final Client client = this.clientService.findClientByUseraccount(LoginService.getPrincipal());
-
+		Assert.notNull(client);
 		this.checkPrincipal(creditCard);
 
 		client.setCreditCard(null);
@@ -93,6 +97,11 @@ public class CreditCardService {
 		Assert.notNull(client, "creditcard.error.notClient");
 
 		Assert.isTrue(client.getCreditCard().getId() == creditCard.getId(), "creditCard.notOwner");
+
+	}
+	
+	public void flush() {
+		this.creditCardRepository.flush();
 
 	}
 
