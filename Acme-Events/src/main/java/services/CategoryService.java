@@ -105,6 +105,11 @@ public class CategoryService {
 		this.categoryRepository.delete(category);
 
 	}
+	
+	public void flush() {
+		this.categoryRepository.flush();
+
+	}
 
 	// Other Methods--------------------------------------------
 

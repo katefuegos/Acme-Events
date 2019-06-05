@@ -130,7 +130,7 @@ public class ActorService {
 	public void update(final ActorForm actorform) {
 
 		Assert.notNull(actorform);
-
+		Assert.isTrue(actorform.getCheckTerms());
 		final Collection<Authority> authorities = actorform.getUserAccount().getAuthorities();
 		final Authority manager = new Authority();
 		manager.setAuthority(Authority.MANAGER);

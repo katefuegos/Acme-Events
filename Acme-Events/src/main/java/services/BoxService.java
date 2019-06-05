@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -21,29 +20,30 @@ import domain.Box;
 @Transactional
 public class BoxService {
 
-	//Repository-------------------------------------------------------------------------
+	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private BoxRepository	boxRepository;
+	private BoxRepository boxRepository;
 
-	//Services---------------------------------------------------------------------------
+	// Services---------------------------------------------------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageService messageService;
 
-
-	//Constructor------------------------------------------------------------------------
+	// Constructor------------------------------------------------------------------------
 
 	public BoxService() {
 		super();
 	}
 
-	//Simple CRUD------------------------------------------------------------------------
+	// Simple
+	// CRUD------------------------------------------------------------------------
 	public Box create() {
 		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
+		Assert.notNull(userAccount,
+				"Debe estar logeado en el sistema para crear una carpeta");
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
 
 		final Box box = new Box();
@@ -75,6 +75,7 @@ public class BoxService {
 	public Box findOne(final Integer boxId) {
 		return this.boxRepository.findOne(boxId);
 	}
+
 	public Box save(final Box box) {
 		this.checkPrincipal(box);
 		final Collection<String> systemBox = new ArrayList<>();
@@ -86,9 +87,11 @@ public class BoxService {
 		Box oldRootBox;
 
 		final Box newRootBox = box.getRootbox();
-		Assert.isTrue(!box.getIsSystem(), "No se puede modificar una carpeta del sistema");
+		Assert.isTrue(!box.getIsSystem(),
+				"No se puede modificar una carpeta del sistema");
 		if (box.getId() == 0)
-			Assert.isTrue(!systemBox.contains(box.getName()), "No se puede crear carpetas con nombres reservados");
+			Assert.isTrue(!systemBox.contains(box.getName()),
+					"No se puede crear carpetas con nombres reservados");
 		else {
 			oldRootBox = this.findOne(box.getId()).getRootbox();
 			if (oldRootBox != null && !newRootBox.equals(oldRootBox)) {
@@ -107,10 +110,12 @@ public class BoxService {
 
 		return saved;
 	}
+
 	public void delete(final Box entity) {
 		this.checkPrincipal(entity);
 		// TODO DELETE BOX ï¿½Si se borra un actor se borra sus carpetas?
-		Assert.isTrue(!entity.getIsSystem(), "No se puede eliminar una carpeta del sistema");
+		Assert.isTrue(!entity.getIsSystem(),
+				"No se puede eliminar una carpeta del sistema");
 
 		final Box rootBox = entity.getRootbox();
 		if (rootBox != null) {
@@ -120,12 +125,16 @@ public class BoxService {
 
 		this.messageService.deleteByBox(entity);
 		//
-		//		final Collection<Box> subBoxes = entity.getSubboxes();
-		//		this.delete(subBoxes);
+		// final Collection<Box> subBoxes = entity.getSubboxes();
+		// this.delete(subBoxes);
 
 		final Collection<Box> boxes = this.findDescendent(entity);
 
 		this.boxRepository.delete(boxes);
+	}
+
+	public void flush() {
+		this.boxRepository.flush();
 	}
 
 	private Collection<Box> findDescendent(final Box father) {
@@ -158,21 +167,25 @@ public class BoxService {
 			}
 
 	}
-	//Other Methods---------------------------------------------------------------------------
+
+	// Other
+	// Methods---------------------------------------------------------------------------
 	public void checkPrincipal(final Box box) {
-		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService
+				.getPrincipal());
 
 		Assert.isTrue(box.getActor().equals(actor), "box.commit.error");
 
 		if (box.getId() == 0) {
-			final Box oldBox = this.findBoxByActorIdAndName(actor.getId(), box.getName());
+			final Box oldBox = this.findBoxByActorIdAndName(actor.getId(),
+					box.getName());
 			Assert.isTrue(oldBox == null, "box.name.commit.error");
 		}
 
 	}
 
 	public Box findBoxByActorIdAndName(final int actorId, final String nameBox) {
-		//TODO Añadir asserts
+		// TODO Añadir asserts
 		return this.boxRepository.findBoxByActorAndName(actorId, nameBox);
 	}
 
@@ -191,7 +204,8 @@ public class BoxService {
 		// Se inician las boxes
 		boolean hasSystemBox = false;
 		try {
-			final Collection<Box> boxes = this.findSystemBoxesByActorId(actor.getId());
+			final Collection<Box> boxes = this.findSystemBoxesByActorId(actor
+					.getId());
 			if (!boxes.isEmpty())
 				hasSystemBox = true;
 
@@ -204,6 +218,7 @@ public class BoxService {
 			this.boxRepository.save(systemBoxes);
 		}
 	}
+
 	/*
 	 * Mï¿½todo para crear las system box
 	 */
@@ -211,7 +226,7 @@ public class BoxService {
 		final Collection<Box> result = new ArrayList<>();
 
 		final Collection<Box> subboxes = new ArrayList<>();
-		//TODO ï¿½Que es rootBox?
+		// TODO ï¿½Que es rootBox?
 		final Box rootbox = null;
 
 		// Iniciar notification box
@@ -254,7 +269,7 @@ public class BoxService {
 		spamBox.setRootbox(rootbox);
 		spamBox.setActor(actor);
 
-		//Se aï¿½ade todas las boxes a la collection
+		// Se aï¿½ade todas las boxes a la collection
 		result.add(inBox);
 		result.add(outBox);
 		result.add(notification);

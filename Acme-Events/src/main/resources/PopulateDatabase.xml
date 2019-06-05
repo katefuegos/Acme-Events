@@ -345,6 +345,20 @@
 		</property>
 	</bean>
 
+	<bean id="customBoxM1" class="domain.Box">
+		<property name="name" value="custom box" />
+		<property name="isSystem" value="false" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+
+		<property name="actor" ref="manager1" />
+		<property name="rootbox">
+			<null />
+		</property>
+	</bean>
+
 	<bean id="trashBoxM2" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
@@ -411,6 +425,20 @@
 			<null />
 		</property>
 		<property name="actor" ref="manager2" />
+	</bean>
+
+	<bean id="customBoxM2" class="domain.Box">
+		<property name="name" value="custom box" />
+		<property name="isSystem" value="false" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+
+		<property name="actor" ref="manager2" />
+		<property name="rootbox">
+			<null />
+		</property>
 	</bean>
 
 	<bean id="trashBoxP1" class="domain.Box">
@@ -929,6 +957,23 @@
 		<property name="address" value="C/Calle falsa, 456, Madrid" />
 		<property name="description" value="Bañate en la piscina de Long Island Club." />
 		<property name="accepted" value="true" />
+		<property name="draftMode" value="false" />
+		<property name="manager" ref="manager2" />
+		<property name="follows">
+			<list>
+			</list>
+		</property>
+		<property name="applicationsClub">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="club7" class="domain.Club">
+		<property name="name" value="Beach Cocoa Club" />
+		<property name="address" value="C/Calle falsa, 456, Sevilla" />
+		<property name="description" value="Las mejores vistas de Sevilla." />
+		<property name="accepted" value="false" />
 		<property name="draftMode" value="false" />
 		<property name="manager" ref="manager2" />
 		<property name="follows">
