@@ -1,10 +1,26 @@
 #./src/main/resources/Entities.map
-#Tue Jun 04 22:03:06 CEST 2019
-notificationBoxA=15
-spamBoxA=14
-admin=10
-inBoxA=12
-configuration1=16
-userAccount1=9
-trashBoxA=11
-outBoxA=13
+#Wed Jun 05 12:36:00 CEST 2019
+spamBoxA=30
+category15=47
+category14=46
+category13=45
+category12=44
+category11=43
+category10=42
+notificationBoxA=31
+inBoxA=28
+admin=26
+outBoxA=29
+category9=41
+category8=40
+userAccount1=25
+category7=39
+category6=38
+category5=37
+category4=36
+category3=35
+category2=34
+category1=33
+rootCategory=32
+configuration1=48
+trashBoxA=27
