@@ -76,17 +76,17 @@
 
 		<!-- Manager -->
 
-		<security:intercept-url pattern="/manager/list.do"
+		<security:intercept-url pattern="/actor/manager/list.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/manager/display.do"
+		<security:intercept-url pattern="/actor/manager/display.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/manager/show.do"
+		<security:intercept-url pattern="/actor/manager/show.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/manager/listClubs.do"
+		<security:intercept-url pattern="/actor/manager/listClubs.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/manager/listProfiles.do"
+		<security:intercept-url pattern="/actor/manager/listProfiles.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/manager/showByClub.do"
+		<security:intercept-url pattern="/actor/manager/showByClub.do"
 			access="permitAll" />
 
 		<!-- Actions -->

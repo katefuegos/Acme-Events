@@ -40,7 +40,7 @@
 	</display:column>
 
 	<display:column>
-		<a href="manager/showByClub.do?clubId=${row.id}"> <spring:message
+		<a href="actor/manager/showByClub.do?clubId=${row.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 		<br>
@@ -81,7 +81,7 @@
 		<img src='<jstl:out value="${row2.pictures }"/>' height="100" width="auto">
 	</display:column>
 	<display:column>
-		<a href="manager/showByClub.do?clubId=${row2.id}"> <spring:message
+		<a href="actor/manager/showByClub.do?clubId=${row2.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 		<br>
