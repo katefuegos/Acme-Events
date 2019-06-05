@@ -50,7 +50,7 @@
 		</jstl:if>
 	</display:column>
 	<display:column>
-		<a href="manager/show.do?managerId=${row.manager.id}"> <spring:message
+		<a href="actor/manager/show.do?managerId=${row.manager.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 		<br>

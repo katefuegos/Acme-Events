@@ -58,7 +58,7 @@
 	</jstl:if>
 	
 
-<%-- <acme:cancel url="manager/list.do" code="manager.cancel"/>
+<%-- <acme:cancel url="/actor/manager/list.do" code="manager.cancel"/>
  --%>
 
 </form:form>

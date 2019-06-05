@@ -60,7 +60,7 @@ public class ClubManagerController extends AbstractController {
 
 			result = this.createModelAndView(clubManagerForm);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/manager/listClubs.do");
+			result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 
@@ -91,7 +91,7 @@ public class ClubManagerController extends AbstractController {
 			result.addObject("systemName", this.configurationService.findAll().iterator().next().getSystemName());
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/manager/listClubs.do");
+			result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
@@ -122,7 +122,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.save(club);
 
-				result = new ModelAndView("redirect:/manager/listClubs.do");
+				result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(clubManagerForm, "club.commit.error");
 			}
@@ -158,7 +158,7 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/manager/listClubs.do");
+			result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)
@@ -196,7 +196,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.save(club);
 
-				result = new ModelAndView("redirect:/manager/listClubs.do");
+				result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(clubManagerForm, "club.commit.error");
 			}
@@ -223,7 +223,7 @@ public class ClubManagerController extends AbstractController {
 
 				this.clubService.delete(club);
 
-				result = new ModelAndView("redirect:/manager/listClubs.do");
+				result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(clubManagerForm, "club.commit.error");
 			}
@@ -260,7 +260,7 @@ public class ClubManagerController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView("redirect:/manager/listClubs.do");
+			result = new ModelAndView("redirect:/actor/manager/listClubs.do");
 			if (manager == null)
 				redirectAttrs.addFlashAttribute("message", "club.commit.error");
 			else if (club == null)

@@ -45,11 +45,11 @@
 
 	<display:column>
 
-		<a href="manager/show.do?managerId=${row.id}"> <spring:message
+		<a href="actor/manager/show.do?managerId=${row.id}"> <spring:message
 				code="message.show" />
 		</a>
 		<br>
-		<a href="manager/listProfiles.do?managerId=${row.id}"> <spring:message
+		<a href="actor/manager/listProfiles.do?managerId=${row.id}"> <spring:message
 				code="manager.listProfile" />
 		</a>
 	</display:column>

@@ -270,22 +270,19 @@ public class EventManagerController extends AbstractController {
 		Manager manager = null;
 		Event event = null;
 
-		if (binding.hasErrors())
+		try {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			manager = this.managerService.findManagerByUserAccount(userAccount.getId());
+			Assert.notNull(manager);
+			event = this.eventService.findOne(eventManagerForm.getId());
+			Assert.notNull(event);
+
+			this.eventService.delete(event);
+
+			result = new ModelAndView("redirect:/event/manager/myList.do");
+		} catch (final Throwable oops) {
 			result = this.editModelAndView(eventManagerForm, "event.commit.error");
-		else
-			try {
-				final UserAccount userAccount = LoginService.getPrincipal();
-				manager = this.managerService.findManagerByUserAccount(userAccount.getId());
-				Assert.notNull(manager);
-				event = this.eventService.findOne(eventManagerForm.getId());
-				Assert.notNull(event);
-
-				this.eventService.delete(event);
-
-				result = new ModelAndView("redirect:/event/manager/myList.do");
-			} catch (final Throwable oops) {
-				result = this.editModelAndView(eventManagerForm, "event.commit.error");
-			}
+		}
 
 		return result;
 	}

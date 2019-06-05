@@ -38,7 +38,7 @@
 		<img src='<jstl:out value="${row.pictures }"/>' height="100" width="auto">
 	</display:column>
 	<display:column>
-		<a href="manager/show.do?clubId=${row.id}"> <spring:message
+		<a href="actor/manager/show.do?clubId=${row.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>
@@ -72,7 +72,7 @@
 		<img src='<jstl:out value="${row2.pictures }"/>' height="100" width="auto">
 	</display:column>
 	<display:column>
-		<a href="manager/show.do?clubId=${row2.id}"> <spring:message
+		<a href="actor/manager/show.do?clubId=${row2.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>
@@ -97,7 +97,7 @@
 	</display:column>
 	<display:column property="reasonReject" titleKey="club.reasonReject" />
 	<display:column>
-		<a href="manager/show.do?clubId=${row3.id}"> <spring:message
+		<a href="actor/manager/show.do?clubId=${row3.id}"> <spring:message
 				code="club.showManager" />
 		</a>
 	</display:column>

@@ -106,7 +106,7 @@
 						code="master.page.listmyclubs" /></a>
 			<ul>
 					<li class="arrow"></li>
-					<li><a href="manager/listClubs.do"><spring:message
+					<li><a href="actor/manager/listClubs.do"><spring:message
 								code="master.page.manage.clubs" /></a></li>
 					<li><a href="opinion/manager/list.do"><spring:message
 								code="master.page.opinion.list" /></a></li>
@@ -189,7 +189,7 @@
 					<li class="arrow"></li>
 					<li><a href="club/list.do"><spring:message
 								code="master.page.listclub" /></a></li>
-					<li><a href="manager/list.do"><spring:message
+					<li><a href="actor/manager/list.do"><spring:message
 								code="master.page.listManagers" /></a></li>
 					<li><a href="event/list.do"><spring:message
 								code="master.page.listevent" /></a></li>
@@ -205,7 +205,7 @@
 					<li class="arrow"></li>
 					<li><a href="club/list.do"><spring:message
 								code="master.page.listclub" /></a></li>
-					<li><a href="manager/list.do"><spring:message
+					<li><a href="actor/manager/list.do"><spring:message
 								code="master.page.listManagers" /></a></li>
 					<li><a href="event/list.do"><spring:message
 								code="master.page.listevent" /></a></li>

@@ -54,7 +54,7 @@
 				code="club.delete" />
 
 		</jstl:if>
-		<acme:cancel url="manager/listClubs.do" code="club.cancel" />
+		<acme:cancel url="actor/manager/listClubs.do" code="club.cancel" />
 	</jstl:if>
 
 </form:form>
