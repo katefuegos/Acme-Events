@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="client/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de clients" />
+		<put-attribute name="body" value="/views/client/list.jsp" />
+	</definition>
+	
+	<definition name="client/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar un client" />
+		<put-attribute name="body" value="/views/client/edit.jsp" />
+	</definition>
+	
+	<definition name="client/show" extends="master.page">	
+		<put-attribute name="title" value="Mostrar client" />
+		<put-attribute name="body" value="/views/client/edit.jsp" />
+	</definition>
+	
+	<definition name="client/listClubs" extends="master.page">	
+		<put-attribute name="title" value="Ver clubs" />
+		<put-attribute name="body" value="/views/client/listClubs.jsp" />
+	</definition>
+	
+	<definition name="client/listProfiles" extends="master.page">	
+		<put-attribute name="title" value="Ver perfiles" />
+		<put-attribute name="body" value="/views/client/listProfiles.jsp" />
+	</definition>
+	
+</tiles-definitions>

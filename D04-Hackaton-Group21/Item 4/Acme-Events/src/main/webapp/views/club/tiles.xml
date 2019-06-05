@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="club/list" extends="master.page">	
+		<put-attribute name="title" value="List of clubs" />
+		<put-attribute name="body" value="/views/club/list.jsp" />
+	</definition>
+	
+	<definition name="club/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
+	</definition>
+	
+	<definition name="club/create" extends="master.page">	
+		<put-attribute name="title" value="Create club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
+	</definition>
+	
+	<definition name="club/show" extends="master.page">	
+		<put-attribute name="title" value="Show club" />
+		<put-attribute name="body" value="/views/club/edit.jsp" />
+	</definition>
+	
+	
+	<definition name="club/client/myList" extends="master.page">	
+		<put-attribute name="title" value="My list of clubs" />
+		<put-attribute name="body" value="/views/club/myList.jsp" />
+	</definition>
+	
+	<definition name="club/list2" extends="master.page">	
+		<put-attribute name="title" value="Club list" />
+		<put-attribute name="body" value="/views/club/list2.jsp" />
+	</definition>
+	
+	<definition name="club/reject" extends="master.page">	
+		<put-attribute name="title" value="Reject club" />
+		<put-attribute name="body" value="/views/club/reject.jsp" />
+	</definition>
+	
+	<definition name="club/manager/listFollows" extends="master.page">	
+		<put-attribute name="title" value="My follows" />
+		<put-attribute name="body" value="/views/club/listFollows.jsp" />
+	</definition>
+	
+</tiles-definitions>
