@@ -1,0 +1,3 @@
+Login client
+List my clubs
+List events of one club
