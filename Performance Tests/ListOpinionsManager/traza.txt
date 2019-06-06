@@ -1,0 +1,3 @@
+Login manager
+List opinions
+Show opinions of one event
