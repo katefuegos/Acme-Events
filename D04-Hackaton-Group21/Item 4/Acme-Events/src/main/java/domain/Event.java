@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -9,8 +8,10 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -26,24 +27,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(name = "I1", columnList = "draftMode"),
+		@Index(name = "I2", columnList = "category"),
+		@Index(name = "I3", columnList = "club"),
+		@Index(name = "I4", columnList = "status"),
+		@Index(name = "I4", columnList = "price")})
 public class Event extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
-	private String	title;
-	private Date	momentPublished;
-	private String	poster;
-	private String	description;
-	private String	address;
-	private Double	price;
-	private Date	momentStart;
-	private Date	momentEnd;
-	private String	status;
-	private boolean	draftMode;
+	private String ticker;
+	private String title;
+	private Date momentPublished;
+	private String poster;
+	private String description;
+	private String address;
+	private Double price;
+	private Date momentStart;
+	private Date momentEnd;
+	private String status;
+	private boolean draftMode;
 
-	private Double	score;
-
+	private Double score;
 
 	public Double getScore() {
 		return this.score;
@@ -163,14 +168,12 @@ public class Event extends DomainEntity {
 		this.draftMode = draftMode;
 	}
 
-
 	// Relationships ---------------------------------------------------------
 
-	private Category						category;
-	private Club							club;
-	private Collection<Opinion>				opinions;
-	private Collection<ParticipationEvent>	participationsEvent;
-
+	private Category category;
+	private Club club;
+	private Collection<Opinion> opinions;
+	private Collection<ParticipationEvent> participationsEvent;
 
 	@NotNull
 	@Valid
@@ -214,7 +217,8 @@ public class Event extends DomainEntity {
 		return this.participationsEvent;
 	}
 
-	public void setParticipationsEvent(final Collection<ParticipationEvent> participationsEvent) {
+	public void setParticipationsEvent(
+			final Collection<ParticipationEvent> participationsEvent) {
 		this.participationsEvent = participationsEvent;
 	}
 

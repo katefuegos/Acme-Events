@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -7,8 +6,10 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,20 +18,24 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(name = "I1", columnList = "draftMode"),
+		@Index(name = "I2", columnList = "accepted"),
+		@Index(name = "I3", columnList = "manager"),
+		@Index(name = "I4", columnList = "reasonReject")
+})
 public class Club extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	name;
-	private String	address;
-	private String	description;
-	private String	pictures;
-	private boolean	accepted;
-	private boolean	draftMode;
-	private String	reasonReject;
+	private String name;
+	private String address;
+	private String description;
+	private String pictures;
+	private boolean accepted;
+	private boolean draftMode;
+	private String reasonReject;
 
-	private Double	score;
-
+	private Double score;
 
 	public Double getScore() {
 		return this.score;
@@ -102,12 +107,10 @@ public class Club extends DomainEntity {
 		this.reasonReject = reasonReject;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Manager						manager;
-	private Collection<ApplicationClub>	applicationsClub;
-	private Collection<Follow>			follows;
-
+	private Manager manager;
+	private Collection<ApplicationClub> applicationsClub;
+	private Collection<Follow> follows;
 
 	@NotNull
 	@Valid
@@ -128,7 +131,8 @@ public class Club extends DomainEntity {
 		return this.applicationsClub;
 	}
 
-	public void setApplicationsClub(final Collection<ApplicationClub> applicationsClub) {
+	public void setApplicationsClub(
+			final Collection<ApplicationClub> applicationsClub) {
 		this.applicationsClub = applicationsClub;
 	}
 

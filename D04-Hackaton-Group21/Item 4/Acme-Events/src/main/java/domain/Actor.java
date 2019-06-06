@@ -19,9 +19,7 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = {
-	 @Index(name = "ID2", columnList = "isSuspicious")
-
+@Table(indexes = { @Index(name = "I1", columnList = "isSuspicious")
 })
 public class Actor extends DomainEntity {
 
