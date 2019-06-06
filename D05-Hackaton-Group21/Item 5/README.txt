@@ -1,0 +1,2 @@
+1)Toda la información de los tests funcionales se encuentra en los mismos archivos JAVA de los tests. 
+  Por ello se han copiado todos los archivos JAVA correspondiente con los tests en la carpeta del item 5.
