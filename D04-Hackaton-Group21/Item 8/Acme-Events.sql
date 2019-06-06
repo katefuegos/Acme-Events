@@ -797,7 +797,7 @@ CREATE TABLE `hibernate_sequences` (
 
 LOCK TABLES `hibernate_sequences` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequences` DISABLE KEYS */;
-INSERT INTO `hibernate_sequences` VALUES ('domain_entity',2);
+INSERT INTO `hibernate_sequences` VALUES ('domain_entity',1);
 /*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1255,6 +1255,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-06 14:47:45
+-- Dump completed on 2019-06-06 18:01:38
 
 commit;
