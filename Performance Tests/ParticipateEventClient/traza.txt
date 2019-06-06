@@ -1,0 +1,3 @@
+Login client
+List my events
+Participate in an event
