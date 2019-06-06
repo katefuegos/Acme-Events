@@ -17,9 +17,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = {
-	@Index(name = "ID1Box", columnList = "name,actor")
-
+@Table(indexes = { @Index(name = "I1", columnList = "name"),
+		@Index(name = "I2", columnList = "actor"),
+		@Index(name = "I3", columnList = "isSystem"),
+		@Index(name = "I4", columnList = "name")
 })
 public class Box extends DomainEntity {
 

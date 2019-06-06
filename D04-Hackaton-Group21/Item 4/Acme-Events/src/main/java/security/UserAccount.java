@@ -18,6 +18,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -30,6 +32,8 @@ import domain.DomainEntity;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = { @Index(name = "I1", columnList = "username"),
+		@Index(name = "I2", columnList = "enabled") })
 public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Constructors -----------------------------------------------------------

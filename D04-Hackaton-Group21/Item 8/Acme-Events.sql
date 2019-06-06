@@ -58,7 +58,7 @@ CREATE TABLE `actor` (
   `user_account` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_i7xei45auwq1f6vu25985riuh` (`user_account`),
-  KEY `ID2` (`is_suspicious`),
+  KEY `I1` (`is_suspicious`),
   CONSTRAINT `FK_i7xei45auwq1f6vu25985riuh` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -94,7 +94,7 @@ CREATE TABLE `administrator` (
   `user_account` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_7ohwsa2usmvu0yxb44je2lge` (`user_account`),
-  KEY `administratorID2` (`is_suspicious`),
+  KEY `administratorI1` (`is_suspicious`),
   CONSTRAINT `FK_7ohwsa2usmvu0yxb44je2lge` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -185,7 +185,10 @@ CREATE TABLE `box` (
   `actor` int(11) NOT NULL,
   `rootbox` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `ID1Box` (`name`,`actor`),
+  KEY `I1` (`name`),
+  KEY `I2` (`actor`),
+  KEY `I3` (`is_system`),
+  KEY `I4` (`name`),
   KEY `FK_nu763pc0qdysx0gwsm2kt5twq` (`rootbox`),
   CONSTRAINT `FK_nu763pc0qdysx0gwsm2kt5twq` FOREIGN KEY (`rootbox`) REFERENCES `box` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -269,6 +272,7 @@ CREATE TABLE `category` (
   `root` bit(1) NOT NULL,
   `root_category` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `I1` (`root`),
   KEY `FK_r1w66keuinl1h36rknyjhgd8` (`root_category`),
   CONSTRAINT `FK_r1w66keuinl1h36rknyjhgd8` FOREIGN KEY (`root_category`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -334,7 +338,7 @@ CREATE TABLE `client` (
   `credit_card` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_jbaq00w3smkqgr08wl4q8cou0` (`user_account`),
-  KEY `clientID2` (`is_suspicious`),
+  KEY `clientI1` (`is_suspicious`),
   KEY `FK_eie18dckx8ndm2113uhqfiuso` (`credit_card`),
   CONSTRAINT `FK_jbaq00w3smkqgr08wl4q8cou0` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`),
   CONSTRAINT `FK_eie18dckx8ndm2113uhqfiuso` FOREIGN KEY (`credit_card`) REFERENCES `credit_card` (`id`)
@@ -371,7 +375,10 @@ CREATE TABLE `club` (
   `score` double DEFAULT NULL,
   `manager` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_il0ov6ys8rysoclfsdnky9dyw` (`manager`),
+  KEY `I1` (`draft_mode`),
+  KEY `I2` (`accepted`),
+  KEY `I3` (`manager`),
+  KEY `I4` (`reason_reject`),
   CONSTRAINT `FK_il0ov6ys8rysoclfsdnky9dyw` FOREIGN KEY (`manager`) REFERENCES `manager` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -670,8 +677,10 @@ CREATE TABLE `event` (
   `club` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_qlvbe0jq039b5d9232k7sn86i` (`ticker`),
-  KEY `FK_k2j62qo9688ahct3ve15n0u1c` (`category`),
-  KEY `FK_73krrlbpm4r0ro4c6b5s5o7fr` (`club`),
+  KEY `I1` (`draft_mode`),
+  KEY `I2` (`category`),
+  KEY `I3` (`club`),
+  KEY `I4` (`status`,`price`),
   CONSTRAINT `FK_73krrlbpm4r0ro4c6b5s5o7fr` FOREIGN KEY (`club`) REFERENCES `club` (`id`),
   CONSTRAINT `FK_k2j62qo9688ahct3ve15n0u1c` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -754,7 +763,7 @@ CREATE TABLE `follow` (
   `moment` datetime DEFAULT NULL,
   `client` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_2bp6xs3i5e87dh0sbvlk8qedk` (`client`),
+  KEY `I1` (`client`),
   CONSTRAINT `FK_2bp6xs3i5e87dh0sbvlk8qedk` FOREIGN KEY (`client`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -878,7 +887,7 @@ CREATE TABLE `manager` (
   `user_account` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_7fkueol8lcnvrbgwmmmyvsytv` (`user_account`),
-  KEY `managerID2` (`is_suspicious`),
+  KEY `managerI1` (`is_suspicious`),
   CONSTRAINT `FK_7fkueol8lcnvrbgwmmmyvsytv` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -912,7 +921,9 @@ CREATE TABLE `message` (
   `recipient` int(11) NOT NULL,
   `sender` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_auie6a7aaqn3ua7auwb4j5opj` (`box`),
+  KEY `I1` (`sender`),
+  KEY `I2` (`box`),
+  KEY `I3` (`recipient`),
   CONSTRAINT `FK_auie6a7aaqn3ua7auwb4j5opj` FOREIGN KEY (`box`) REFERENCES `box` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1037,7 +1048,7 @@ CREATE TABLE `opinion` (
   `title` varchar(255) DEFAULT NULL,
   `client` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_9etsq0ta123tt3pnehvu52nen` (`client`),
+  KEY `I1` (`client`),
   CONSTRAINT `FK_9etsq0ta123tt3pnehvu52nen` FOREIGN KEY (`client`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1066,7 +1077,7 @@ CREATE TABLE `participation_event` (
   `moment` datetime DEFAULT NULL,
   `client` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_rmr50ofaqao1fpdrmo6w3fb3k` (`client`),
+  KEY `I1` (`client`),
   CONSTRAINT `FK_rmr50ofaqao1fpdrmo6w3fb3k` FOREIGN KEY (`client`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1136,7 +1147,7 @@ CREATE TABLE `publiciter` (
   `user_account` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_636y0tiiv5o4u1mpycgavw8oy` (`user_account`),
-  KEY `publiciterID2` (`is_suspicious`),
+  KEY `publiciterI1` (`is_suspicious`),
   CONSTRAINT `FK_636y0tiiv5o4u1mpycgavw8oy` FOREIGN KEY (`user_account`) REFERENCES `user_account` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1165,7 +1176,8 @@ CREATE TABLE `social_profile` (
   `name` varchar(255) DEFAULT NULL,
   `nick` varchar(255) DEFAULT NULL,
   `actor` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `I1` (`actor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1193,7 +1205,9 @@ CREATE TABLE `user_account` (
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_castjbvpeeus0r8lbpehiu0e4` (`username`)
+  UNIQUE KEY `UK_castjbvpeeus0r8lbpehiu0e4` (`username`),
+  KEY `I1` (`username`),
+  KEY `I2` (`enabled`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1241,6 +1255,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-05 23:12:15
+-- Dump completed on 2019-06-06 14:47:45
 
 commit;
