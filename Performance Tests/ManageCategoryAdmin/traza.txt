@@ -1,5 +1,0 @@
-Login admin
-List categories
-Create category
-Edit category
-Delete category

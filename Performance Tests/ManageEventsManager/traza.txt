@@ -1,5 +1,0 @@
-Login manager
-List events
-Create event
-Edit event
-Delete event
