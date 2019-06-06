@@ -1,0 +1,4 @@
+Login client
+List clubs
+Follow club
+Unfollow club
